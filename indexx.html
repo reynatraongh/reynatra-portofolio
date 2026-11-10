@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fahrianda Demo Portfolio - Liquid Glass Design</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Inter & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+
+        /* Liquid Glassmorphism Core Utilities */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+            transform-style: preserve-3d;
+            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(59, 130, 246, 0.6);
+            box-shadow: 0 15px 45px 0 rgba(59, 130, 246, 0.25), inset 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .dark .glass-nav {
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Animated Ambient Glowing Orbs & Badges */
+        @keyframes float-slow {
+            0%, 100% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+            50% { transform: translate(30px, -40px) rotate(5deg) scale(1.08); }
+        }
+
+        @keyframes float-reverse {
+            0%, 100% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+            50% { transform: translate(-40px, 30px) rotate(-5deg) scale(0.92); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.6)); }
+            50% { filter: drop-shadow(0 0 35px rgba(168, 85, 247, 0.8)); }
+        }
+
+        .animate-orb-1 { animation: float-slow 12s ease-in-out infinite; }
+        .animate-orb-2 { animation: float-reverse 15s ease-in-out infinite; }
+        .glow-pulse { animation: pulse-glow 4s infinite ease-in-out; }
+
+        /* Liquid Glass Reflection Wave */
+        .glass-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-shine::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(
+                60deg,
+                transparent,
+                rgba(255, 255, 255, 0.25),
+                transparent
+            );
+            transform: rotate(25deg);
+            transition: all 0.75s ease;
+        }
+        .glass-shine:hover::after {
+            left: 130%;
+        }
+
+        /* Scroll Reveal Animation Styles */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Cursor Glow Follower */
+        #cursor-glow {
+            pointer-events: none;
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, rgba(59, 130, 246, 0.08) 40%, transparent 70%);
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-500 min-h-screen relative overflow-x-hidden">
+
+    <!-- CURSOR LIGHT SPOTLIGHT -->
+    <div id="cursor-glow" class="hidden sm:block"></div>
+
+    <!-- FLUID LIQUID CANVAS & MESH ORBS -->
+    <canvas id="fluidCanvas" class="fixed inset-0 pointer-events-none z-0 w-full h-full opacity-60 dark:opacity-40"></canvas>
+
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute -top-20 -left-20 w-96 h-96 bg-blue-400/40 dark:bg-blue-600/30 rounded-full filter blur-[100px] animate-orb-1"></div>
+        <div class="absolute top-1/3 -right-20 w-[30rem] h-[30rem] bg-indigo-400/35 dark:bg-indigo-600/25 rounded-full filter blur-[120px] animate-orb-2"></div>
+        <div class="absolute -bottom-20 left-1/3 w-[28rem] h-[28rem] bg-purple-400/30 dark:bg-purple-600/20 rounded-full filter blur-[110px] animate-orb-1"></div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <div class="relative z-10">
+
+        <!-- FLOATING GLASS NAVBAR -->
+        <div class="fixed top-4 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+            <nav class="glass-nav rounded-2xl px-6 py-3.5 flex items-center justify-between shadow-lg transition-all duration-300">
+                <!-- Logo -->
+                <a href="#" class="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 bg-clip-text text-transparent">
+                    Fahrianda Demo Portfolio<span class="text-blue-500 animate-pulse">.</span>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8 font-medium text-sm">
+                    <a href="#about" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Tentang Saya</a>
+                    <a href="#skills" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Keahlian</a>
+                    <a href="#projects" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Proyek</a>
+                    <a href="#contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Kontak</a>
+                </div>
+
+                <!-- Theme Toggle & Mobile Menu Btn -->
+                <div class="flex items-center space-x-3">
+                    <button id="themeToggle" aria-label="Toggle Theme" class="p-2.5 rounded-xl glass-card text-gray-700 dark:text-gray-200 hover:scale-110 transition active:scale-95">
+                        <i id="themeIcon" class="fas fa-moon text-base"></i>
+                    </button>
+                    <button id="mobileMenuBtn" aria-label="Toggle Menu" class="md:hidden p-2.5 rounded-xl glass-card text-gray-700 dark:text-gray-200 hover:scale-105 transition">
+                        <i class="fas fa-bars text-base"></i>
+                    </button>
+                </div>
+            </nav>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-3 glass-card rounded-2xl p-4 space-y-3 font-medium shadow-xl">
+                <a href="#about" class="block py-2 px-3 rounded-lg hover:bg-blue-500/10 dark:hover:bg-blue-400/10 transition">Tentang Saya</a>
+                <a href="#skills" class="block py-2 px-3 rounded-lg hover:bg-blue-500/10 dark:hover:bg-blue-400/10 transition">Keahlian</a>
+                <a href="#projects" class="block py-2 px-3 rounded-lg hover:bg-blue-500/10 dark:hover:bg-blue-400/10 transition">Proyek</a>
+                <a href="#contact" class="block py-2 px-3 rounded-lg hover:bg-blue-500/10 dark:hover:bg-blue-400/10 transition">Kontak</a>
+            </div>
+        </div>
+
+        <!-- HERO SECTION WITH LIQUID GLASS FRAME & BADGES -->
+        <section class="min-h-screen flex items-center justify-center pt-32 pb-16 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto text-center reveal active">
+                <!-- Profile Image Frame with Floating Interactive Badges -->
+                <div class="relative inline-block mb-8">
+                    <div class="p-2 rounded-full glass-card glow-pulse shadow-2xl ring-2 ring-white/60 dark:ring-white/10">
+                        <img src="profile.jpg" onerror="this.onerror=null; this.src='https://placehold.co/300x300/1e293b/ffffff?text=Fahrianda';" alt="Foto Fahrianda" class="w-36 h-36 md:w-44 md:h-44 rounded-full mx-auto object-cover object-center shadow-inner transition duration-500 transform hover:scale-105">
+                    </div>
+                    <span class="absolute bottom-3 right-3 bg-emerald-500 w-5 h-5 rounded-full ring-4 ring-white dark:ring-slate-900 shadow-lg animate-ping" title="Terbuka untuk pekerjaan"></span>
+                    <span class="absolute bottom-3 right-3 bg-emerald-500 w-5 h-5 rounded-full ring-4 ring-white dark:ring-slate-900 shadow-lg"></span>
+                    
+                    <!-- Floating Liquid Glass Badges -->
+                    <div class="absolute -top-2 -left-10 glass-card px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 animate-orb-1 shadow-md border border-white/40">
+                        <span class="text-lg">🚀</span> Web Dev
+                    </div>
+                    <div class="absolute -bottom-2 -right-12 glass-card px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 animate-orb-2 shadow-md border border-white/40">
+                        <span class="text-lg">✨</span> Glassmorphic UI
+                    </div>
+                </div>
+
+                <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+                    halow! Saya <span class="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 bg-clip-text text-transparent">Fahrianda</span>, ini baru Demo dan belum jadi hehe
+                </h1>
+                
+                <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                    Full-Stack Web Developer yang berfokus pada pembuatan aplikasi web responsif, cepat, dan antarmuka pengguna interaktif dengan estetika modern.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#projects" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold shadow-lg shadow-blue-500/25 transition transform hover:-translate-y-1 hover:scale-105 active:translate-y-0">
+                        Lihat Proyek Saya
+                    </a>
+                    <a href="#contact" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl glass-card glass-shine font-semibold hover:bg-white/60 dark:hover:bg-slate-800/80 transition transform hover:-translate-y-1 hover:scale-105">
+                        Hubungi Saya
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT ME SECTION -->
+        <section id="about" class="py-24 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto reveal">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight mb-2">Tentang Saya</h2>
+                    <div class="w-16 h-1 bg-gradient-to-r from-blue-600 to-indigo-500 mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="glass-card glass-shine p-8 rounded-3xl space-y-4 text-slate-600 dark:text-slate-300">
+                        <p class="leading-relaxed">
+                            Saya seorang pengembang web passionate yang selalu tertarik mempelajari teknologi terbaru. Berpengalaman membangun aplikasi web interaktif mulai dari rancangan UI/UX hingga arsitektur backend.
+                        </p>
+                        <p class="leading-relaxed">
+                            Fokus utama saya adalah menciptakan pengalaman digital yang bersih, performa tinggi, dan mudah digunakan oleh siapapun.
+                        </p>
+                        <div class="pt-4 flex items-center space-x-6 text-slate-500 dark:text-slate-400">
+                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 text-2xl transition transform hover:scale-125"><i class="fab fa-github"></i></a>
+                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 text-2xl transition transform hover:scale-125"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 text-2xl transition transform hover:scale-125"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 text-2xl transition transform hover:scale-125"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="glass-card glass-shine p-6 rounded-2xl text-center">
+                            <h3 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent mb-1">3+</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Tahun Pengalaman</p>
+                        </div>
+                        <div class="glass-card glass-shine p-6 rounded-2xl text-center">
+                            <h3 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent mb-1">20+</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Proyek Selesai</p>
+                        </div>
+                        <div class="glass-card glass-shine p-6 rounded-2xl text-center">
+                            <h3 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent mb-1">10+</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Klien Puas</p>
+                        </div>
+                        <div class="glass-card glass-shine p-6 rounded-2xl text-center">
+                            <h3 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent mb-1">99%</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Kode Bersih</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="skills" class="py-24 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto reveal">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight mb-2">Keahlian & Teknologi</h2>
+                    <div class="w-16 h-1 bg-gradient-to-r from-blue-600 to-indigo-500 mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+                    <div class="glass-card p-4 rounded-2xl flex items-center space-x-4">
+                        <i class="fab fa-html5 text-3xl text-orange-500"></i>
+                        <div>
+                            <h4 class="font-semibold text-sm">HTML5</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Tingkat Lanjut</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl flex items-center space-x-4">
+                        <i class="fab fa-css3-alt text-3xl text-blue-500"></i>
+                        <div>
+                            <h4 class="font-semibold text-sm">CSS3 / Tailwind</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Tingkat Lanjut</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl flex items-center space-x-4">
+                        <i class="fab fa-js text-3xl text-yellow-400"></i>
+                        <div>
+                            <h4 class="font-semibold text-sm">JavaScript</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Tingkat Lanjut</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl flex items-center space-x-4">
+                        <i class="fab fa-react text-3xl text-cyan-400"></i>
+                        <div>
+                            <h4 class="font-semibold text-sm">React JS</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Menengah</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl flex items-center space-x-4">
+                        <i class="fab fa-node-js text-3xl text-emerald-500"></i>
+                        <div>
+                            <h4 class="font-semibold text-sm">Node.js</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Menengah</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl flex items-center space-x-4">
+                        <i class="fab fa-git-alt text-3xl text-red-500"></i>
+                        <div>
+                            <h4 class="font-semibold text-sm">Git / GitHub</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Tingkat Lanjut</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl flex items-center space-x-4">
+                        <i class="fas fa-database text-3xl text-indigo-500"></i>
+                        <div>
+                            <h4 class="font-semibold text-sm">SQL / NoSQL</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Menengah</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl flex items-center space-x-4">
+                        <i class="fas fa-figma text-3xl text-purple-500"></i>
+                        <div>
+                            <h4 class="font-semibold text-sm">Figma UI/UX</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Menengah</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SHOWCASE -->
+        <section id="projects" class="py-24 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto reveal">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight mb-2">Proyek Pilihan</h2>
+                    <div class="w-16 h-1 bg-gradient-to-r from-blue-600 to-indigo-500 mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project Card 1 -->
+                    <div class="glass-card glass-shine rounded-3xl overflow-hidden flex flex-col group">
+                        <div class="overflow-hidden h-48">
+                            <img src="https://placehold.co/600x400/2563eb/ffffff?text=E-Commerce+App" alt="Project 1" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <h3 class="text-xl font-bold mb-2">Aplikasi E-Commerce</h3>
+                            <p class="text-slate-600 dark:text-slate-300 text-sm mb-4 flex-1">
+                                Platform belanja online responsif dengan fitur keranjang, checkout, dan integrasi payment gateway.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="px-3 py-1 bg-blue-500/10 text-blue-600 dark:text-blue-300 rounded-lg text-xs font-medium border border-blue-500/20">React</span>
+                                <span class="px-3 py-1 bg-blue-500/10 text-blue-600 dark:text-blue-300 rounded-lg text-xs font-medium border border-blue-500/20">Tailwind</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <a href="#" class="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
+                                    Demo Live <i class="fas fa-external-link-alt text-xs"></i>
+                                </a>
+                                <a href="#" class="text-sm font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1">
+                                    GitHub <i class="fab fa-github text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 2 -->
+                    <div class="glass-card glass-shine rounded-3xl overflow-hidden flex flex-col group">
+                        <div class="overflow-hidden h-48">
+                            <img src="https://placehold.co/600x400/4f46e5/ffffff?text=Task+Manager" alt="Project 2" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <h3 class="text-xl font-bold mb-2">Task Management Dashboard</h3>
+                            <p class="text-slate-600 dark:text-slate-300 text-sm mb-4 flex-1">
+                                Aplikasi manajemen tugas produktivitas dengan sistem drag-and-drop dan statistik harian.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="px-3 py-1 bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 rounded-lg text-xs font-medium border border-indigo-500/20">JavaScript</span>
+                                <span class="px-3 py-1 bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 rounded-lg text-xs font-medium border border-indigo-500/20">API</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <a href="#" class="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
+                                    Demo Live <i class="fas fa-external-link-alt text-xs"></i>
+                                </a>
+                                <a href="#" class="text-sm font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1">
+                                    GitHub <i class="fab fa-github text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 3 -->
+                    <div class="glass-card glass-shine rounded-3xl overflow-hidden flex flex-col group">
+                        <div class="overflow-hidden h-48">
+                            <img src="https://placehold.co/600x400/0ea5e9/ffffff?text=Weather+App" alt="Project 3" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <h3 class="text-xl font-bold mb-2">Aplikasi Cuaca Realtime</h3>
+                            <p class="text-slate-600 dark:text-slate-300 text-sm mb-4 flex-1">
+                                Aplikasi prakiraan cuaca yang mendeteksi lokasi pengguna dan menampilkan data akurat dari OpenWeather API.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="px-3 py-1 bg-sky-500/10 text-sky-600 dark:text-sky-300 rounded-lg text-xs font-medium border border-sky-500/20">HTML/CSS</span>
+                                <span class="px-3 py-1 bg-sky-500/10 text-sky-600 dark:text-sky-300 rounded-lg text-xs font-medium border border-sky-500/20">REST API</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <a href="#" class="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
+                                    Demo Live <i class="fas fa-external-link-alt text-xs"></i>
+                                </a>
+                                <a href="#" class="text-sm font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1">
+                                    GitHub <i class="fab fa-github text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto reveal">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight mb-2">Hubungi Saya</h2>
+                    <div class="w-16 h-1 bg-gradient-to-r from-blue-600 to-indigo-500 mx-auto rounded-full mb-4"></div>
+                    <p class="text-slate-600 dark:text-slate-400">Punya proyek menarik atau ingin berdiskusi? Kirimkan pesan!</p>
+                </div>
+
+                <div id="toast" class="hidden mb-6 p-4 rounded-2xl bg-emerald-500/80 backdrop-blur-md text-white text-center font-medium shadow-lg transition">
+                    Pesan Anda berhasil dikirim!
+                </div>
+
+                <form id="contactForm" class="glass-card glass-shine p-8 sm:p-10 rounded-3xl space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Nama Lengkap</label>
+                            <input type="text" required placeholder="Nama Anda" class="w-full px-4 py-3 rounded-xl glass-card bg-white/20 dark:bg-slate-900/40 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:text-white transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" required placeholder="email@domain.com" class="w-full px-4 py-3 rounded-xl glass-card bg-white/20 dark:bg-slate-900/40 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:text-white transition">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Pesan</label>
+                        <textarea rows="4" required placeholder="Tuliskan pesan Anda di sini..." class="w-full px-4 py-3 rounded-xl glass-card bg-white/20 dark:bg-slate-900/40 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:text-white transition"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-2xl shadow-lg shadow-blue-500/25 transition transform hover:-translate-y-0.5 active:translate-y-0">
+                        Kirim Pesan
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="py-8 px-4 text-center text-slate-500 dark:text-slate-400 text-sm">
+            <p>© <span id="year"></span> Fahrianda Demo Portfolio. Dibuat dengan Liquid Glass Design.</p>
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC & ANIMATIONS -->
+    <script>
+        // Set dynamic current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // 1. Interactive Fluid Canvas Background Animation
+        const canvas = document.getElementById('fluidCanvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const particles = [];
+        const numParticles = Math.min(width < 768 ? 20 : 45, 60);
+        let mouseX = width / 2;
+        let mouseY = height / 2;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.radius = Math.random() * 60 + 30;
+                this.vx = (Math.random() - 0.5) * 1.2;
+                this.vy = (Math.random() - 0.5) * 1.2;
+                this.color = Math.random() > 0.5 ? 'rgba(99, 102, 241, ' : 'rgba(59, 130, 246, ';
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < -100) this.x = width + 100;
+                if (this.x > width + 100) this.x = -100;
+                if (this.y < -100) this.y = height + 100;
+                if (this.y > height + 100) this.y = -100;
+
+                // React to mouse distance
+                const dx = mouseX - this.x;
+                const dy = mouseY - this.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 200) {
+                    this.x -= (dx / dist) * 1.5;
+                    this.y -= (dy / dist) * 1.5;
+                }
+            }
+
+            draw() {
+                const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+                grad.addColorStop(0, this.color + '0.25)');
+                grad.addColorStop(0.8, this.color + '0.05)');
+                grad.addColorStop(1, 'transparent');
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < numParticles; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateFluid() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateFluid);
+        }
+        animateFluid();
+
+        // 2. Cursor Spotlight Glow & Mouse Track
+        const cursorGlow = document.getElementById('cursor-glow');
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (cursorGlow) {
+                cursorGlow.style.left = `${mouseX}px`;
+                cursorGlow.style.top = `${mouseY}px`;
+            }
+        });
+
+        // 3. Interactive 3D Tilt Effect on Glass Cards
+        const cards = document.querySelectorAll('.glass-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (centerY - y) / 12;
+                const rotateY = (x - centerX) / 12;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+            });
+        });
+
+        // 4. Scroll Reveal Intersection Observer Animation
+        const reveals = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        reveals.forEach(reveal => revealObserver.observe(reveal));
+
+        // Dark/Light Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Contact Form Submission Handler
+        const contactForm = document.getElementById('contactForm');
+        const toast = document.getElementById('toast');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            toast.classList.remove('hidden');
+            contactForm.reset();
+
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 4000);
+        });
+    </script>
+</body>
+</html>
