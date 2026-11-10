@@ -21,70 +21,20 @@
   <style>
     /* CSS Variables for Light & Dynamic Modes */
     :root {
-      --bg-color: #f1f5f9;
-      --glass-bg: rgba(255, 255, 255, 0.52);
-      --glass-bg-hover: rgba(255, 255, 255, 0.75);
-      --glass-border: rgba(255, 255, 255, 0.85);
-      --glass-shadow: 0 12px 35px 0 rgba(31, 38, 135, 0.08);
-      --primary-blue: #3a7bd5;
-      --primary-cyan: #00d2ff;
-      --accent-purple: #7f00ff;
-      --accent-magenta: #ff007f;
-      --text-main: #0f172a;
-      --text-muted: #475569;
-      --mesh-bg: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-      --orb-opacity: 0.55;
-      --ripple-color: rgba(0, 210, 255, 0.6);
-    }
-
-    body.dark-mode {
       --bg-color: #030712;
       --glass-bg: rgba(15, 23, 42, 0.55);
       --glass-bg-hover: rgba(30, 41, 59, 0.78);
       --glass-border: rgba(255, 255, 255, 0.14);
       --glass-shadow: 0 14px 45px 0 rgba(0, 0, 0, 0.65);
+      --primary-blue: #3a7bd5;
+      --primary-cyan: #00d2ff;
+      --accent-purple: #7f00ff;
+      --accent-magenta: #ff007f;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --mesh-bg: radial-gradient(circle at 50% 0%, #0f172a, #030712);
       --orb-opacity: 0.35;
       --ripple-color: rgba(0, 242, 254, 0.7);
-    }
-
-    /* Dynamic Background Themes on Scroll */
-    body.theme-about {
-      --mesh-bg: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
-    }
-    body.dark-mode.theme-about {
-      --mesh-bg: radial-gradient(circle at 50% 0%, #2e1065, #030712);
-    }
-
-    body.theme-skills {
-      --mesh-bg: linear-gradient(135deg, #fdcbf1 0%, #e6dee9 100%);
-    }
-    body.dark-mode.theme-skills {
-      --mesh-bg: radial-gradient(circle at 50% 0%, #1e1b4b, #030712);
-    }
-
-    body.theme-projects {
-      --mesh-bg: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-    }
-    body.dark-mode.theme-projects {
-      --mesh-bg: radial-gradient(circle at 50% 0%, #064e3b, #030712);
-    }
-
-    body.theme-vision {
-      --mesh-bg: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
-    }
-    body.dark-mode.theme-vision {
-      --mesh-bg: radial-gradient(circle at 50% 0%, #312e81, #030712);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -94,81 +44,6 @@
       overflow-x: hidden;
       line-height: 1.6;
       transition: background-color 0.8s ease, color 0.8s ease;
-    }
-
-    /* WELCOME SCREEN OVERLAY */
-    .welcome-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(3, 7, 18, 0.85);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      z-index: 99999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      text-align: center;
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
-    }
-
-    .welcome-overlay.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .welcome-card {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 40px 30px;
-      border-radius: 32px;
-      max-width: 480px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-      animation: floatWelcome 4s ease-in-out infinite alternate;
-    }
-
-    @keyframes floatWelcome {
-      0% { transform: translateY(0px) scale(1); }
-      100% { transform: translateY(-12px) scale(1.02); }
-    }
-
-    .welcome-title {
-      font-family: 'Surgena', 'Urbanist', sans-serif;
-      font-size: 2.2rem;
-      color: #ffffff;
-      margin-bottom: 12px;
-      background: linear-gradient(135deg, #00d2ff, #ff007f);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .welcome-text {
-      font-size: 1.1rem;
-      color: #94a3b8;
-      margin-bottom: 28px;
-    }
-
-    .welcome-btn {
-      background: linear-gradient(135deg, #3a7bd5, #7f00ff);
-      color: #ffffff;
-      border: none;
-      padding: 14px 36px;
-      border-radius: 50px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(58, 123, 213, 0.4);
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .welcome-btn:hover {
-      transform: scale(1.06);
-      box-shadow: 0 14px 35px rgba(255, 0, 127, 0.5);
     }
 
     /* Ambient Liquid Mesh Background */
@@ -775,18 +650,7 @@
     }
   </style>
 </head>
-<body>
-
-  <!-- WELCOME SCREEN OVERLAY -->
-  <div class="welcome-overlay" id="welcomeOverlay">
-    <div class="welcome-card">
-      <h1 class="welcome-title">FAHRIANDA</h1>
-      <p class="welcome-text">Halow! Selamat datang di Portfolio Fahrianda</p>
-      <button class="welcome-btn" id="welcomeBtn">
-        <i class="fa-solid fa-sparkles"></i> Masuk Portfolio
-      </button>
-    </div>
-  </div>
+<body class="dark-mode">
 
   <!-- Ambient Liquid Mesh Background -->
   <div class="liquid-mesh"></div>
@@ -796,9 +660,6 @@
 
   <!-- Dynamic Canvas -->
   <canvas id="fluid-canvas"></canvas>
-
-  <!-- Laser Spotlight -->
-  <div class="spotlight" id="spotlight"></div>
 
   <!-- Floating Header -->
   <header>
@@ -821,7 +682,7 @@
 
           <!-- Theme Toggle Button -->
           <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
-            <i class="fa-solid fa-moon"></i>
+            <i class="fa-solid fa-sun"></i>
           </button>
         </div>
       </nav>
@@ -1083,17 +944,7 @@
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
 
-        if (type === 'welcome') {
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(440, audioCtx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3);
-          gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start();
-          osc.stop(audioCtx.currentTime + 0.3);
-        } else if (type === 'ig') {
+        if (type === 'ig') {
           osc.type = 'triangle';
           osc.frequency.setValueAtTime(600, audioCtx.currentTime);
           osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.15);
@@ -1117,15 +968,6 @@
       } catch (e) {}
     }
 
-    // Welcome Screen Controller
-    const welcomeOverlay = document.getElementById('welcomeOverlay');
-    const welcomeBtn = document.getElementById('welcomeBtn');
-
-    welcomeBtn.addEventListener('click', () => {
-      playSound('welcome');
-      welcomeOverlay.classList.add('hidden');
-    });
-
     // Instagram Button Sound & Animation Trigger
     const igBtn = document.getElementById('igBtn');
     igBtn.addEventListener('click', () => {
@@ -1147,12 +989,10 @@
     }
 
     window.addEventListener('click', (e) => {
-      if (!welcomeOverlay.classList.contains('hidden')) return;
       createRipple(e.clientX, e.clientY);
     });
 
     window.addEventListener('touchstart', (e) => {
-      if (!welcomeOverlay.classList.contains('hidden')) return;
       if (e.touches.length > 0) {
         createRipple(e.touches[0].clientX, e.touches[0].clientY);
       }
@@ -1214,18 +1054,6 @@
       playSound('tap');
     });
 
-    // Cursor Spotlight
-    const spotlight = document.getElementById('spotlight');
-    function updateSpotlight(x, y) {
-      spotlight.style.left = x + 'px';
-      spotlight.style.top = y + 'px';
-      spotlight.classList.add('active');
-    }
-    window.addEventListener('mousemove', (e) => updateSpotlight(e.clientX, e.clientY));
-    window.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
-    }, { passive: true });
-
     // Scroll Reveal Observer (Scroll-Driven Page Transitions)
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1237,10 +1065,11 @@
 
     document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 
-    // Connected Light Node Particle Canvas
+    // Abstract Wave Line Canvas Animation
     const canvas = document.getElementById('fluid-canvas');
     const ctx = canvas.getContext('2d');
-    let particles = [];
+    let animationFrameId;
+    let time = 0;
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -1249,63 +1078,46 @@
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    class NodeParticle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 1.2;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-      }
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-      }
-      draw() {
-        const isDark = document.body.classList.contains('dark-mode');
-        ctx.fillStyle = isDark ? 'rgba(0, 242, 254, 0.4)' : 'rgba(58, 123, 213, 0.4)';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    for (let i = 0; i < 45; i++) {
-      particles.push(new NodeParticle());
-    }
-
-    function animateCanvas() {
+    function drawAbstractLines() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      time += 0.015;
+
       const isDark = document.body.classList.contains('dark-mode');
+      const linesCount = 7;
+      const scrollProgress = window.scrollY / (document.body.scrollHeight - window.innerHeight || 1);
 
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].update();
-        particles[i].draw();
+      for (let i = 0; i < linesCount; i++) {
+        ctx.beginPath();
+        ctx.lineWidth = 1.5 + (i * 0.3);
+        
+        // Dynamic color gradients per line based on scroll
+        const hueShift = (scrollProgress * 180 + i * 35) % 360;
+        ctx.strokeStyle = isDark 
+          ? `hsla(${200 + hueShift * 0.4}, 90%, 65%, ${0.15 + i * 0.04})`
+          : `hsla(${210 + hueShift * 0.4}, 80%, 45%, ${0.18 + i * 0.04})`;
 
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+        const yOffset = (canvas.height / (linesCount + 1)) * (i + 1);
 
-          if (dist < 120) {
-            ctx.strokeStyle = isDark 
-              ? `rgba(0, 242, 254, ${0.12 * (1 - dist / 120)})`
-              : `rgba(58, 123, 213, ${0.15 * (1 - dist / 120)})`;
-            ctx.lineWidth = 0.6;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
+        for (let x = 0; x <= canvas.width; x += 30) {
+          const frequency = 0.002 + (i * 0.0005);
+          const amplitude = 40 + (i * 12) + (scrollProgress * 50);
+          
+          const y = yOffset + Math.sin(x * frequency + time + i) * amplitude 
+                            + Math.cos(x * 0.004 - time * 0.8) * (amplitude * 0.5);
+
+          if (x === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
           }
         }
+        ctx.stroke();
       }
 
-      requestAnimationFrame(animateCanvas);
+      animationFrameId = requestAnimationFrame(drawAbstractLines);
     }
-    animateCanvas();
+
+    drawAbstractLines();
   </script>
 </body>
 </html>
