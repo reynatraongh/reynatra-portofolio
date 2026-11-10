@@ -1,650 +1,951 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fahrianda Demo Portfolio - Liquid Glass Design</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#eff6ff',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Font Inter & FontAwesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAHRIANDA | Ultra Dark Cyber Portfolio</title>
+  
+  <!-- Font Integration -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-        /* Liquid Glassmorphism Core Utilities */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
-            transform-style: preserve-3d;
-            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease, border-color 0.3s ease;
-        }
+  <style>
+    :root {
+      --bg-dark: #030508;
+      --glass-bg: rgba(8, 12, 22, 0.45);
+      --glass-border: rgba(0, 242, 254, 0.15);
+      --glass-border-hover: rgba(0, 242, 254, 0.5);
+      --primary-cyan: #00f2fe;
+      --primary-blue: #4facfe;
+      --accent-purple: #7f00ff;
+      --accent-magenta: #ff007f;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
 
-        .dark .glass-card {
-            background: rgba(15, 23, 42, 0.55);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
 
-        .glass-card:hover {
-            border-color: rgba(59, 130, 246, 0.6);
-            box-shadow: 0 15px 45px 0 rgba(59, 130, 246, 0.25), inset 0 0 15px rgba(255, 255, 255, 0.5);
-        }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
 
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.35);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-        }
+    /* Ambient Cyber Grid Overlay */
+    .cyber-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: 
+        linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: -3;
+      pointer-events: none;
+    }
 
-        .dark .glass-nav {
-            background: rgba(15, 23, 42, 0.45);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
+    /* Glowing Ambient Mesh Orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -2;
+      opacity: 0.35;
+      pointer-events: none;
+      animation: pulseOrb 16s infinite alternate ease-in-out;
+    }
 
-        /* Animated Ambient Glowing Orbs & Badges */
-        @keyframes float-slow {
-            0%, 100% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
-            50% { transform: translate(30px, -40px) rotate(5deg) scale(1.08); }
-        }
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--accent-purple), var(--accent-magenta));
+      top: -100px;
+      left: -100px;
+    }
 
-        @keyframes float-reverse {
-            0%, 100% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
-            50% { transform: translate(-40px, 30px) rotate(-5deg) scale(0.92); }
-        }
+    .orb-2 {
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, var(--primary-cyan), var(--primary-blue));
+      bottom: -150px;
+      right: -100px;
+      animation-delay: -6s;
+    }
 
-        @keyframes pulse-glow {
-            0%, 100% { filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.6)); }
-            50% { filter: drop-shadow(0 0 35px rgba(168, 85, 247, 0.8)); }
-        }
+    @keyframes pulseOrb {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+      50% { transform: translate(70px, 90px) scale(1.15); opacity: 0.45; }
+      100% { transform: translate(-50px, 50px) scale(0.9); opacity: 0.35; }
+    }
 
-        .animate-orb-1 { animation: float-slow 12s ease-in-out infinite; }
-        .animate-orb-2 { animation: float-reverse 15s ease-in-out infinite; }
-        .glow-pulse { animation: pulse-glow 4s infinite ease-in-out; }
+    /* Fluid Node Canvas */
+    #fluid-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
 
-        /* Liquid Glass Reflection Wave */
-        .glass-shine {
-            position: relative;
-            overflow: hidden;
-        }
-        .glass-shine::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -60%;
-            width: 50%;
-            height: 200%;
-            background: linear-gradient(
-                60deg,
-                transparent,
-                rgba(255, 255, 255, 0.25),
-                transparent
-            );
-            transform: rotate(25deg);
-            transition: all 0.75s ease;
-        }
-        .glass-shine:hover::after {
-            left: 130%;
-        }
+    /* Laser Cursor Spotlight */
+    .spotlight {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, rgba(127, 0, 255, 0.05) 50%, transparent 70%);
+      pointer-events: none;
+      z-index: 999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.04s ease-out;
+    }
 
-        /* Scroll Reveal Animation Styles */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px) scale(0.95);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
+    /* Ultra Glass Card */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
 
-        /* Cursor Glow Follower */
-        #cursor-glow {
-            pointer-events: none;
-            position: fixed;
-            width: 450px;
-            height: 450px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, rgba(59, 130, 246, 0.08) 40%, transparent 70%);
-            transform: translate(-50%, -50%);
-            z-index: 1;
-            transition: width 0.3s ease, height 0.3s ease;
-        }
-    </style>
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -150%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.15), transparent);
+      transition: 0.7s ease;
+      pointer-events: none;
+    }
+
+    .glass-card:hover::before {
+      left: 150%;
+    }
+
+    .glass-card:hover {
+      border-color: var(--glass-border-hover);
+      box-shadow: 0 15px 50px rgba(0, 242, 254, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px) scale(1.01);
+    }
+
+    /* Layout & Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Cyber Floating Navbar */
+    header {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 48px);
+      max-width: 1100px;
+      z-index: 100;
+    }
+
+    .nav-glass {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 28px;
+      border-radius: 100px;
+    }
+
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, var(--primary-cyan), #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-cyan);
+      text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+    }
+
+    /* Section Typography */
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 50px;
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      color: var(--primary-cyan);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.1);
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #ffffff 40%, var(--primary-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 140px;
+      padding-bottom: 60px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 40px;
+      align-items: center;
+    }
+
+    /* NEON CYBER NAME TYPOGRAPHY */
+    .hero-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 5rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -2px;
+      margin: 14px 0;
+      background: linear-gradient(135deg, #ffffff 0%, var(--primary-cyan) 40%, var(--accent-purple) 80%, var(--accent-magenta) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 35px rgba(0, 242, 254, 0.3));
+      animation: neonGlow 4s infinite alternate;
+    }
+
+    @keyframes neonGlow {
+      0% { filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.25)); }
+      100% { filter: drop-shadow(0 0 45px rgba(127, 0, 255, 0.4)); }
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--primary-cyan);
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+    }
+
+    .hero-intro-box {
+      padding: 32px;
+      margin-top: 24px;
+    }
+
+    .hero-intro-box p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-size: 0.98rem;
+    }
+
+    .hero-intro-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Profile Card with Cyber Glowing Ring */
+    .profile-card {
+      padding: 16px;
+      text-align: center;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 120%;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      box-shadow: 0 0 30px rgba(0, 242, 254, 0.2);
+    }
+
+    .avatar-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .profile-card:hover .avatar-img {
+      transform: scale(1.08);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(0, 242, 254, 0.05);
+      border: 1px solid var(--glass-border);
+      border-radius: 50px;
+      font-size: 0.75rem;
+      color: var(--primary-cyan);
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--primary-cyan);
+      box-shadow: 0 0 10px var(--primary-cyan);
+      animation: blinkDot 1.5s infinite alternate;
+    }
+
+    @keyframes blinkDot {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+
+    /* Sections Padding */
+    section {
+      padding: 90px 0;
+    }
+
+    .about-card {
+      padding: 40px;
+    }
+
+    .about-card p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-size: 1.02rem;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .skill-card {
+      padding: 32px;
+    }
+
+    .skill-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-cyan);
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+    }
+
+    .skill-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .skill-card p {
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+    }
+
+    .project-card {
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-header h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.45rem;
+      color: #fff;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .project-subtitle {
+      font-size: 0.85rem;
+      color: var(--primary-cyan);
+      margin-bottom: 18px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .project-card p {
+      color: var(--text-muted);
+      font-size: 0.93rem;
+      margin-bottom: 16px;
+    }
+
+    /* Principles Grid */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .principle-card {
+      padding: 28px;
+    }
+
+    .principle-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: rgba(0, 242, 254, 0.2);
+      margin-bottom: 8px;
+    }
+
+    .principle-card h4 {
+      font-size: 1.1rem;
+      color: var(--primary-cyan);
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .principle-card p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    /* Dev List */
+    .dev-list {
+      list-style: none;
+    }
+
+    .dev-list li {
+      padding: 18px 26px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .dev-list i {
+      color: var(--primary-cyan);
+      font-size: 1.1rem;
+      filter: drop-shadow(0 0 8px var(--primary-cyan));
+    }
+
+    /* Closing Card */
+    .closing-card {
+      padding: 50px 40px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(127, 0, 255, 0.08), rgba(0, 242, 254, 0.08));
+      border: 1px solid rgba(0, 242, 254, 0.3);
+    }
+
+    .closing-quote {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 24px;
+      line-height: 1.35;
+      background: linear-gradient(135deg, #ffffff, var(--primary-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 20px rgba(0, 242, 254, 0.2));
+    }
+
+    .closing-card p {
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto 16px;
+      font-size: 1rem;
+    }
+
+    .finish-tag {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 10px 24px;
+      border-radius: 50px;
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.4);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      color: var(--primary-cyan);
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.15);
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    /* Scroll Reveal FX */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .scroll-reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-name {
+        font-size: 3.4rem;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
 </head>
-<body class="bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-500 min-h-screen relative overflow-x-hidden">
+<body>
 
-    <!-- CURSOR LIGHT SPOTLIGHT -->
-    <div id="cursor-glow" class="hidden sm:block"></div>
+  <!-- Cyber Grid Background -->
+  <div class="cyber-grid"></div>
 
-    <!-- FLUID LIQUID CANVAS & MESH ORBS -->
-    <canvas id="fluidCanvas" class="fixed inset-0 pointer-events-none z-0 w-full h-full opacity-60 dark:opacity-40"></canvas>
+  <!-- Ambient Light Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
 
-    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div class="absolute -top-20 -left-20 w-96 h-96 bg-blue-400/40 dark:bg-blue-600/30 rounded-full filter blur-[100px] animate-orb-1"></div>
-        <div class="absolute top-1/3 -right-20 w-[30rem] h-[30rem] bg-indigo-400/35 dark:bg-indigo-600/25 rounded-full filter blur-[120px] animate-orb-2"></div>
-        <div class="absolute -bottom-20 left-1/3 w-[28rem] h-[28rem] bg-purple-400/30 dark:bg-purple-600/20 rounded-full filter blur-[110px] animate-orb-1"></div>
+  <!-- Dynamic Connected Node Canvas -->
+  <canvas id="fluid-canvas"></canvas>
+
+  <!-- Laser Spotlight -->
+  <div class="spotlight" id="spotlight"></div>
+
+  <!-- Cyber Floating Navbar -->
+  <header>
+    <div class="container">
+      <nav class="glass-card nav-glass">
+        <a href="#" class="logo">FAHRIANDA</a>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#approach">Approach</a></li>
+          <li><a href="#vision">Vision</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-    <!-- MAIN CONTENT CONTAINER -->
-    <div class="relative z-10">
-
-        <!-- FLOATING GLASS NAVBAR -->
-        <div class="fixed top-4 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-            <nav class="glass-nav rounded-2xl px-6 py-3.5 flex items-center justify-between shadow-lg transition-all duration-300">
-                <!-- Logo -->
-                <a href="#" class="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 bg-clip-text text-transparent">
-                    Fahrianda Demo Portfolio<span class="text-blue-500 animate-pulse">.</span>
-                </a>
-
-                <!-- Desktop Navigation Links -->
-                <div class="hidden md:flex items-center space-x-8 font-medium text-sm">
-                    <a href="#about" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Tentang Saya</a>
-                    <a href="#skills" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Keahlian</a>
-                    <a href="#projects" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Proyek</a>
-                    <a href="#contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Kontak</a>
-                </div>
-
-                <!-- Theme Toggle & Mobile Menu Btn -->
-                <div class="flex items-center space-x-3">
-                    <button id="themeToggle" aria-label="Toggle Theme" class="p-2.5 rounded-xl glass-card text-gray-700 dark:text-gray-200 hover:scale-110 transition active:scale-95">
-                        <i id="themeIcon" class="fas fa-moon text-base"></i>
-                    </button>
-                    <button id="mobileMenuBtn" aria-label="Toggle Menu" class="md:hidden p-2.5 rounded-xl glass-card text-gray-700 dark:text-gray-200 hover:scale-105 transition">
-                        <i class="fas fa-bars text-base"></i>
-                    </button>
-                </div>
-            </nav>
-
-            <!-- Mobile Menu -->
-            <div id="mobileMenu" class="hidden md:hidden mt-3 glass-card rounded-2xl p-4 space-y-3 font-medium shadow-xl">
-                <a href="#about" class="block py-2 px-3 rounded-lg hover:bg-blue-500/10 dark:hover:bg-blue-400/10 transition">Tentang Saya</a>
-                <a href="#skills" class="block py-2 px-3 rounded-lg hover:bg-blue-500/10 dark:hover:bg-blue-400/10 transition">Keahlian</a>
-                <a href="#projects" class="block py-2 px-3 rounded-lg hover:bg-blue-500/10 dark:hover:bg-blue-400/10 transition">Proyek</a>
-                <a href="#contact" class="block py-2 px-3 rounded-lg hover:bg-blue-500/10 dark:hover:bg-blue-400/10 transition">Kontak</a>
-            </div>
+  <!-- 1. Intro Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="scroll-reveal">
+          <div class="section-tag"><i class="fa-solid fa-terminal"></i> Personal Portfolio</div>
+          <!-- STANDOUT NEON NAME -->
+          <h1 class="hero-name">FAHRIANDA</h1>
+          <div class="hero-subtitle">Creative Thinker · Independent Builder · Community Enthusiast</div>
+          
+          <div class="glass-card hero-intro-box">
+            <p>Halo, saya <strong>Fahri</strong>.</p>
+            <p>Saya adalah seseorang yang memiliki ketertarikan pada dunia teknologi, kreativitas digital, pengembangan ide, dan pengelolaan komunitas. Saya senang mengeksplorasi hal-hal baru, mempelajari sesuatu secara mandiri, serta mencoba mengubah ide menjadi sesuatu yang dapat digunakan dan memberikan manfaat.</p>
+            <p>Bagi saya, sebuah ide tidak seharusnya berhenti sebagai angan-angan. Saya percaya bahwa setiap gagasan memiliki peluang untuk dikembangkan melalui proses, eksperimen, evaluasi, dan konsistensi.</p>
+            <p>Saya menikmati proses membangun sesuatu dari awal, menghadapi berbagai tantangan, mencari solusi, dan terus memperbaiki hasil pekerjaan agar menjadi lebih baik.</p>
+            <p>Saya mungkin masih terus belajar dan berkembang, tetapi saya selalu berusaha untuk tidak berhenti mencoba.</p>
+          </div>
         </div>
 
-        <!-- HERO SECTION WITH LIQUID GLASS FRAME & BADGES -->
-        <section class="min-h-screen flex items-center justify-center pt-32 pb-16 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-4xl mx-auto text-center reveal active">
-                <!-- Profile Image Frame with Floating Interactive Badges -->
-                <div class="relative inline-block mb-8">
-                    <div class="p-2 rounded-full glass-card glow-pulse shadow-2xl ring-2 ring-white/60 dark:ring-white/10">
-                        <img src="profile.jpg" onerror="this.onerror=null; this.src='https://placehold.co/300x300/1e293b/ffffff?text=Fahrianda';" alt="Foto Fahrianda" class="w-36 h-36 md:w-44 md:h-44 rounded-full mx-auto object-cover object-center shadow-inner transition duration-500 transform hover:scale-105">
-                    </div>
-                    <span class="absolute bottom-3 right-3 bg-emerald-500 w-5 h-5 rounded-full ring-4 ring-white dark:ring-slate-900 shadow-lg animate-ping" title="Terbuka untuk pekerjaan"></span>
-                    <span class="absolute bottom-3 right-3 bg-emerald-500 w-5 h-5 rounded-full ring-4 ring-white dark:ring-slate-900 shadow-lg"></span>
-                    
-                    <!-- Floating Liquid Glass Badges -->
-                    <div class="absolute -top-2 -left-10 glass-card px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 animate-orb-1 shadow-md border border-white/40">
-                        <span class="text-lg">🚀</span> Web Dev
-                    </div>
-                    <div class="absolute -bottom-2 -right-12 glass-card px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 animate-orb-2 shadow-md border border-white/40">
-                        <span class="text-lg">✨</span> Glassmorphic UI
-                    </div>
-                </div>
-
-                <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
-                    halow! Saya <span class="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 bg-clip-text text-transparent">Fahrianda</span>, ini baru Demo dan belum jadi hehe
-                </h1>
-                
-                <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
-                    Full-Stack Web Developer yang berfokus pada pembuatan aplikasi web responsif, cepat, dan antarmuka pengguna interaktif dengan estetika modern.
-                </p>
-
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="#projects" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold shadow-lg shadow-blue-500/25 transition transform hover:-translate-y-1 hover:scale-105 active:translate-y-0">
-                        Lihat Proyek Saya
-                    </a>
-                    <a href="#contact" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl glass-card glass-shine font-semibold hover:bg-white/60 dark:hover:bg-slate-800/80 transition transform hover:-translate-y-1 hover:scale-105">
-                        Hubungi Saya
-                    </a>
-                </div>
+        <!-- Profile Photo Card -->
+        <div class="scroll-reveal" style="transition-delay: 0.2s;">
+          <div class="glass-card profile-card">
+            <div class="avatar-wrapper">
+              <img src="profile.jpg" alt="Fahrianda Profile" class="avatar-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80';"/>
             </div>
-        </section>
-
-        <!-- ABOUT ME SECTION -->
-        <section id="about" class="py-24 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-5xl mx-auto reveal">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold tracking-tight mb-2">Tentang Saya</h2>
-                    <div class="w-16 h-1 bg-gradient-to-r from-blue-600 to-indigo-500 mx-auto rounded-full"></div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8 items-center">
-                    <div class="glass-card glass-shine p-8 rounded-3xl space-y-4 text-slate-600 dark:text-slate-300">
-                        <p class="leading-relaxed">
-                            Saya seorang pengembang web passionate yang selalu tertarik mempelajari teknologi terbaru. Berpengalaman membangun aplikasi web interaktif mulai dari rancangan UI/UX hingga arsitektur backend.
-                        </p>
-                        <p class="leading-relaxed">
-                            Fokus utama saya adalah menciptakan pengalaman digital yang bersih, performa tinggi, dan mudah digunakan oleh siapapun.
-                        </p>
-                        <div class="pt-4 flex items-center space-x-6 text-slate-500 dark:text-slate-400">
-                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 text-2xl transition transform hover:scale-125"><i class="fab fa-github"></i></a>
-                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 text-2xl transition transform hover:scale-125"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 text-2xl transition transform hover:scale-125"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 text-2xl transition transform hover:scale-125"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="glass-card glass-shine p-6 rounded-2xl text-center">
-                            <h3 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent mb-1">3+</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Tahun Pengalaman</p>
-                        </div>
-                        <div class="glass-card glass-shine p-6 rounded-2xl text-center">
-                            <h3 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent mb-1">20+</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Proyek Selesai</p>
-                        </div>
-                        <div class="glass-card glass-shine p-6 rounded-2xl text-center">
-                            <h3 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent mb-1">10+</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Klien Puas</p>
-                        </div>
-                        <div class="glass-card glass-shine p-6 rounded-2xl text-center">
-                            <h3 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent mb-1">99%</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Kode Bersih</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="status-badge">
+              <span class="status-dot"></span> Active Builder
             </div>
-        </section>
-
-        <!-- SKILLS SECTION -->
-        <section id="skills" class="py-24 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-5xl mx-auto reveal">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold tracking-tight mb-2">Keahlian & Teknologi</h2>
-                    <div class="w-16 h-1 bg-gradient-to-r from-blue-600 to-indigo-500 mx-auto rounded-full"></div>
-                </div>
-
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
-                    <div class="glass-card p-4 rounded-2xl flex items-center space-x-4">
-                        <i class="fab fa-html5 text-3xl text-orange-500"></i>
-                        <div>
-                            <h4 class="font-semibold text-sm">HTML5</h4>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Tingkat Lanjut</p>
-                        </div>
-                    </div>
-                    <div class="glass-card p-4 rounded-2xl flex items-center space-x-4">
-                        <i class="fab fa-css3-alt text-3xl text-blue-500"></i>
-                        <div>
-                            <h4 class="font-semibold text-sm">CSS3 / Tailwind</h4>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Tingkat Lanjut</p>
-                        </div>
-                    </div>
-                    <div class="glass-card p-4 rounded-2xl flex items-center space-x-4">
-                        <i class="fab fa-js text-3xl text-yellow-400"></i>
-                        <div>
-                            <h4 class="font-semibold text-sm">JavaScript</h4>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Tingkat Lanjut</p>
-                        </div>
-                    </div>
-                    <div class="glass-card p-4 rounded-2xl flex items-center space-x-4">
-                        <i class="fab fa-react text-3xl text-cyan-400"></i>
-                        <div>
-                            <h4 class="font-semibold text-sm">React JS</h4>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Menengah</p>
-                        </div>
-                    </div>
-                    <div class="glass-card p-4 rounded-2xl flex items-center space-x-4">
-                        <i class="fab fa-node-js text-3xl text-emerald-500"></i>
-                        <div>
-                            <h4 class="font-semibold text-sm">Node.js</h4>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Menengah</p>
-                        </div>
-                    </div>
-                    <div class="glass-card p-4 rounded-2xl flex items-center space-x-4">
-                        <i class="fab fa-git-alt text-3xl text-red-500"></i>
-                        <div>
-                            <h4 class="font-semibold text-sm">Git / GitHub</h4>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Tingkat Lanjut</p>
-                        </div>
-                    </div>
-                    <div class="glass-card p-4 rounded-2xl flex items-center space-x-4">
-                        <i class="fas fa-database text-3xl text-indigo-500"></i>
-                        <div>
-                            <h4 class="font-semibold text-sm">SQL / NoSQL</h4>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Menengah</p>
-                        </div>
-                    </div>
-                    <div class="glass-card p-4 rounded-2xl flex items-center space-x-4">
-                        <i class="fas fa-figma text-3xl text-purple-500"></i>
-                        <div>
-                            <h4 class="font-semibold text-sm">Figma UI/UX</h4>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Menengah</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PROJECTS SHOWCASE -->
-        <section id="projects" class="py-24 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-6xl mx-auto reveal">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold tracking-tight mb-2">Proyek Pilihan</h2>
-                    <div class="w-16 h-1 bg-gradient-to-r from-blue-600 to-indigo-500 mx-auto rounded-full"></div>
-                </div>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Project Card 1 -->
-                    <div class="glass-card glass-shine rounded-3xl overflow-hidden flex flex-col group">
-                        <div class="overflow-hidden h-48">
-                            <img src="https://placehold.co/600x400/2563eb/ffffff?text=E-Commerce+App" alt="Project 1" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <h3 class="text-xl font-bold mb-2">Aplikasi E-Commerce</h3>
-                            <p class="text-slate-600 dark:text-slate-300 text-sm mb-4 flex-1">
-                                Platform belanja online responsif dengan fitur keranjang, checkout, dan integrasi payment gateway.
-                            </p>
-                            <div class="flex flex-wrap gap-2 mb-6">
-                                <span class="px-3 py-1 bg-blue-500/10 text-blue-600 dark:text-blue-300 rounded-lg text-xs font-medium border border-blue-500/20">React</span>
-                                <span class="px-3 py-1 bg-blue-500/10 text-blue-600 dark:text-blue-300 rounded-lg text-xs font-medium border border-blue-500/20">Tailwind</span>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <a href="#" class="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
-                                    Demo Live <i class="fas fa-external-link-alt text-xs"></i>
-                                </a>
-                                <a href="#" class="text-sm font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1">
-                                    GitHub <i class="fab fa-github text-xs"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project Card 2 -->
-                    <div class="glass-card glass-shine rounded-3xl overflow-hidden flex flex-col group">
-                        <div class="overflow-hidden h-48">
-                            <img src="https://placehold.co/600x400/4f46e5/ffffff?text=Task+Manager" alt="Project 2" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <h3 class="text-xl font-bold mb-2">Task Management Dashboard</h3>
-                            <p class="text-slate-600 dark:text-slate-300 text-sm mb-4 flex-1">
-                                Aplikasi manajemen tugas produktivitas dengan sistem drag-and-drop dan statistik harian.
-                            </p>
-                            <div class="flex flex-wrap gap-2 mb-6">
-                                <span class="px-3 py-1 bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 rounded-lg text-xs font-medium border border-indigo-500/20">JavaScript</span>
-                                <span class="px-3 py-1 bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 rounded-lg text-xs font-medium border border-indigo-500/20">API</span>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <a href="#" class="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
-                                    Demo Live <i class="fas fa-external-link-alt text-xs"></i>
-                                </a>
-                                <a href="#" class="text-sm font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1">
-                                    GitHub <i class="fab fa-github text-xs"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project Card 3 -->
-                    <div class="glass-card glass-shine rounded-3xl overflow-hidden flex flex-col group">
-                        <div class="overflow-hidden h-48">
-                            <img src="https://placehold.co/600x400/0ea5e9/ffffff?text=Weather+App" alt="Project 3" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <h3 class="text-xl font-bold mb-2">Aplikasi Cuaca Realtime</h3>
-                            <p class="text-slate-600 dark:text-slate-300 text-sm mb-4 flex-1">
-                                Aplikasi prakiraan cuaca yang mendeteksi lokasi pengguna dan menampilkan data akurat dari OpenWeather API.
-                            </p>
-                            <div class="flex flex-wrap gap-2 mb-6">
-                                <span class="px-3 py-1 bg-sky-500/10 text-sky-600 dark:text-sky-300 rounded-lg text-xs font-medium border border-sky-500/20">HTML/CSS</span>
-                                <span class="px-3 py-1 bg-sky-500/10 text-sky-600 dark:text-sky-300 rounded-lg text-xs font-medium border border-sky-500/20">REST API</span>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <a href="#" class="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
-                                    Demo Live <i class="fas fa-external-link-alt text-xs"></i>
-                                </a>
-                                <a href="#" class="text-sm font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1">
-                                    GitHub <i class="fab fa-github text-xs"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONTACT SECTION -->
-        <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mx-auto reveal">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold tracking-tight mb-2">Hubungi Saya</h2>
-                    <div class="w-16 h-1 bg-gradient-to-r from-blue-600 to-indigo-500 mx-auto rounded-full mb-4"></div>
-                    <p class="text-slate-600 dark:text-slate-400">Punya proyek menarik atau ingin berdiskusi? Kirimkan pesan!</p>
-                </div>
-
-                <div id="toast" class="hidden mb-6 p-4 rounded-2xl bg-emerald-500/80 backdrop-blur-md text-white text-center font-medium shadow-lg transition">
-                    Pesan Anda berhasil dikirim!
-                </div>
-
-                <form id="contactForm" class="glass-card glass-shine p-8 sm:p-10 rounded-3xl space-y-6">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Nama Lengkap</label>
-                            <input type="text" required placeholder="Nama Anda" class="w-full px-4 py-3 rounded-xl glass-card bg-white/20 dark:bg-slate-900/40 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:text-white transition">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Email</label>
-                            <input type="email" required placeholder="email@domain.com" class="w-full px-4 py-3 rounded-xl glass-card bg-white/20 dark:bg-slate-900/40 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:text-white transition">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Pesan</label>
-                        <textarea rows="4" required placeholder="Tuliskan pesan Anda di sini..." class="w-full px-4 py-3 rounded-xl glass-card bg-white/20 dark:bg-slate-900/40 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:text-white transition"></textarea>
-                    </div>
-                    <button type="submit" class="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-2xl shadow-lg shadow-blue-500/25 transition transform hover:-translate-y-0.5 active:translate-y-0">
-                        Kirim Pesan
-                    </button>
-                </form>
-            </div>
-        </section>
-
-        <!-- FOOTER -->
-        <footer class="py-8 px-4 text-center text-slate-500 dark:text-slate-400 text-sm">
-            <p>© <span id="year"></span> Fahrianda Demo Portfolio. Dibuat dengan Liquid Glass Design.</p>
-        </footer>
-
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- JAVASCRIPT LOGIC & ANIMATIONS -->
-    <script>
-        // Set dynamic current year in footer
-        document.getElementById('year').textContent = new Date().getFullYear();
+  <!-- 2. About Me Section -->
+  <section id="about">
+    <div class="container">
+      <div class="scroll-reveal">
+        <div class="section-tag"><i class="fa-solid fa-user-gear"></i> Overview</div>
+        <h2 class="section-title">About Me</h2>
+        <div class="glass-card about-card">
+          <p>Saya merupakan individu yang memiliki rasa ingin tahu tinggi dan senang mempelajari berbagai hal, khususnya yang berkaitan dengan teknologi dan pengembangan digital.</p>
+          <p>Saya memiliki ketertarikan dalam membangun proyek secara mandiri, mengelola komunitas, mengembangkan konsep kreatif, serta mencari solusi terhadap berbagai permasalahan yang muncul selama proses pengerjaan.</p>
+          <p>Dalam setiap proyek, saya tidak hanya memperhatikan hasil akhirnya, tetapi juga proses di baliknya. Saya senang memikirkan bagaimana sebuah sistem dapat bekerja dengan lebih baik, bagaimana sebuah desain dapat memiliki identitas yang kuat, dan bagaimana sebuah platform dapat memberikan pengalaman yang nyaman bagi penggunanya.</p>
+          <p>Saya terbiasa mengeksplorasi ide, melakukan penyesuaian, dan mengevaluasi hasil pekerjaan. Bagi saya, proses belajar tidak selalu harus dimulai dengan kemampuan yang sempurna. Keberanian untuk mencoba dan kemauan untuk memperbaiki diri merupakan bagian penting dari perkembangan seseorang.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // 1. Interactive Fluid Canvas Background Animation
-        const canvas = document.getElementById('fluidCanvas');
-        const ctx = canvas.getContext('2d');
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+  <!-- 3. Skills Section -->
+  <section id="skills">
+    <div class="container">
+      <div class="scroll-reveal">
+        <div class="section-tag"><i class="fa-solid fa-bolt"></i> Capabilities</div>
+        <h2 class="section-title">Skill yang dimiliki Fahrianda</h2>
+      </div>
 
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        });
+      <div class="skills-grid">
+        <div class="glass-card skill-card scroll-reveal">
+          <div class="skill-icon"><i class="fa-solid fa-lightbulb"></i></div>
+          <h3>Creative Thinking</h3>
+          <p>Memiliki kemampuan dalam mengembangkan gagasan menjadi konsep yang lebih terstruktur. Saya senang mengeksplorasi berbagai kemungkinan dan mencari pendekatan kreatif dalam menyelesaikan suatu pekerjaan.</p>
+        </div>
 
-        const particles = [];
-        const numParticles = Math.min(width < 768 ? 20 : 45, 60);
-        let mouseX = width / 2;
-        let mouseY = height / 2;
+        <div class="glass-card skill-card scroll-reveal" style="transition-delay: 0.1s;">
+          <div class="skill-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+          <h3>Problem Solving</h3>
+          <p>Terbiasa menghadapi kendala selama proses pengembangan proyek, menganalisis permasalahan, dan mencari alternatif solusi agar sistem atau pekerjaan dapat berjalan dengan lebih baik.</p>
+        </div>
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.radius = Math.random() * 60 + 30;
-                this.vx = (Math.random() - 0.5) * 1.2;
-                this.vy = (Math.random() - 0.5) * 1.2;
-                this.color = Math.random() > 0.5 ? 'rgba(99, 102, 241, ' : 'rgba(59, 130, 246, ';
-            }
+        <div class="glass-card skill-card scroll-reveal" style="transition-delay: 0.2s;">
+          <div class="skill-icon"><i class="fa-solid fa-users"></i></div>
+          <h3>Community Management</h3>
+          <p>Memiliki pengalaman dalam mengelola komunitas digital, menyusun struktur server, membangun identitas komunitas, serta memperhatikan kenyamanan dan keterlibatan anggota.</p>
+        </div>
 
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
+        <div class="glass-card skill-card scroll-reveal">
+          <div class="skill-icon"><i class="fa-solid fa-code"></i></div>
+          <h3>Digital Project Development</h3>
+          <p>Memiliki pengalaman mengeksplorasi dan mengembangkan proyek berbasis teknologi, mulai dari tahap perencanaan, pengujian, implementasi, hingga evaluasi.</p>
+        </div>
 
-                if (this.x < -100) this.x = width + 100;
-                if (this.x > width + 100) this.x = -100;
-                if (this.y < -100) this.y = height + 100;
-                if (this.y > height + 100) this.y = -100;
+        <div class="glass-card skill-card scroll-reveal" style="transition-delay: 0.1s;">
+          <div class="skill-icon"><i class="fa-solid fa-palette"></i></div>
+          <h3>Visual & Communication Awareness</h3>
+          <p>Memperhatikan konsistensi identitas visual, pemilihan desain, penyusunan informasi, dan cara berkomunikasi agar pesan dapat tersampaikan dengan jelas dan profesional.</p>
+        </div>
 
-                // React to mouse distance
-                const dx = mouseX - this.x;
-                const dy = mouseY - this.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 200) {
-                    this.x -= (dx / dist) * 1.5;
-                    this.y -= (dy / dist) * 1.5;
-                }
-            }
+        <div class="glass-card skill-card scroll-reveal" style="transition-delay: 0.2s;">
+          <div class="skill-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <h3>Continuous Improvement</h3>
+          <p>Memiliki keinginan untuk terus meningkatkan kualitas pekerjaan melalui evaluasi, pembelajaran mandiri, eksperimen, dan pengembangan kemampuan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            draw() {
-                const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
-                grad.addColorStop(0, this.color + '0.25)');
-                grad.addColorStop(0.8, this.color + '0.05)');
-                grad.addColorStop(1, 'transparent');
-                ctx.fillStyle = grad;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fill();
-            }
+  <!-- 4. Projects Section -->
+  <section id="projects">
+    <div class="container">
+      <div class="scroll-reveal">
+        <div class="section-tag"><i class="fa-solid fa-cubes"></i> Portfolio Showcase</div>
+        <h2 class="section-title">Featured Projects</h2>
+      </div>
+
+      <div class="projects-grid">
+        <div class="glass-card project-card scroll-reveal">
+          <div class="project-header">
+            <h3>THE BROTHERHOOD</h3>
+            <div class="project-subtitle">Community Management & Digital Branding</div>
+          </div>
+          <p>THE BROTHERHOOD merupakan proyek pengelolaan komunitas digital berbasis Discord yang saya bangun dan kembangkan dengan memperhatikan identitas, struktur, serta pengalaman para anggotanya.</p>
+          <p>Dalam proyek ini, saya terlibat dalam pengelolaan struktur server, penataan kategori dan channel, pengembangan identitas visual, penyusunan pengumuman, serta pengelolaan komunikasi komunitas.</p>
+          <p>Saya juga memperhatikan bagaimana sebuah komunitas dapat memiliki suasana yang aktif, nyaman, terorganisasi, dan memiliki karakter tersendiri.</p>
+        </div>
+
+        <div class="glass-card project-card scroll-reveal" style="transition-delay: 0.1s;">
+          <div class="project-header">
+            <h3>HOME CAM</h3>
+            <div class="project-subtitle">CCTV Monitoring & Discord Integration</div>
+          </div>
+          <p>HOME CAM merupakan proyek pemantauan kamera yang dikembangkan untuk melakukan streaming CCTV secara berkelanjutan ke dalam voice channel Discord.</p>
+          <p>Proyek ini menggabungkan perangkat kamera, konektivitas jaringan, transmisi video, serta integrasi audio untuk menghadirkan sistem pemantauan yang dapat diakses melalui komunitas Discord.</p>
+          <p>Dalam pengembangannya, saya menghadapi berbagai tantangan teknis, termasuk kestabilan jaringan, latensi, kualitas transmisi video, kendala audio, keterbatasan perangkat, dan pengelolaan sistem yang berjalan dalam waktu lama.</p>
+        </div>
+
+        <div class="glass-card project-card scroll-reveal" style="transition-delay: 0.2s;">
+          <div class="project-header">
+            <h3>PERSONAL CASHFLOW</h3>
+            <div class="project-subtitle">Personal Finance Tracking System</div>
+          </div>
+          <p>Saya juga mengembangkan konsep pencatatan keuangan pribadi dengan pendekatan yang terstruktur dan mudah dipahami.</p>
+          <p>Sistem ini dirancang untuk mencatat pemasukan, pengeluaran, riwayat transaksi, akumulasi dana, serta persentase penggunaan keuangan.</p>
+          <p>Tujuannya adalah menciptakan sistem pencatatan yang lebih terorganisasi, transparan, dan dapat membantu proses evaluasi kondisi keuangan secara berkala.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Working Approach Section -->
+  <section id="approach">
+    <div class="container">
+      <div class="scroll-reveal">
+        <div class="section-tag"><i class="fa-solid fa-compass"></i> Work Philosophy</div>
+        <h2 class="section-title">Working Approach</h2>
+        <p style="color: var(--text-muted); margin-bottom: 30px;">Saya percaya bahwa hasil yang baik berasal dari proses yang terencana dan kemauan untuk terus melakukan perbaikan.</p>
+      </div>
+
+      <div class="principles-grid">
+        <div class="glass-card principle-card scroll-reveal">
+          <div class="principle-num">01</div>
+          <h4>INITIATIVE</h4>
+          <p>Tidak selalu menunggu arahan untuk memulai. Saya berusaha mencari peluang, mengembangkan gagasan, dan mengambil langkah awal ketika menemukan sesuatu yang menarik untuk dikerjakan.</p>
+        </div>
+
+        <div class="glass-card principle-card scroll-reveal" style="transition-delay: 0.1s;">
+          <div class="principle-num">02</div>
+          <h4>ADAPTABILITY</h4>
+          <p>Terbuka terhadap perubahan dan bersedia mempelajari hal-hal baru ketika menghadapi kebutuhan atau tantangan yang berbeda.</p>
+        </div>
+
+        <div class="glass-card principle-card scroll-reveal" style="transition-delay: 0.2s;">
+          <div class="principle-num">03</div>
+          <h4>RESPONSIBILITY</h4>
+          <p>Berusaha memahami tanggung jawab dalam setiap proyek dan memperhatikan dampak dari keputusan yang diambil.</p>
+        </div>
+
+        <div class="glass-card principle-card scroll-reveal">
+          <div class="principle-num">04</div>
+          <h4>EVALUATION</h4>
+          <p>Tidak menganggap pekerjaan selesai hanya karena sudah dapat digunakan. Saya percaya evaluasi merupakan bagian penting untuk meningkatkan kualitas.</p>
+        </div>
+
+        <div class="glass-card principle-card scroll-reveal" style="transition-delay: 0.1s;">
+          <div class="principle-num">05</div>
+          <h4>CONSISTENCY</h4>
+          <p>Berusaha menjaga komitmen terhadap proses pengembangan, meskipun terkadang terdapat kendala yang membutuhkan waktu dan usaha lebih.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Personal Development Section -->
+  <section>
+    <div class="container">
+      <div class="scroll-reveal">
+        <div class="section-tag"><i class="fa-solid fa-arrow-trend-up"></i> Growth Mindset</div>
+        <h2 class="section-title">Personal Development</h2>
+        <p style="color: var(--text-muted); margin-bottom: 24px;">Saya menyadari bahwa perjalanan pengembangan diri merupakan proses yang tidak memiliki garis akhir. Beberapa aspek yang terus menjadi perhatian saya adalah:</p>
+      </div>
+
+      <ul class="dev-list">
+        <li class="glass-card scroll-reveal"><i class="fa-solid fa-circle-check"></i> Meningkatkan konsistensi dalam menyelesaikan proyek.</li>
+        <li class="glass-card scroll-reveal" style="transition-delay: 0.1s;"><i class="fa-solid fa-circle-check"></i> Mengembangkan kemampuan teknis dan pemahaman teknologi.</li>
+        <li class="glass-card scroll-reveal" style="transition-delay: 0.2s;"><i class="fa-solid fa-circle-check"></i> Meningkatkan kemampuan mengatur prioritas dan waktu.</li>
+        <li class="glass-card scroll-reveal"><i class="fa-solid fa-circle-check"></i> Membiasakan dokumentasi proses dan hasil pekerjaan.</li>
+        <li class="glass-card scroll-reveal" style="transition-delay: 0.1s;"><i class="fa-solid fa-circle-check"></i> Memperluas wawasan melalui pengalaman dan pembelajaran baru.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 & 8. Vision & Closing Section -->
+  <section id="vision">
+    <div class="container">
+      <div class="scroll-reveal">
+        <div class="section-tag"><i class="fa-solid fa-eye"></i> Aspiration</div>
+        <h2 class="section-title">Vision & Goals</h2>
+        <div class="glass-card about-card" style="margin-bottom: 40px;">
+          <p>Saya ingin terus berkembang menjadi individu yang mampu menggabungkan kreativitas, kemampuan teknis, dan pemikiran strategis dalam menghasilkan sesuatu yang bermanfaat.</p>
+          <p>Saya memiliki ketertarikan untuk terus mengeksplorasi dunia teknologi, mengembangkan proyek digital, membangun sistem yang lebih baik, dan menciptakan pengalaman yang memberikan nilai bagi orang lain.</p>
+          <p>Ke depannya, saya ingin memiliki lebih banyak proyek nyata yang dapat menjadi bukti dari kemampuan, pengalaman, serta perkembangan diri saya.</p>
+          <p>Bagi saya, keberhasilan bukan hanya tentang seberapa banyak ide yang dimiliki, tetapi juga tentang seberapa jauh ide tersebut dapat diwujudkan melalui tindakan nyata.</p>
+        </div>
+      </div>
+
+      <!-- 8. Closing -->
+      <div class="glass-card closing-card scroll-reveal">
+        <div class="closing-quote">
+          "I DON'T JUST IMAGINE POSSIBILITIES. I TAKE INITIATIVE TO TURN THEM INTO REALITY."
+        </div>
+        <p>Saya percaya bahwa setiap pencapaian besar dapat dimulai dari sebuah ide sederhana. Dengan kemauan untuk belajar, keberanian untuk mencoba, dan konsistensi dalam menjalani proses, saya ingin terus membangun sesuatu yang memiliki arti dan manfaat.</p>
+        <p>Saya adalah seseorang yang masih terus berkembang, masih banyak belajar, dan masih memiliki banyak hal untuk diwujudkan.</p>
+        <div class="finish-tag">This is not the finish line. This is only the beginning.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 FAHRIANDA. Built with Ultra Dark Cyberpunk Aesthetics.</p>
+    </div>
+  </footer>
+
+  <!-- Animation Scripts -->
+  <script>
+    // Cursor Spotlight
+    const spotlight = document.getElementById('spotlight');
+    let mouseX = 0, mouseY = 0;
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      spotlight.style.left = mouseX + 'px';
+      spotlight.style.top = mouseY + 'px';
+    });
+
+    // Scroll Reveal Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+    // Connected Node Particle Canvas
+    const canvas = document.getElementById('fluid-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class NodeParticle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.vx = (Math.random() - 0.5) * 0.6;
+        this.vy = (Math.random() - 0.5) * 0.6;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+      draw() {
+        ctx.fillStyle = 'rgba(0, 242, 254, 0.6)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 60; i++) {
+      particles.push(new NodeParticle());
+    }
+
+    function animateCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+
+        // Connect particles near each other
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 120) {
+            ctx.strokeStyle = `rgba(0, 242, 254, ${0.15 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.6;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
         }
 
-        for (let i = 0; i < numParticles; i++) {
-            particles.push(new Particle());
+        // Mouse interactive connection
+        const mdx = particles[i].x - mouseX;
+        const mdy = particles[i].y - mouseY;
+        const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (mdist < 150) {
+          ctx.strokeStyle = `rgba(127, 0, 255, ${0.3 * (1 - mdist / 150)})`;
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(mouseX, mouseY);
+          ctx.stroke();
         }
+      }
 
-        function animateFluid() {
-            ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateFluid);
-        }
-        animateFluid();
-
-        // 2. Cursor Spotlight Glow & Mouse Track
-        const cursorGlow = document.getElementById('cursor-glow');
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            if (cursorGlow) {
-                cursorGlow.style.left = `${mouseX}px`;
-                cursorGlow.style.top = `${mouseY}px`;
-            }
-        });
-
-        // 3. Interactive 3D Tilt Effect on Glass Cards
-        const cards = document.querySelectorAll('.glass-card');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = (centerY - y) / 12;
-                const rotateY = (x - centerX) / 12;
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-            });
-        });
-
-        // 4. Scroll Reveal Intersection Observer Animation
-        const reveals = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.15 });
-
-        reveals.forEach(reveal => revealObserver.observe(reveal));
-
-        // Dark/Light Theme Toggle Logic
-        const themeToggleBtn = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            themeIcon.classList.replace('fa-moon', 'fa-sun');
-        } else {
-            document.documentElement.classList.remove('dark');
-            themeIcon.classList.replace('fa-sun', 'fa-moon');
-        }
-
-        themeToggleBtn.addEventListener('click', () => {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-                themeIcon.classList.replace('fa-sun', 'fa-moon');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
-                themeIcon.classList.replace('fa-moon', 'fa-sun');
-            }
-        });
-
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // Contact Form Submission Handler
-        const contactForm = document.getElementById('contactForm');
-        const toast = document.getElementById('toast');
-
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            toast.classList.remove('hidden');
-            contactForm.reset();
-
-            setTimeout(() => {
-                toast.classList.add('hidden');
-            }, 4000);
-        });
-    </script>
+      requestAnimationFrame(animateCanvas);
+    }
+    animateCanvas();
+  </script>
 </body>
 </html>
