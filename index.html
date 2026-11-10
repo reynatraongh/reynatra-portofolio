@@ -3,26 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>FAHRIANDA // Cyber Interface</title>
+  <title>FAHRIANDA | Dynamic Glass Portfolio</title>
   
-  <!-- Premium Fonts Integration -->
+  <!-- Font Integration: Urbanist + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   
-  <!-- Icons -->
+  <!-- Custom Surgena Font Import -->
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/surgena');
+  </style>
+
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
+    /* CSS Variables for Light & Dynamic Modes */
     :root {
-      --bg-dark: #020408;
-      --panel-bg: rgba(7, 13, 26, 0.65);
-      --panel-border: rgba(0, 242, 254, 0.18);
-      --primary-cyan: #00f2fe;
-      --primary-purple: #7f00ff;
-      --neon-magenta: #ff007f;
-      --text-main: #f1f5f9;
+      --bg-color: #f1f5f9;
+      --glass-bg: rgba(255, 255, 255, 0.52);
+      --glass-bg-hover: rgba(255, 255, 255, 0.75);
+      --glass-border: rgba(255, 255, 255, 0.85);
+      --glass-shadow: 0 12px 35px 0 rgba(31, 38, 135, 0.08);
+      --primary-blue: #3a7bd5;
+      --primary-cyan: #00d2ff;
+      --accent-purple: #7f00ff;
+      --accent-magenta: #ff007f;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --mesh-bg: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      --orb-opacity: 0.55;
+      --ripple-color: rgba(0, 210, 255, 0.6);
+    }
+
+    body.dark-mode {
+      --bg-color: #030712;
+      --glass-bg: rgba(15, 23, 42, 0.55);
+      --glass-bg-hover: rgba(30, 41, 59, 0.78);
+      --glass-border: rgba(255, 255, 255, 0.14);
+      --glass-shadow: 0 14px 45px 0 rgba(0, 0, 0, 0.65);
+      --text-main: #f8fafc;
       --text-muted: #94a3b8;
+      --mesh-bg: radial-gradient(circle at 50% 0%, #0f172a, #030712);
+      --orb-opacity: 0.35;
+      --ripple-color: rgba(0, 242, 254, 0.7);
+    }
+
+    /* Dynamic Background Themes on Scroll */
+    body.theme-about {
+      --mesh-bg: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+    }
+    body.dark-mode.theme-about {
+      --mesh-bg: radial-gradient(circle at 50% 0%, #2e1065, #030712);
+    }
+
+    body.theme-skills {
+      --mesh-bg: linear-gradient(135deg, #fdcbf1 0%, #e6dee9 100%);
+    }
+    body.dark-mode.theme-skills {
+      --mesh-bg: radial-gradient(circle at 50% 0%, #1e1b4b, #030712);
+    }
+
+    body.theme-projects {
+      --mesh-bg: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    }
+    body.dark-mode.theme-projects {
+      --mesh-bg: radial-gradient(circle at 50% 0%, #064e3b, #030712);
+    }
+
+    body.theme-vision {
+      --mesh-bg: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+    }
+    body.dark-mode.theme-vision {
+      --mesh-bg: radial-gradient(circle at 50% 0%, #312e81, #030712);
     }
 
     * {
@@ -34,37 +88,162 @@
     }
 
     body {
-      background-color: var(--bg-dark);
+      background-color: var(--bg-color);
       color: var(--text-main);
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Urbanist', sans-serif;
       overflow-x: hidden;
       line-height: 1.6;
+      transition: background-color 0.8s ease, color 0.8s ease;
     }
 
-    /* Ambient Mesh Overlay */
-    .mesh-grid {
+    /* WELCOME SCREEN OVERLAY */
+    .welcome-overlay {
       position: fixed;
       inset: 0;
-      background-image: 
-        radial-gradient(circle at 50% 0%, rgba(127, 0, 255, 0.15), transparent 60%),
-        radial-gradient(circle at 0% 100%, rgba(0, 242, 254, 0.1), transparent 50%);
-      z-index: -2;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
+    }
+
+    .welcome-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
       pointer-events: none;
     }
 
-    .cyber-canvas {
+    .welcome-card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 40px 30px;
+      border-radius: 32px;
+      max-width: 480px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      animation: floatWelcome 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatWelcome {
+      0% { transform: translateY(0px) scale(1); }
+      100% { transform: translateY(-12px) scale(1.02); }
+    }
+
+    .welcome-title {
+      font-family: 'Surgena', 'Urbanist', sans-serif;
+      font-size: 2.2rem;
+      color: #ffffff;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #00d2ff, #ff007f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .welcome-text {
+      font-size: 1.1rem;
+      color: #94a3b8;
+      margin-bottom: 28px;
+    }
+
+    .welcome-btn {
+      background: linear-gradient(135deg, #3a7bd5, #7f00ff);
+      color: #ffffff;
+      border: none;
+      padding: 14px 36px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(58, 123, 213, 0.4);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .welcome-btn:hover {
+      transform: scale(1.06);
+      box-shadow: 0 14px 35px rgba(255, 0, 127, 0.5);
+    }
+
+    /* Ambient Liquid Mesh Background */
+    .liquid-mesh {
       position: fixed;
       inset: 0;
+      z-index: -3;
+      overflow: hidden;
+      background: var(--mesh-bg);
+      transition: background 0.8s ease;
+    }
+
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      z-index: -2;
+      opacity: var(--orb-opacity);
+      pointer-events: none;
+      animation: floatOrb 14s infinite alternate ease-in-out;
+      will-change: transform;
+      transition: opacity 0.8s ease;
+    }
+
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #ff9a9e, #fecfef);
+      top: -100px;
+      left: -100px;
+    }
+
+    .orb-2 {
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, #84fab0, #8fd3f4);
+      bottom: -150px;
+      right: -100px;
+      animation-delay: -5s;
+    }
+
+    .orb-3 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #a1c4fd, #c2e9fb);
+      top: 40%;
+      left: 30%;
+      animation-delay: -9s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(60px, 50px) scale(1.1); }
+      100% { transform: translate(-40px, 60px) scale(0.95); }
+    }
+
+    #fluid-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       z-index: -1;
       pointer-events: none;
     }
 
+    /* Laser Cursor Spotlight */
     .spotlight {
       position: fixed;
-      width: 320px;
-      height: 320px;
+      top: 0;
+      left: 0;
+      width: 380px;
+      height: 380px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 242, 254, 0.18) 0%, rgba(255, 0, 127, 0.05) 50%, transparent 75%);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(0, 210, 255, 0.1) 50%, transparent 75%);
       pointer-events: none;
       z-index: 99;
       transform: translate(-50%, -50%);
@@ -73,378 +252,609 @@
     }
     .spotlight.active { opacity: 1; }
 
-    /* Custom Navbar */
-    header {
+    /* WATER RIPPLE EFFECT */
+    .click-ripple {
       position: fixed;
-      top: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100% - 32px);
-      max-width: 1100px;
-      z-index: 100;
+      border-radius: 50%;
+      border: 2px solid var(--ripple-color);
+      box-shadow: 0 0 18px var(--ripple-color);
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%) scale(0);
+      animation: rippleAnim 0.65s ease-out forwards;
     }
 
-    .nav-bar {
-      background: rgba(4, 8, 16, 0.75);
+    @keyframes rippleAnim {
+      0% { width: 0px; height: 0px; opacity: 1; }
+      100% { width: 150px; height: 150px; opacity: 0; transform: translate(-50%, -50%) scale(1.4); }
+    }
+
+    /* Glassmorphism Card with Liquid Physics Transform */
+    .glass-card {
+      background: var(--glass-bg);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--panel-border);
-      border-radius: 16px;
-      padding: 12px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      box-shadow: var(--glass-shadow);
+      transition: background 0.4s, border-color 0.4s, box-shadow 0.4s, transform 0.15s ease-out;
+      position: relative;
+      overflow: hidden;
+      will-change: transform;
     }
 
-    .brand {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.3rem;
-      letter-spacing: 1px;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -150%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+      transition: 0.7s ease;
+      pointer-events: none;
     }
 
-    .brand-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      padding: 2px 6px;
-      background: rgba(0, 242, 254, 0.12);
-      border: 1px solid var(--primary-cyan);
-      color: var(--primary-cyan);
-      border-radius: 4px;
+    .glass-card:hover::before {
+      left: 150%;
     }
 
-    .nav-items {
-      display: flex;
-      gap: 20px;
-      list-style: none;
-    }
-
-    .nav-items a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      font-family: 'JetBrains Mono', monospace;
-      transition: 0.3s;
-    }
-
-    .nav-items a:hover {
-      color: var(--primary-cyan);
+    .glass-card:hover {
+      background: var(--glass-bg-hover);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.12);
     }
 
     /* Container */
     .container {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 24px;
     }
 
-    /* Asymmetric Hero Section */
-    .hero {
-      min-height: 100vh;
-      padding-top: 130px;
-      padding-bottom: 60px;
+    /* Navbar */
+    header {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 48px);
+      max-width: 1100px;
+      z-index: 100;
+    }
+
+    .nav-glass {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      border-radius: 100px;
+    }
+
+    .logo {
+      font-family: 'Surgena', 'Urbanist', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+
+    .nav-right {
       display: flex;
       align-items: center;
+      gap: 16px;
     }
 
-    .hero-layout {
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-blue);
+    }
+
+    /* INSTAGRAM BUTTON STYLING */
+    .ig-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 50px;
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(220, 39, 67, 0.35);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .ig-btn:hover {
+      transform: scale(1.06) translateY(-2px);
+      box-shadow: 0 8px 25px rgba(220, 39, 67, 0.55);
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid var(--glass-border);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle-btn:hover {
+      transform: scale(1.1) rotate(15deg);
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Section Typography */
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 50px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--primary-blue);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Urbanist', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      margin-bottom: 24px;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 140px;
+      padding-bottom: 60px;
+    }
+
+    .hero-grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 320px;
       gap: 40px;
       align-items: center;
     }
 
-    .terminal-header {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--primary-cyan);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .glitch-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 3.8rem;
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -1px;
-      background: linear-gradient(135deg, #ffffff 30%, var(--primary-cyan) 70%, var(--primary-purple) 100%);
+    /* SURGENA FONT & CONTINUOUS ANIMATION LOOP FOR FAHRIANDA */
+    .hero-name {
+      font-family: 'Surgena', sans-serif;
+      font-size: clamp(3.5rem, 8vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: 2px;
+      margin: 14px 0;
+      background: linear-gradient(270deg, var(--primary-blue), var(--accent-purple), var(--accent-magenta), var(--primary-cyan));
+      background-size: 400% 400%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 16px;
-      position: relative;
       display: inline-block;
-      animation: pulseTitle 4s infinite alternate;
+      animation: surgenaLoop 8s ease infinite, surgenaFloat 4s ease-in-out infinite alternate;
+      will-change: transform, background-position;
     }
 
-    @keyframes pulseTitle {
-      0% { filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.2)); }
-      100% { filter: drop-shadow(0 0 35px rgba(127, 0, 255, 0.4)); }
+    @keyframes surgenaLoop {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    .sub-role {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.95rem;
-      color: var(--primary-cyan);
-      margin-bottom: 24px;
+    @keyframes surgenaFloat {
+      0% { transform: translateY(0px) scale(1); filter: drop-shadow(0 8px 20px rgba(58, 123, 213, 0.25)); }
+      50% { transform: translateY(-6px) scale(1.01); filter: drop-shadow(0 15px 30px rgba(255, 0, 127, 0.35)); }
+      100% { transform: translateY(0px) scale(1); filter: drop-shadow(0 8px 20px rgba(58, 123, 213, 0.25)); }
     }
 
-    /* Custom Glass Panel */
-    .cyber-panel {
-      background: var(--panel-bg);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border: 1px solid var(--panel-border);
-      border-radius: 20px;
-      padding: 30px;
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--primary-blue);
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-intro-box {
+      padding: 32px;
+      margin-top: 24px;
+    }
+
+    .hero-intro-box p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-size: 1.02rem;
+    }
+
+    .hero-intro-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Profile Card */
+    .profile-card {
+      padding: 18px;
+      text-align: center;
+    }
+
+    .avatar-wrapper {
       position: relative;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .cyber-panel::after {
-      content: '';
-      position: absolute;
-      top: -1px;
-      right: 20px;
-      width: 40px;
-      height: 2px;
-      background: var(--primary-cyan);
-      box-shadow: 0 0 10px var(--primary-cyan);
-    }
-
-    .cyber-panel:hover, .cyber-panel:active {
-      border-color: rgba(0, 242, 254, 0.5);
-      transform: translateY(-4px);
-    }
-
-    /* HUD Profile Frame */
-    .profile-hud {
-      position: relative;
-      width: 260px;
-      margin: 0 auto;
-    }
-
-    .hud-ring {
-      position: absolute;
-      inset: -12px;
-      border: 2px stroke transparent;
-      border-radius: 24px;
-      background: linear-gradient(135deg, var(--primary-cyan), transparent, var(--neon-magenta)) border-box;
-      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: destination-out;
-      mask-composite: exclude;
-      animation: rotateRing 10s linear infinite;
-    }
-
-    @keyframes rotateRing {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .avatar-box {
       width: 100%;
-      height: 320px;
-      border-radius: 18px;
+      padding-top: 120%;
+      border-radius: 20px;
       overflow: hidden;
-      border: 1px solid rgba(0, 242, 254, 0.3);
-      position: relative;
+      margin-bottom: 16px;
+      border: 2px solid var(--glass-border);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     }
 
     .avatar-img {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center top;
-      transition: transform 0.6s ease;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .profile-hud:hover .avatar-img {
+    .profile-card:hover .avatar-img {
       transform: scale(1.08);
     }
 
-    /* Section Styling */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 50px;
+      font-size: 0.8rem;
+      color: var(--primary-blue);
+      font-weight: 700;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: blinkDot 1.5s infinite alternate;
+    }
+
+    @keyframes blinkDot {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+
+    /* Sections */
     section {
-      padding: 70px 0;
+      padding: 90px 0;
     }
 
-    .sec-header {
-      margin-bottom: 30px;
+    .about-card {
+      padding: 40px;
     }
 
-    .sec-tag {
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--primary-cyan);
-      font-size: 0.75rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 6px;
+    .about-card p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-size: 1.05rem;
     }
 
-    .sec-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: #fff;
-    }
-
-    /* Cards Grid */
-    .cards-grid {
+    /* Skills Grid */
+    .skills-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
     }
 
-    .feature-card {
-      padding: 28px;
+    .skill-card {
+      padding: 32px;
+    }
+
+    .skill-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-blue);
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+
+    .skill-card h3 {
+      font-family: 'Urbanist', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .skill-card p {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+    }
+
+    .project-card {
+      padding: 36px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      position: relative;
-      overflow: hidden;
     }
 
-    .card-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 2rem;
+    .project-header h3 {
+      font-family: 'Urbanist', sans-serif;
+      font-size: 1.5rem;
       font-weight: 800;
-      color: rgba(0, 242, 254, 0.15);
-      position: absolute;
-      top: 15px;
-      right: 20px;
+      color: var(--text-main);
+      margin-bottom: 6px;
     }
 
-    .card-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.3rem;
-      color: #fff;
-      margin-bottom: 8px;
+    .project-subtitle {
+      font-size: 0.88rem;
+      color: var(--primary-blue);
+      margin-bottom: 18px;
+      font-weight: 700;
     }
 
-    .card-sub {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--primary-cyan);
-      margin-bottom: 14px;
-    }
-
-    .card-body p {
+    .project-card p {
       color: var(--text-muted);
-      font-size: 0.92rem;
-      margin-bottom: 12px;
+      font-size: 0.98rem;
+      margin-bottom: 16px;
     }
 
-    /* Skill Indicator Bar */
-    .skill-list {
+    /* Principles Grid */
+    .principles-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
     }
 
-    .skill-item {
-      padding: 20px;
+    .principle-card {
+      padding: 28px;
     }
 
-    .skill-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .principle-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: rgba(58, 123, 213, 0.3);
       margin-bottom: 8px;
     }
 
-    .skill-name {
-      font-family: 'Syne', sans-serif;
+    .principle-card h4 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+      margin-bottom: 8px;
+    }
+
+    .principle-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Dev List */
+    .dev-list {
+      list-style: none;
+    }
+
+    .dev-list li {
+      padding: 18px 26px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .dev-list i {
+      color: var(--primary-blue);
+      font-size: 1.1rem;
+    }
+
+    /* Closing Card */
+    .closing-card {
+      padding: 50px 40px;
+      text-align: center;
+    }
+
+    .closing-quote {
+      font-family: 'Urbanist', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: var(--text-main);
+      margin-bottom: 24px;
+      line-height: 1.35;
+      background: linear-gradient(135deg, var(--text-main), var(--primary-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .closing-card p {
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto 16px;
       font-size: 1.05rem;
-      color: #fff;
     }
 
-    .skill-meter {
-      height: 6px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      overflow: hidden;
-      position: relative;
+    .finish-tag {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 10px 24px;
+      border-radius: 50px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      font-family: 'Urbanist', sans-serif;
+      font-weight: 800;
+      color: var(--primary-blue);
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
     }
 
-    .skill-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--primary-cyan), var(--primary-purple));
-      border-radius: 10px;
-      width: 0%;
-      transition: width 1.2s ease-out;
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-top: 1px solid var(--glass-border);
     }
 
-    /* Scroll Reveal Animation */
-    .reveal {
+    /* SCROLL-DRIVEN PAGE TRANSITION REVEAL */
+    .scroll-reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
+      transform: translateY(60px) scale(0.96);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
     }
 
-    /* Responsive Breakdown */
-    @media (min-width: 768px) {
-      .hero-layout {
-        grid-template-columns: 1fr 300px;
+    .scroll-reveal.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
       }
-      .glitch-title { font-size: 5rem; }
-      .cards-grid { grid-template-columns: repeat(3, 1fr); }
-      .skill-list { grid-template-columns: repeat(2, 1fr); }
+      .nav-links {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="mesh-grid"></div>
-  <canvas class="cyber-canvas" id="cyberCanvas"></canvas>
+  <!-- WELCOME SCREEN OVERLAY -->
+  <div class="welcome-overlay" id="welcomeOverlay">
+    <div class="welcome-card">
+      <h1 class="welcome-title">FAHRIANDA</h1>
+      <p class="welcome-text">Halow! Selamat datang di Portfolio Fahrianda</p>
+      <button class="welcome-btn" id="welcomeBtn">
+        <i class="fa-solid fa-sparkles"></i> Masuk Portfolio
+      </button>
+    </div>
+  </div>
+
+  <!-- Ambient Liquid Mesh Background -->
+  <div class="liquid-mesh"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Dynamic Canvas -->
+  <canvas id="fluid-canvas"></canvas>
+
+  <!-- Laser Spotlight -->
   <div class="spotlight" id="spotlight"></div>
 
-  <!-- Navbar -->
+  <!-- Floating Header -->
   <header>
-    <div class="nav-bar">
-      <div class="brand">
-        FAHRIANDA <span class="brand-tag">v2.6</span>
-      </div>
-      <ul class="nav-items">
-        <li><a href="#about">//ABOUT</a></li>
-        <li><a href="#skills">//SKILLS</a></li>
-        <li><a href="#projects">//PROJECTS</a></li>
-      </ul>
+    <div class="container">
+      <nav class="glass-card nav-glass">
+        <a href="#" class="logo">FAHRIANDA</a>
+        <div class="nav-right">
+          <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#approach">Approach</a></li>
+            <li><a href="#vision">Vision</a></li>
+          </ul>
+
+          <!-- INSTAGRAM DIRECT BUTTON -->
+          <a href="https://www.instagram.com/reynatraonig?rpxt=ZTJieTB1MnUzb2ky&utm_source=qr" target="_blank" class="ig-btn" id="igBtn">
+            <i class="fa-brands fa-instagram"></i> Instagram
+          </a>
+
+          <!-- Theme Toggle Button -->
+          <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+      </nav>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
+  <!-- 1. Intro Section -->
+  <section class="hero-section" id="hero">
     <div class="container">
-      <div class="hero-layout">
-        <div class="reveal">
-          <div class="terminal-header"><i class="fa-solid fa-code-branch"></i> SYSTEM STATUS: ONLINE</div>
-          <h1 class="glitch-title">FAHRIANDA</h1>
-          <div class="sub-role">> Creative Thinker & Community Builder</div>
+      <div class="hero-grid">
+        <div class="scroll-reveal">
+          <div class="section-tag"><i class="fa-solid fa-sparkles"></i> Personal Portfolio</div>
+          <!-- SURGENA FONT WITH CONTINUOUS ANIMATION LOOP -->
+          <h1 class="hero-name">FAHRIANDA</h1>
+          <div class="hero-subtitle">Creative Thinker · Independent Builder · Community Enthusiast</div>
           
-          <div class="cyber-panel">
+          <div class="glass-card hero-intro-box">
             <p>Halo, saya <strong>Fahri</strong>.</p>
-            <p>Saya adalah seseorang yang memiliki ketertarikan pada dunia teknologi, kreativitas digital, pengembangan ide, dan pengelolaan komunitas. Saya senang mengeksplorasi hal-hal baru dan mengubah ide menjadi sesuatu yang berguna.</p>
-            <p>Bagi saya, setiap gagasan memiliki peluang untuk dikembangkan melalui proses, eksperimen, evaluasi, dan konsistensi.</p>
+            <p>Saya adalah seseorang yang memiliki ketertarikan pada dunia teknologi, kreativitas digital, pengembangan ide, dan pengelolaan komunitas. Saya senang mengeksplorasi hal-hal baru, mempelajari sesuatu secara mandiri, serta mencoba mengubah ide menjadi sesuatu yang dapat digunakan dan memberikan manfaat.</p>
+            <p>Bagi saya, sebuah ide tidak seharusnya berhenti sebagai angan-angan. Saya percaya bahwa setiap gagasan memiliki peluang untuk dikembangkan melalui proses, eksperimen, evaluasi, dan konsistensi.</p>
+            <p>Saya menikmati proses membangun sesuatu dari awal, menghadapi berbagai tantangan, mencari solusi, dan terus memperbaiki hasil pekerjaan agar menjadi lebih baik.</p>
+            <p>Saya mungkin masih terus belajar dan berkembang, tetapi saya selalu berusaha untuk tidak berhenti mencoba.</p>
           </div>
         </div>
 
-        <!-- Dynamic HUD Profile Photo -->
-        <div class="reveal" style="transition-delay: 0.15s;">
-          <div class="profile-hud">
-            <div class="hud-ring"></div>
-            <div class="avatar-box">
-              <img src="profile.jpg" alt="Fahrianda" class="avatar-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80';"/>
+        <!-- Profile Photo Card -->
+        <div class="scroll-reveal" style="transition-delay: 0.2s;">
+          <div class="glass-card profile-card">
+            <div class="avatar-wrapper">
+              <img src="profile.jpg" alt="Fahrianda Profile" class="avatar-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80';"/>
+            </div>
+            <div class="status-badge">
+              <span class="status-dot"></span> Active Builder
             </div>
           </div>
         </div>
@@ -452,111 +862,358 @@
     </div>
   </section>
 
-  <!-- About Section -->
+  <!-- 2. About Me Section -->
   <section id="about">
     <div class="container">
-      <div class="sec-header reveal">
-        <span class="sec-tag">// OVERVIEW</span>
-        <h2 class="sec-title">About Me</h2>
-      </div>
-      <div class="cyber-panel reveal">
-        <p>Saya merupakan individu yang memiliki rasa ingin tahu tinggi dan senang mempelajari berbagai hal, khususnya yang berkaitan dengan teknologi dan pengembangan digital.</p>
-        <p>Dalam setiap proyek, saya tidak hanya memperhatikan hasil akhirnya, tetapi juga proses di baliknya. Keberanian untuk mencoba dan kemauan untuk memperbaiki diri merupakan bagian penting dari perkembangan saya.</p>
+      <div class="scroll-reveal">
+        <div class="section-tag"><i class="fa-solid fa-user-gear"></i> Overview</div>
+        <h2 class="section-title">About Me</h2>
+        <div class="glass-card about-card">
+          <p>Saya merupakan individu yang memiliki rasa ingin tahu tinggi dan senang mempelajari berbagai hal, khususnya yang berkaitan dengan teknologi dan pengembangan digital.</p>
+          <p>Saya memiliki ketertarikan dalam membangun proyek secara mandiri, mengelola komunitas, mengembangkan konsep kreatif, serta mencari solusi terhadap berbagai permasalahan yang muncul selama proses pengerjaan.</p>
+          <p>Dalam setiap proyek, saya tidak hanya memperhatikan hasil akhirnya, tetapi juga proses di baliknya. Saya senang memikirkan bagaimana sebuah sistem dapat bekerja dengan lebih baik, bagaimana sebuah desain dapat memiliki identitas yang kuat, dan bagaimana sebuah platform dapat memberikan pengalaman yang nyaman bagi penggunanya.</p>
+          <p>Saya terbiasa mengeksplorasi ide, melakukan penyesuaian, dan mengevaluasi hasil pekerjaan. Bagi saya, proses belajar tidak selalu harus dimulai dengan kemampuan yang sempurna. Keberanian untuk mencoba dan kemauan untuk memperbaiki diri merupakan bagian penting dari perkembangan seseorang.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Skills Section with Meters -->
+  <!-- 3. Skills Section -->
   <section id="skills">
     <div class="container">
-      <div class="sec-header reveal">
-        <span class="sec-tag">// CAPABILITIES</span>
-        <h2 class="sec-title">Skill Matrix</h2>
+      <div class="scroll-reveal">
+        <div class="section-tag"><i class="fa-solid fa-bolt"></i> Capabilities</div>
+        <h2 class="section-title">Skill yang dimiliki Fahrianda</h2>
       </div>
 
-      <div class="skill-list">
-        <div class="cyber-panel skill-item reveal" data-level="90%">
-          <div class="skill-head">
-            <span class="skill-name">Creative Thinking</span>
-            <span class="sec-tag">90%</span>
-          </div>
-          <div class="skill-meter"><div class="skill-fill"></div></div>
+      <div class="skills-grid">
+        <div class="glass-card skill-card scroll-reveal">
+          <div class="skill-icon"><i class="fa-solid fa-lightbulb"></i></div>
+          <h3>Creative Thinking</h3>
+          <p>Memiliki kemampuan dalam mengembangkan gagasan menjadi konsep yang lebih terstruktur. Saya senang mengeksplorasi berbagai kemungkinan dan mencari pendekatan kreatif dalam menyelesaikan suatu pekerjaan.</p>
         </div>
 
-        <div class="cyber-panel skill-item reveal" data-level="85%">
-          <div class="skill-head">
-            <span class="skill-name">Problem Solving</span>
-            <span class="sec-tag">85%</span>
-          </div>
-          <div class="skill-meter"><div class="skill-fill"></div></div>
+        <div class="glass-card skill-card scroll-reveal" style="transition-delay: 0.1s;">
+          <div class="skill-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+          <h3>Problem Solving</h3>
+          <p>Terbiasa menghadapi kendala selama proses pengembangan proyek, menganalisis permasalahan, dan mencari alternatif solusi agar sistem atau pekerjaan dapat berjalan dengan lebih baik.</p>
         </div>
 
-        <div class="cyber-panel skill-item reveal" data-level="92%">
-          <div class="skill-head">
-            <span class="skill-name">Community Management</span>
-            <span class="sec-tag">92%</span>
-          </div>
-          <div class="skill-meter"><div class="skill-fill"></div></div>
+        <div class="glass-card skill-card scroll-reveal" style="transition-delay: 0.2s;">
+          <div class="skill-icon"><i class="fa-solid fa-users"></i></div>
+          <h3>Community Management</h3>
+          <p>Memiliki pengalaman dalam mengelola komunitas digital, menyusun struktur server, membangun identitas komunitas, serta memperhatikan kenyamanan dan keterlibatan anggota.</p>
         </div>
 
-        <div class="cyber-panel skill-item reveal" data-level="88%">
-          <div class="skill-head">
-            <span class="skill-name">Digital Development</span>
-            <span class="sec-tag">88%</span>
-          </div>
-          <div class="skill-meter"><div class="skill-fill"></div></div>
+        <div class="glass-card skill-card scroll-reveal">
+          <div class="skill-icon"><i class="fa-solid fa-code"></i></div>
+          <h3>Digital Project Development</h3>
+          <p>Memiliki pengalaman mengeksplorasi dan mengembangkan proyek berbasis teknologi, mulai dari tahap perencanaan, pengujian, implementasi, hingga evaluasi.</p>
+        </div>
+
+        <div class="glass-card skill-card scroll-reveal" style="transition-delay: 0.1s;">
+          <div class="skill-icon"><i class="fa-solid fa-palette"></i></div>
+          <h3>Visual & Communication Awareness</h3>
+          <p>Memperhatikan konsistensi identitas visual, pemilihan desain, penyusunan informasi, dan cara berkomunikasi agar pesan dapat tersampaikan dengan jelas dan profesional.</p>
+        </div>
+
+        <div class="glass-card skill-card scroll-reveal" style="transition-delay: 0.2s;">
+          <div class="skill-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <h3>Continuous Improvement</h3>
+          <p>Memiliki keinginan untuk terus meningkatkan kualitas pekerjaan melalui evaluasi, pembelajaran mandiri, eksperimen, dan pengembangan kemampuan.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Projects Showcase -->
+  <!-- 4. Projects Section -->
   <section id="projects">
     <div class="container">
-      <div class="sec-header reveal">
-        <span class="sec-tag">// SHOWCASE</span>
-        <h2 class="sec-title">Featured Projects</h2>
+      <div class="scroll-reveal">
+        <div class="section-tag"><i class="fa-solid fa-cubes"></i> Portfolio Showcase</div>
+        <h2 class="section-title">Featured Projects</h2>
       </div>
 
-      <div class="cards-grid">
-        <div class="cyber-panel feature-card reveal">
-          <span class="card-num">01</span>
-          <div>
-            <h3 class="card-title">THE BROTHERHOOD</h3>
-            <div class="card-sub">Discord Community Management</div>
-            <div class="card-body">
-              <p>Pengelolaan komunitas digital berbasis Discord yang dibangun dengan memperhatikan identitas visual dan kenyamanan anggota.</p>
-            </div>
+      <div class="projects-grid">
+        <div class="glass-card project-card scroll-reveal">
+          <div class="project-header">
+            <h3>THE BROTHERHOOD</h3>
+            <div class="project-subtitle">Community Management & Digital Branding</div>
           </div>
+          <p>THE BROTHERHOOD merupakan proyek pengelolaan komunitas digital berbasis Discord yang saya bangun dan kembangkan dengan memperhatikan identitas, struktur, serta pengalaman para anggotanya.</p>
+          <p>Dalam proyek ini, saya terlibat dalam pengelolaan struktur server, penataan kategori dan channel, pengembangan identitas visual, penyusunan pengumuman, serta pengelolaan komunikasi komunitas.</p>
+          <p>Saya juga memperhatikan bagaimana sebuah komunitas dapat memiliki suasana yang aktif, nyaman, terorganisasi, dan memiliki karakter tersendiri.</p>
         </div>
 
-        <div class="cyber-panel feature-card reveal" style="transition-delay: 0.1s;">
-          <span class="card-num">02</span>
-          <div>
-            <h3 class="card-title">HOME CAM</h3>
-            <div class="card-sub">CCTV Discord Integration</div>
-            <div class="card-body">
-              <p>Sistem streaming CCTV berkelanjutan ke voice channel Discord dengan integrasi audio-video real-time.</p>
-            </div>
+        <div class="glass-card project-card scroll-reveal" style="transition-delay: 0.1s;">
+          <div class="project-header">
+            <h3>HOME CAM</h3>
+            <div class="project-subtitle">CCTV Monitoring & Discord Integration</div>
           </div>
+          <p>HOME CAM merupakan proyek pemantauan kamera yang dikembangkan untuk melakukan streaming CCTV secara berkelanjutan ke dalam voice channel Discord.</p>
+          <p>Proyek ini menggabungkan perangkat kamera, konektivitas jaringan, transmisi video, serta integrasi audio untuk menghadirkan sistem pemantauan yang dapat diakses melalui komunitas Discord.</p>
+          <p>Dalam pengembangannya, saya menghadapi berbagai tantangan teknis, termasuk kestabilan jaringan, latensi, kualitas transmisi video, kendala audio, keterbatasan perangkat, dan pengelolaan sistem yang berjalan dalam waktu lama.</p>
         </div>
 
-        <div class="cyber-panel feature-card reveal" style="transition-delay: 0.2s;">
-          <span class="card-num">03</span>
-          <div>
-            <h3 class="card-title">CASHFLOW TRACKER</h3>
-            <div class="card-sub">Finance System Concept</div>
-            <div class="card-body">
-              <p>Konsep pencatatan keuangan pribadi yang terstruktur untuk transparansi dan evaluasi kondisi finansial.</p>
-            </div>
+        <div class="glass-card project-card scroll-reveal" style="transition-delay: 0.2s;">
+          <div class="project-header">
+            <h3>PERSONAL CASHFLOW</h3>
+            <div class="project-subtitle">Personal Finance Tracking System</div>
           </div>
+          <p>Saya juga mengembangkan konsep pencatatan keuangan pribadi dengan pendekatan yang terstruktur dan mudah dipahami.</p>
+          <p>Sistem ini dirancang untuk mencatat pemasukan, pengeluaran, riwayat transaksi, akumulasi dana, serta persentase penggunaan keuangan.</p>
+          <p>Tujuannya adalah menciptakan sistem pencatatan yang lebih terorganisasi, transparan, dan dapat membantu proses evaluasi kondisi keuangan secara berkala.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Animation Script -->
+  <!-- 5. Working Approach Section -->
+  <section id="approach">
+    <div class="container">
+      <div class="scroll-reveal">
+        <div class="section-tag"><i class="fa-solid fa-compass"></i> Work Philosophy</div>
+        <h2 class="section-title">Working Approach</h2>
+        <p style="color: var(--text-muted); margin-bottom: 30px;">Saya percaya bahwa hasil yang baik berasal dari proses yang terencana dan kemauan untuk terus melakukan perbaikan.</p>
+      </div>
+
+      <div class="principles-grid">
+        <div class="glass-card principle-card scroll-reveal">
+          <div class="principle-num">01</div>
+          <h4>INITIATIVE</h4>
+          <p>Tidak selalu menunggu arahan untuk memulai. Saya berusaha mencari peluang, mengembangkan gagasan, dan mengambil langkah awal ketika menemukan sesuatu yang menarik untuk dikerjakan.</p>
+        </div>
+
+        <div class="glass-card principle-card scroll-reveal" style="transition-delay: 0.1s;">
+          <div class="principle-num">02</div>
+          <h4>ADAPTABILITY</h4>
+          <p>Terbuka terhadap perubahan dan bersedia mempelajari hal-hal baru ketika menghadapi kebutuhan atau tantangan yang berbeda.</p>
+        </div>
+
+        <div class="glass-card principle-card scroll-reveal" style="transition-delay: 0.2s;">
+          <div class="principle-num">03</div>
+          <h4>RESPONSIBILITY</h4>
+          <p>Berusaha memahami tanggung jawab dalam setiap proyek dan memperhatikan dampak dari keputusan yang diambil.</p>
+        </div>
+
+        <div class="glass-card principle-card scroll-reveal">
+          <div class="principle-num">04</div>
+          <h4>EVALUATION</h4>
+          <p>Tidak menganggap pekerjaan selesai hanya karena sudah dapat digunakan. Saya percaya evaluasi merupakan bagian penting untuk meningkatkan kualitas.</p>
+        </div>
+
+        <div class="glass-card principle-card scroll-reveal" style="transition-delay: 0.1s;">
+          <div class="principle-num">05</div>
+          <h4>CONSISTENCY</h4>
+          <p>Berusaha menjaga komitmen terhadap proses pengembangan, meskipun terkadang terdapat kendala yang membutuhkan waktu dan usaha lebih.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Personal Development Section -->
+  <section>
+    <div class="container">
+      <div class="scroll-reveal">
+        <div class="section-tag"><i class="fa-solid fa-arrow-trend-up"></i> Growth Mindset</div>
+        <h2 class="section-title">Personal Development</h2>
+        <p style="color: var(--text-muted); margin-bottom: 24px;">Saya menyadari bahwa perjalanan pengembangan diri merupakan proses yang tidak memiliki garis akhir. Beberapa aspek yang terus menjadi perhatian saya adalah:</p>
+      </div>
+
+      <ul class="dev-list">
+        <li class="glass-card scroll-reveal"><i class="fa-solid fa-circle-check"></i> Meningkatkan konsistensi dalam menyelesaikan proyek.</li>
+        <li class="glass-card scroll-reveal" style="transition-delay: 0.1s;"><i class="fa-solid fa-circle-check"></i> Mengembangkan kemampuan teknis dan pemahaman teknologi.</li>
+        <li class="glass-card scroll-reveal" style="transition-delay: 0.2s;"><i class="fa-solid fa-circle-check"></i> Meningkatkan kemampuan mengatur prioritas dan waktu.</li>
+        <li class="glass-card scroll-reveal"><i class="fa-solid fa-circle-check"></i> Membiasakan dokumentasi proses dan hasil pekerjaan.</li>
+        <li class="glass-card scroll-reveal" style="transition-delay: 0.1s;"><i class="fa-solid fa-circle-check"></i> Memperluas wawasan melalui pengalaman dan pembelajaran baru.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 & 8. Vision & Closing Section -->
+  <section id="vision">
+    <div class="container">
+      <div class="scroll-reveal">
+        <div class="section-tag"><i class="fa-solid fa-eye"></i> Aspiration</div>
+        <h2 class="section-title">Vision & Goals</h2>
+        <div class="glass-card about-card" style="margin-bottom: 40px;">
+          <p>Saya ingin terus berkembang menjadi individu yang mampu menggabungkan kreativitas, kemampuan teknis, dan pemikiran strategis dalam menghasilkan sesuatu yang bermanfaat.</p>
+          <p>Saya memiliki ketertarikan untuk terus mengeksplorasi dunia teknologi, mengembangkan proyek digital, membangun sistem yang lebih baik, dan menciptakan pengalaman yang memberikan nilai bagi orang lain.</p>
+          <p>Ke depannya, saya ingin memiliki lebih banyak proyek nyata yang dapat menjadi bukti dari kemampuan, pengalaman, serta perkembangan diri saya.</p>
+          <p>Bagi saya, keberhasilan bukan hanya tentang seberapa banyak ide yang dimiliki, tetapi juga tentang seberapa jauh ide tersebut dapat diwujudkan melalui tindakan nyata.</p>
+        </div>
+      </div>
+
+      <!-- 8. Closing -->
+      <div class="glass-card closing-card scroll-reveal">
+        <div class="closing-quote">
+          "I DON'T JUST IMAGINE POSSIBILITIES. I TAKE INITIATIVE TO TURN THEM INTO REALITY."
+        </div>
+        <p>Saya percaya bahwa setiap pencapaian besar dapat dimulai dari sebuah ide sederhana. Dengan kemauan untuk belajar, keberanian untuk mencoba, dan konsistensi dalam menjalani proses, saya ingin terus membangun sesuatu yang memiliki arti dan manfaat.</p>
+        <p>Saya adalah seseorang yang masih terus berkembang, masih banyak belajar, dan masih memiliki banyak hal untuk diwujudkan.</p>
+        <div class="finish-tag">This is not the finish line. This is only the beginning.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 FAHRIANDA. Designed with Elastic Glassmorphism & Dynamic Audio-Visual Aesthetics.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
   <script>
+    // Web Audio API Sound Generator
+    let audioCtx = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playSound(type) {
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        if (type === 'welcome') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3);
+          gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.3);
+        } else if (type === 'ig') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.15);
+          gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.15);
+        } else {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(700, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(350, audioCtx.currentTime + 0.08);
+          gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.08);
+        }
+      } catch (e) {}
+    }
+
+    // Welcome Screen Controller
+    const welcomeOverlay = document.getElementById('welcomeOverlay');
+    const welcomeBtn = document.getElementById('welcomeBtn');
+
+    welcomeBtn.addEventListener('click', () => {
+      playSound('welcome');
+      welcomeOverlay.classList.add('hidden');
+    });
+
+    // Instagram Button Sound & Animation Trigger
+    const igBtn = document.getElementById('igBtn');
+    igBtn.addEventListener('click', () => {
+      playSound('ig');
+    });
+
+    // Water Ripple Effect
+    function createRipple(x, y) {
+      const ripple = document.createElement('div');
+      ripple.className = 'click-ripple';
+      ripple.style.left = x + 'px';
+      ripple.style.top = y + 'px';
+      document.body.appendChild(ripple);
+      playSound('tap');
+
+      setTimeout(() => {
+        ripple.remove();
+      }, 650);
+    }
+
+    window.addEventListener('click', (e) => {
+      if (!welcomeOverlay.classList.contains('hidden')) return;
+      createRipple(e.clientX, e.clientY);
+    });
+
+    window.addEventListener('touchstart', (e) => {
+      if (!welcomeOverlay.classList.contains('hidden')) return;
+      if (e.touches.length > 0) {
+        createRipple(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    // LIQUID STRETCH & ELASTIC TOUCH FOR UI CARDS
+    document.querySelectorAll('.glass-card').forEach(card => {
+      let startX = 0, startY = 0;
+
+      card.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 0) {
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+
+      card.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+          const deltaX = (e.touches[0].clientX - startX) * 0.15;
+          const deltaY = (e.touches[0].clientY - startY) * 0.15;
+          card.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.98) skew(${deltaX * 0.2}deg)`;
+        }
+      }, { passive: true });
+
+      card.addEventListener('touchend', () => {
+        card.style.transform = 'translate(0px, 0px) scale(1) skew(0deg)';
+      });
+    });
+
+    // Dynamic Theme Change on Scroll
+    const sections = document.querySelectorAll('section');
+    window.addEventListener('scroll', () => {
+      let currentSec = '';
+      sections.forEach(sec => {
+        const top = sec.offsetTop - 300;
+        if (window.scrollY >= top) {
+          currentSec = sec.getAttribute('id');
+        }
+      });
+
+      document.body.classList.remove('theme-about', 'theme-skills', 'theme-projects', 'theme-vision');
+      if (currentSec && currentSec !== 'hero') {
+        document.body.classList.add(`theme-${currentSec}`);
+      }
+    });
+
+    // Theme Switcher (Dark / Light)
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const themeIcon = themeToggleBtn.querySelector('i');
+
+    themeToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.body.classList.toggle('dark-mode');
+      if (document.body.classList.contains('dark-mode')) {
+        themeIcon.className = 'fa-solid fa-sun';
+      } else {
+        themeIcon.className = 'fa-solid fa-moon';
+      }
+      playSound('tap');
+    });
+
     // Cursor Spotlight
     const spotlight = document.getElementById('spotlight');
     function updateSpotlight(x, y) {
@@ -564,65 +1221,91 @@
       spotlight.style.top = y + 'px';
       spotlight.classList.add('active');
     }
-    window.addEventListener('mousemove', e => updateSpotlight(e.clientX, e.clientY));
-    window.addEventListener('touchmove', e => {
-      if(e.touches.length > 0) updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
-    });
+    window.addEventListener('mousemove', (e) => updateSpotlight(e.clientX, e.clientY));
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
 
-    // Scroll Reveal & Skill Meter Fill Trigger
+    // Scroll Reveal Observer (Scroll-Driven Page Transitions)
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
-          if (entry.target.classList.contains('skill-item')) {
-            const meter = entry.target.querySelector('.skill-fill');
-            meter.style.width = entry.target.dataset.level;
-          }
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.15 });
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 
-    // Particle Background
-    const canvas = document.getElementById('cyberCanvas');
+    // Connected Light Node Particle Canvas
+    const canvas = document.getElementById('fluid-canvas');
     const ctx = canvas.getContext('2d');
-    function resize() {
+    let particles = [];
+
+    function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
-    resize();
-    window.addEventListener('resize', resize);
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
-    let particles = Array.from({ length: 40 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5
-    }));
+    class NodeParticle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1.2;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
 
-    function drawParticles() {
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+      draw() {
+        const isDark = document.body.classList.contains('dark-mode');
+        ctx.fillStyle = isDark ? 'rgba(0, 242, 254, 0.4)' : 'rgba(58, 123, 213, 0.4)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 45; i++) {
+      particles.push(new NodeParticle());
+    }
+
+    function animateCanvas() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p, i) => {
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      const isDark = document.body.classList.contains('dark-mode');
 
-        ctx.fillStyle = 'rgba(0, 242, 254, 0.5)';
-        ctx.beginPath(); ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2); ctx.fill();
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
 
         for (let j = i + 1; j < particles.length; j++) {
-          const dx = p.x - particles[j].x, dy = p.y - particles[j].y;
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 100) {
-            ctx.strokeStyle = `rgba(0, 242, 254, ${0.12 * (1 - dist / 100)})`;
-            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
+
+          if (dist < 120) {
+            ctx.strokeStyle = isDark 
+              ? `rgba(0, 242, 254, ${0.12 * (1 - dist / 120)})`
+              : `rgba(58, 123, 213, ${0.15 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.6;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
           }
         }
-      });
-      requestAnimationFrame(drawParticles);
+      }
+
+      requestAnimationFrame(animateCanvas);
     }
-    drawParticles();
+    animateCanvas();
   </script>
 </body>
 </html>
