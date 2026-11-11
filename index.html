@@ -19,64 +19,511 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
-    /* CSS Variables for Light & Dynamic Modes */
+    /* CSS Variables for Clean Monochrome Light & Dark Modes */
     :root {
-      --bg-color: #f1f5f9;
-      --glass-bg: rgba(255, 255, 255, 0.52);
-      --glass-bg-hover: rgba(255, 255, 255, 0.75);
-      --glass-border: rgba(255, 255, 255, 0.85);
-      --glass-shadow: 0 12px 35px 0 rgba(31, 38, 135, 0.08);
-      --primary-blue: #3a7bd5;
-      --primary-cyan: #00d2ff;
-      --accent-purple: #7f00ff;
-      --accent-magenta: #ff007f;
-      --text-main: #0f172a;
+      --bg-color: #f8fafc;
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-bg-hover: rgba(255, 255, 255, 0.9);
+      --glass-border: rgba(0, 0, 0, 0.12);
+      --glass-shadow: 0 12px 35px 0 rgba(0, 0, 0, 0.05);
+      --primary-blue: #0f172a;
+      --primary-cyan: #334155;
+      --accent-purple: #1e293b;
+      --accent-magenta: #475569;
+      --text-main: #020617;
       --text-muted: #475569;
-      --mesh-bg: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-      --orb-opacity: 0.55;
-      --ripple-color: rgba(0, 210, 255, 0.6);
+      --mesh-bg: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      --orb-opacity: 0.15;
+      --ripple-color: rgba(255, 255, 255, 0.8);
+      --font-heading: 'Surgena', 'Urbanist', sans-serif;
+      --font-body: 'Urbanist', sans-serif;
     }
 
     body.dark-mode {
       --bg-color: #030712;
-      --glass-bg: rgba(15, 23, 42, 0.55);
-      --glass-bg-hover: rgba(30, 41, 59, 0.78);
-      --glass-border: rgba(255, 255, 255, 0.14);
-      --glass-shadow: 0 14px 45px 0 rgba(0, 0, 0, 0.65);
+      --glass-bg: rgba(15, 23, 42, 0.65);
+      --glass-bg-hover: rgba(30, 41, 59, 0.85);
+      --glass-border: rgba(255, 255, 255, 0.15);
+      --glass-shadow: 0 14px 45px 0 rgba(0, 0, 0, 0.75);
+      --primary-blue: #ffffff;
+      --primary-cyan: #e2e8f0;
+      --accent-purple: #cbd5e1;
+      --accent-magenta: #94a3b8;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --mesh-bg: radial-gradient(circle at 50% 0%, #0f172a, #030712);
+      --orb-opacity: 0.2;
+      --ripple-color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* THEME CONCEPT 2: CYBERPUNK NEON */
+    body.concept-cyberpunk {
+      --bg-color: #050508;
+      --glass-bg: rgba(20, 10, 35, 0.7);
+      --glass-bg-hover: rgba(40, 15, 65, 0.85);
+      --glass-border: rgba(236, 72, 153, 0.35);
+      --glass-shadow: 0 15px 45px rgba(236, 72, 153, 0.2);
+      --primary-blue: #f472b6;
+      --primary-cyan: #38bdf8;
+      --text-main: #ffffff;
+      --text-muted: #f472b6;
+      --mesh-bg: radial-gradient(circle at 50% 0%, #2e1065 0%, #050508 100%);
+      --orb-opacity: 0.4;
+      --ripple-color: rgba(236, 72, 153, 0.8);
+      --font-heading: 'JetBrains Mono', monospace;
+      --font-body: 'Urbanist', sans-serif;
+    }
+
+    /* THEME CONCEPT 3: EMERALD FOREST */
+    body.concept-emerald {
+      --bg-color: #022c22;
+      --glass-bg: rgba(6, 78, 59, 0.65);
+      --glass-bg-hover: rgba(4, 120, 87, 0.8);
+      --glass-border: rgba(52, 211, 153, 0.3);
+      --glass-shadow: 0 15px 45px rgba(6, 78, 59, 0.4);
+      --primary-blue: #6ee7b7;
+      --primary-cyan: #a7f3d0;
+      --text-main: #ecfdf5;
+      --text-muted: #a7f3d0;
+      --mesh-bg: radial-gradient(circle at 50% 0%, #064e3b 0%, #022c22 100%);
       --orb-opacity: 0.35;
-      --ripple-color: rgba(0, 242, 254, 0.7);
+      --ripple-color: rgba(52, 211, 153, 0.8);
+      --font-heading: 'Urbanist', sans-serif;
+      --font-body: 'Urbanist', sans-serif;
     }
 
-    /* Dynamic Background Themes on Scroll */
-    body.theme-about {
-      --mesh-bg: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
-    }
-    body.dark-mode.theme-about {
-      --mesh-bg: radial-gradient(circle at 50% 0%, #2e1065, #030712);
-    }
-
-    body.theme-skills {
-      --mesh-bg: linear-gradient(135deg, #fdcbf1 0%, #e6dee9 100%);
-    }
-    body.dark-mode.theme-skills {
-      --mesh-bg: radial-gradient(circle at 50% 0%, #1e1b4b, #030712);
-    }
-
-    body.theme-projects {
-      --mesh-bg: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-    }
-    body.dark-mode.theme-projects {
-      --mesh-bg: radial-gradient(circle at 50% 0%, #064e3b, #030712);
+    /* THEME CONCEPT 4: SUNSET MINIMAL */
+    body.concept-sunset {
+      --bg-color: #181211;
+      --glass-bg: rgba(45, 27, 24, 0.7);
+      --glass-bg-hover: rgba(65, 38, 33, 0.85);
+      --glass-border: rgba(251, 146, 60, 0.3);
+      --glass-shadow: 0 15px 45px rgba(251, 146, 60, 0.2);
+      --primary-blue: #fb923c;
+      --primary-cyan: #fdba74;
+      --text-main: #fff7ed;
+      --text-muted: #fdba74;
+      --mesh-bg: radial-gradient(circle at 50% 0%, #431407 0%, #181211 100%);
+      --orb-opacity: 0.35;
+      --ripple-color: rgba(251, 146, 60, 0.8);
+      --font-heading: 'Surgena', sans-serif;
+      --font-body: 'Urbanist', sans-serif;
     }
 
-    body.theme-vision {
-      --mesh-bg: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+    /* THEME CONCEPT 5: GOLDEN ROYAL LUXURY */
+    body.concept-royal {
+      --bg-color: #110c05;
+      --glass-bg: rgba(50, 35, 10, 0.7);
+      --glass-bg-hover: rgba(75, 52, 15, 0.85);
+      --glass-border: rgba(234, 179, 8, 0.35);
+      --glass-shadow: 0 15px 45px rgba(234, 179, 8, 0.25);
+      --primary-blue: #facc15;
+      --primary-cyan: #fef08a;
+      --text-main: #fefce8;
+      --text-muted: #fde047;
+      --mesh-bg: radial-gradient(circle at 50% 0%, #713f12 0%, #110c05 100%);
+      --orb-opacity: 0.35;
+      --ripple-color: rgba(234, 179, 8, 0.8);
+      --font-heading: 'Surgena', sans-serif;
+      --font-body: 'Urbanist', sans-serif;
     }
+
+    /* THEME CONCEPT 6: MATRIX CYBER */
+    body.concept-matrix {
+      --bg-color: #021508;
+      --glass-bg: rgba(2, 44, 18, 0.75);
+      --glass-bg-hover: rgba(4, 75, 30, 0.88);
+      --glass-border: rgba(74, 222, 128, 0.4);
+      --glass-shadow: 0 15px 45px rgba(34, 197, 94, 0.3);
+      --primary-blue: #4ade80;
+      --primary-cyan: #86efac;
+      --text-main: #f0fdf4;
+      --text-muted: #86efac;
+      --mesh-bg: radial-gradient(circle at 50% 0%, #065f46 0%, #021508 100%);
+      --orb-opacity: 0.4;
+      --ripple-color: rgba(74, 222, 128, 0.8);
+      --font-heading: 'JetBrains Mono', monospace;
+      --font-body: 'Urbanist', sans-serif;
+    }
+
+    /* READER MODE STYLES */
+    body.reader-mode {
+      --bg-color: #0f172a !important;
+      --text-main: #f8fafc !important;
+      --text-muted: #cbd5e1 !important;
+      --glass-bg: rgba(15, 23, 42, 0.95) !important;
+      --glass-border: rgba(255, 255, 255, 0.25) !important;
+      line-height: 1.9 !important;
+    }
+
+    body.reader-mode header .logo,
+    body.reader-mode header .nav-links,
+    body.reader-mode header .ig-btn,
+    body.reader-mode header #themeToggle,
+    body.reader-mode header #conceptToggle {
+      display: none !important;
+    }
+
+    body.reader-mode header {
+      top: 20px !important;
+    }
+
+    body.reader-mode header .nav-glass {
+      background: #ffffff !important;
+      border: 2px solid #ffffff !important;
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4) !important;
+      width: 175px !important;
+      height: 48px !important;
+      min-width: 175px !important;
+      min-height: 48px !important;
+      border-radius: 24px !important;
+      padding: 0 16px !important;
+      margin: 0 auto !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      position: relative !important;
+    }
+
+    body.reader-mode header #readerToggle {
+      display: flex !important;
+      background: transparent !important;
+      border: none !important;
+      width: 100% !important;
+      height: 100% !important;
+      border-radius: 24px !important;
+      align-items: center !important;
+      justify-content: center !important;
+      position: relative !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      cursor: pointer !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+    }
+
+    body.reader-mode header #readerToggle i {
+      display: none !important;
+    }
+
+    body.reader-mode header #readerToggle::after {
+      content: 'Keluar Mode Baca' !important;
+      color: #030712 !important;
+      font-size: 0.82rem !important;
+      font-weight: 800 !important;
+      display: block !important;
+      line-height: 1 !important;
+      text-align: center !important;
+      white-space: nowrap !important;
+      font-family: 'Urbanist', sans-serif !important;
+    }
+
+    body.reader-mode #floating-reader-btn {
+      display: none !important;
+    }
+
+    body.reader-mode #fluid-canvas,
+    body.reader-mode .liquid-mesh,
+    body.reader-mode .orb,
+    body.reader-mode .spotlight,
+    body.reader-mode .screen-blur-top,
+    body.reader-mode .screen-blur-bottom {
+      display: none !important;
+    }
+
+    body.reader-mode .container {
+      max-width: 820px !important;
+    }
+
+    body.reader-mode .about-card p,
+    body.reader-mode .hero-intro-box p,
+    body.reader-mode .skill-card p,
+    body.reader-mode .project-card p,
+    body.reader-mode .principle-card p {
+      font-size: 1.15rem !important;
+      line-height: 1.85 !important;
+      color: #f1f5f9 !important;
+    }
+
+    /* SCREEN TOP & BOTTOM BLUR GRADIENT OVERLAYS */
+    .screen-blur-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 150px;
+      z-index: 95;
+      background: linear-gradient(to bottom, var(--bg-color) 0%, rgba(248, 250, 252, 0.6) 45%, rgba(248, 250, 252, 0.2) 75%, transparent 100%);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%);
+      pointer-events: none;
+      transition: background 0.8s ease;
+    }
+
+    body.dark-mode .screen-blur-top {
+      background: linear-gradient(to bottom, var(--bg-color) 0%, rgba(3, 7, 18, 0.6) 45%, rgba(3, 7, 18, 0.2) 75%, transparent 100%);
+    }
+
+    .screen-blur-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 150px;
+      z-index: 95;
+      background: linear-gradient(to top, var(--bg-color) 0%, rgba(248, 250, 252, 0.6) 45%, rgba(248, 250, 252, 0.2) 75%, transparent 100%);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%);
+      pointer-events: none;
+      transition: background 0.8s ease;
+    }
+
+    body.dark-mode .screen-blur-bottom {
+      background: linear-gradient(to top, var(--bg-color) 0%, rgba(3, 7, 18, 0.6) 45%, rgba(3, 7, 18, 0.2) 75%, transparent 100%);
+    }
+
+    /* WELCOME INTRO MODAL OVERLAY STYLES */
+    .welcome-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(3, 7, 18, 0.92);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .welcome-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.15) translateY(-30px);
+      filter: blur(25px);
+      visibility: hidden;
+    }
+
+    .welcome-card {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 32px;
+      padding: 40px 32px;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      animation: welcomePop 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      backdrop-filter: blur(20px);
+      max-height: 90vh;
+      overflow-y: auto;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease, filter 0.6s ease;
+    }
+
+    .welcome-card.exiting {
+      animation: cardExit 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes cardExit {
+      0% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+        filter: blur(0);
+      }
+      50% {
+        transform: scale(0.92) translateY(15px);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1.12) translateY(-40px);
+        opacity: 0;
+        filter: blur(20px);
+      }
+    }
+
+    @keyframes welcomePop {
+      0% { opacity: 0; transform: scale(0.82) translateY(30px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    @keyframes neonGlow {
+      0% { opacity: 0.3; filter: blur(10px); }
+      100% { opacity: 0.7; filter: blur(18px); }
+    }
+
+    .welcome-title {
+      font-family: 'Surgena', 'Urbanist', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+      line-height: 1.35;
+      background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: welcomeTitleLoop 3.5s ease-in-out infinite alternate;
+      will-change: transform, filter;
+    }
+
+    @keyframes welcomeTitleLoop {
+      0% {
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.15));
+      }
+      50% {
+        transform: translateY(-3px) scale(1.02);
+        filter: drop-shadow(0 6px 16px rgba(255, 255, 255, 0.35));
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.15));
+      }
+    }
+
+    .welcome-text {
+      color: #cbd5e1;
+      font-size: 0.98rem;
+      font-weight: 500;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .whats-new-container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 28px;
+      text-align: left;
+    }
+
+    .whats-new-title {
+      font-family: 'Urbanist', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .whats-new-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .whats-new-list li {
+      color: #94a3b8;
+      font-size: 0.88rem;
+      line-height: 1.4;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .whats-new-list li i {
+      color: #ffffff;
+      font-size: 0.75rem;
+      margin-top: 4px;
+    }
+
+    .enter-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      padding: 16px 32px;
+      border-radius: 50px;
+      background: #ffffff;
+      color: #030712;
+      font-family: 'Urbanist', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+
+    .enter-btn::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .enter-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(255, 255, 255, 0.35), 0 0 20px rgba(255, 255, 255, 0.4);
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .enter-btn:hover i {
+      transform: translateX(6px) scale(1.2);
+    }
+
+    .enter-btn i {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .enter-btn:active {
+      transform: translateY(2px) scale(0.95);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    }
+
+    .enter-btn.pressed {
+      animation: btnPulse 0.4s ease-out;
+    }
+
+    @keyframes btnPulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.8); }
+      50% { transform: scale(0.98); box-shadow: 0 0 0 20px rgba(255, 255, 255, 0); }
+      100% { transform: scale(1); }
+    }
+
+    /* Dynamic Monochrome Background Themes on Scroll */
+    body.theme-about,
+    body.dark-mode.theme-about,
+    body.theme-skills,
+    body.dark-mode.theme-skills,
+    body.theme-projects,
+    body.dark-mode.theme-projects,
+    body.theme-vision,
     body.dark-mode.theme-vision {
-      --mesh-bg: radial-gradient(circle at 50% 0%, #312e81, #030712);
+      --mesh-bg: radial-gradient(circle at 50% 0%, #1e293b, #030712);
+    }
+
+    /* Fix for light mode background on scroll */
+    body:not(.dark-mode).theme-about,
+    body:not(.dark-mode).theme-skills,
+    body:not(.dark-mode).theme-projects,
+    body:not(.dark-mode).theme-vision {
+      --mesh-bg: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
     }
 
     * {
@@ -90,85 +537,14 @@
     body {
       background-color: var(--bg-color);
       color: var(--text-main);
-      font-family: 'Urbanist', sans-serif;
+      font-family: var(--font-body);
       overflow-x: hidden;
       line-height: 1.6;
       transition: background-color 0.8s ease, color 0.8s ease;
     }
 
-    /* WELCOME SCREEN OVERLAY */
-    .welcome-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(3, 7, 18, 0.85);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      z-index: 99999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      text-align: center;
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
-    }
-
-    .welcome-overlay.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .welcome-card {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 40px 30px;
-      border-radius: 32px;
-      max-width: 480px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-      animation: floatWelcome 4s ease-in-out infinite alternate;
-    }
-
-    @keyframes floatWelcome {
-      0% { transform: translateY(0px) scale(1); }
-      100% { transform: translateY(-12px) scale(1.02); }
-    }
-
-    .welcome-title {
-      font-family: 'Surgena', 'Urbanist', sans-serif;
-      font-size: 2.2rem;
-      color: #ffffff;
-      margin-bottom: 12px;
-      background: linear-gradient(135deg, #00d2ff, #ff007f);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .welcome-text {
-      font-size: 1.1rem;
-      color: #94a3b8;
-      margin-bottom: 28px;
-    }
-
-    .welcome-btn {
-      background: linear-gradient(135deg, #3a7bd5, #7f00ff);
-      color: #ffffff;
-      border: none;
-      padding: 14px 36px;
-      border-radius: 50px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(58, 123, 213, 0.4);
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .welcome-btn:hover {
-      transform: scale(1.06);
-      box-shadow: 0 14px 35px rgba(255, 0, 127, 0.5);
+    h1, h2, h3, h4, .logo, .hero-name, .welcome-title, .closing-quote {
+      font-family: var(--font-heading);
     }
 
     /* Ambient Liquid Mesh Background */
@@ -184,7 +560,7 @@
     .orb {
       position: fixed;
       border-radius: 50%;
-      filter: blur(90px);
+      filter: blur(100px);
       z-index: -2;
       opacity: var(--orb-opacity);
       pointer-events: none;
@@ -196,7 +572,7 @@
     .orb-1 {
       width: 500px;
       height: 500px;
-      background: radial-gradient(circle, #ff9a9e, #fecfef);
+      background: radial-gradient(circle, #ffffff, #64748b);
       top: -100px;
       left: -100px;
     }
@@ -204,7 +580,7 @@
     .orb-2 {
       width: 550px;
       height: 550px;
-      background: radial-gradient(circle, #84fab0, #8fd3f4);
+      background: radial-gradient(circle, #94a3b8, #0f172a);
       bottom: -150px;
       right: -100px;
       animation-delay: -5s;
@@ -213,7 +589,7 @@
     .orb-3 {
       width: 400px;
       height: 400px;
-      background: radial-gradient(circle, #a1c4fd, #c2e9fb);
+      background: radial-gradient(circle, #cbd5e1, #334155);
       top: 40%;
       left: 30%;
       animation-delay: -9s;
@@ -243,7 +619,7 @@
       width: 380px;
       height: 380px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(0, 210, 255, 0.1) 50%, transparent 75%);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.03) 50%, transparent 75%);
       pointer-events: none;
       z-index: 99;
       transform: translate(-50%, -50%);
@@ -256,8 +632,8 @@
     .click-ripple {
       position: fixed;
       border-radius: 50%;
-      border: 2px solid var(--ripple-color);
-      box-shadow: 0 0 18px var(--ripple-color);
+      border: 1.5px solid var(--ripple-color);
+      box-shadow: 0 0 15px var(--ripple-color);
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -50%) scale(0);
@@ -269,7 +645,7 @@
       100% { width: 150px; height: 150px; opacity: 0; transform: translate(-50%, -50%) scale(1.4); }
     }
 
-    /* Glassmorphism Card with Liquid Physics Transform */
+    /* Glassmorphism Card */
     .glass-card {
       background: var(--glass-bg);
       backdrop-filter: blur(20px);
@@ -290,7 +666,7 @@
       left: -150%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
       transition: 0.7s ease;
       pointer-events: none;
     }
@@ -301,7 +677,7 @@
 
     .glass-card:hover {
       background: var(--glass-bg-hover);
-      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.2);
     }
 
     /* Container */
@@ -328,6 +704,83 @@
       align-items: center;
       padding: 12px 24px;
       border-radius: 100px;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+      will-change: transform, padding, filter, max-width;
+    }
+
+    /* SCROLL MINIMIZED NAVBAR WITH MOTION BLUR EFFECT */
+    header.minimized {
+      top: 15px;
+    }
+
+    header.minimized .nav-glass {
+      padding: 8px 16px;
+      background: var(--glass-bg-hover);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+      width: auto;
+      max-width: 480px;
+      margin: 0 auto;
+      animation: navMotionBlurDown 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      justify-content: center !important;
+    }
+
+    header.minimized .logo,
+    header.minimized .ig-btn,
+    header.minimized #themeToggle {
+      display: none !important;
+    }
+
+    header.minimized .nav-right {
+      width: 100%;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    header.minimized .nav-links {
+      display: flex !important;
+      gap: 12px !important;
+    }
+
+    header.minimized .nav-links a {
+      font-size: 0.85rem !important;
+    }
+
+    /* Expand back transition animation */
+    header:not(.minimized) .nav-glass {
+      animation: navMotionBlurUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      max-width: 1100px;
+    }
+
+    @keyframes navMotionBlurDown {
+      0% {
+        filter: blur(14px) brightness(1.2);
+        transform: scale(1.08) translateY(-6px);
+        opacity: 0.8;
+      }
+      50% {
+        filter: blur(6px);
+      }
+      100% {
+        filter: blur(0px) brightness(1);
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes navMotionBlurUp {
+      0% {
+        filter: blur(14px) brightness(1.2);
+        transform: scale(0.92) translateY(6px);
+        opacity: 0.8;
+      }
+      50% {
+        filter: blur(6px);
+      }
+      100% {
+        filter: blur(0px) brightness(1);
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
     }
 
     .logo {
@@ -335,9 +788,7 @@
       font-weight: 800;
       font-size: 1.4rem;
       letter-spacing: 1px;
-      background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--text-main);
       text-decoration: none;
     }
 
@@ -363,34 +814,40 @@
     }
 
     .nav-links a:hover {
-      color: var(--primary-blue);
+      color: var(--text-main);
     }
 
-    /* INSTAGRAM BUTTON STYLING */
+    /* INSTAGRAM BUTTON MONOCHROME */
     .ig-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       padding: 8px 18px;
       border-radius: 50px;
-      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-      color: #ffffff;
+      background: #ffffff;
+      color: #030712;
       font-size: 0.85rem;
       font-weight: 700;
       text-decoration: none;
-      box-shadow: 0 4px 15px rgba(220, 39, 67, 0.35);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
       transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    body:not(.dark-mode) .ig-btn {
+      background: #0f172a;
+      color: #ffffff;
+      border: 1px solid #0f172a;
     }
 
     .ig-btn:hover {
       transform: scale(1.06) translateY(-2px);
-      box-shadow: 0 8px 25px rgba(220, 39, 67, 0.55);
+      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
     }
 
     /* Theme Toggle Button */
     .theme-toggle-btn {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
       border: 1px solid var(--glass-border);
       width: 42px;
       height: 42px;
@@ -406,7 +863,7 @@
 
     .theme-toggle-btn:hover {
       transform: scale(1.1) rotate(15deg);
-      background: rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.25);
     }
 
     /* Section Typography */
@@ -418,7 +875,7 @@
       border-radius: 50px;
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
-      color: var(--primary-blue);
+      color: var(--text-main);
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 1px;
@@ -451,7 +908,7 @@
       align-items: center;
     }
 
-    /* SURGENA FONT & CONTINUOUS ANIMATION LOOP FOR FAHRIANDA */
+    /* SURGENA FONT & MONOCHROME ANIMATION LOOP FOR FAHRIANDA */
     .hero-name {
       font-family: 'Surgena', sans-serif;
       font-size: clamp(3.5rem, 8vw, 5.5rem);
@@ -459,30 +916,29 @@
       line-height: 1.05;
       letter-spacing: 2px;
       margin: 14px 0;
-      background: linear-gradient(270deg, var(--primary-blue), var(--accent-purple), var(--accent-magenta), var(--primary-cyan));
-      background-size: 400% 400%;
+      background: linear-gradient(180deg, #ffffff 0%, #64748b 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: inline-block;
-      animation: surgenaLoop 8s ease infinite, surgenaFloat 4s ease-in-out infinite alternate;
-      will-change: transform, background-position;
+      animation: surgenaFloat 4s ease-in-out infinite alternate;
+      will-change: transform;
     }
 
-    @keyframes surgenaLoop {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    body:not(.dark-mode) .hero-name {
+      background: linear-gradient(180deg, #0f172a 0%, #475569 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     @keyframes surgenaFloat {
-      0% { transform: translateY(0px) scale(1); filter: drop-shadow(0 8px 20px rgba(58, 123, 213, 0.25)); }
-      50% { transform: translateY(-6px) scale(1.01); filter: drop-shadow(0 15px 30px rgba(255, 0, 127, 0.35)); }
-      100% { transform: translateY(0px) scale(1); filter: drop-shadow(0 8px 20px rgba(58, 123, 213, 0.25)); }
+      0% { transform: translateY(0px) scale(1); filter: drop-shadow(0 8px 20px rgba(255, 255, 255, 0.1)); }
+      50% { transform: translateY(-6px) scale(1.01); filter: drop-shadow(0 15px 30px rgba(255, 255, 255, 0.2)); }
+      100% { transform: translateY(0px) scale(1); filter: drop-shadow(0 8px 20px rgba(255, 255, 255, 0.1)); }
     }
 
     .hero-subtitle {
       font-size: 1.15rem;
-      color: var(--primary-blue);
+      color: var(--text-muted);
       font-weight: 700;
       margin-bottom: 20px;
       letter-spacing: 0.5px;
@@ -517,7 +973,13 @@
       overflow: hidden;
       margin-bottom: 16px;
       border: 2px solid var(--glass-border);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      filter: grayscale(100%);
+      transition: filter 0.5s ease;
+    }
+
+    .profile-card:hover .avatar-wrapper {
+      filter: grayscale(0%);
     }
 
     .avatar-img {
@@ -544,7 +1006,7 @@
       border: 1px solid var(--glass-border);
       border-radius: 50px;
       font-size: 0.8rem;
-      color: var(--primary-blue);
+      color: var(--text-main);
       font-weight: 700;
     }
 
@@ -552,9 +1014,14 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 10px #10b981;
+      background: #ffffff;
+      box-shadow: 0 0 10px #ffffff;
       animation: blinkDot 1.5s infinite alternate;
+    }
+
+    body:not(.dark-mode) .status-dot {
+      background: #0f172a;
+      box-shadow: 0 0 10px #0f172a;
     }
 
     @keyframes blinkDot {
@@ -597,7 +1064,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--primary-blue);
+      color: var(--text-main);
       font-size: 1.3rem;
       margin-bottom: 20px;
     }
@@ -639,7 +1106,7 @@
 
     .project-subtitle {
       font-size: 0.88rem;
-      color: var(--primary-blue);
+      color: var(--text-muted);
       margin-bottom: 18px;
       font-weight: 700;
     }
@@ -665,14 +1132,18 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 2.2rem;
       font-weight: 800;
-      color: rgba(58, 123, 213, 0.3);
+      color: rgba(255, 255, 255, 0.2);
       margin-bottom: 8px;
+    }
+
+    body:not(.dark-mode) .principle-num {
+      color: rgba(0, 0, 0, 0.2);
     }
 
     .principle-card h4 {
       font-size: 1.15rem;
       font-weight: 700;
-      color: var(--primary-blue);
+      color: var(--text-main);
       margin-bottom: 8px;
     }
 
@@ -698,7 +1169,7 @@
     }
 
     .dev-list i {
-      color: var(--primary-blue);
+      color: var(--text-main);
       font-size: 1.1rem;
     }
 
@@ -715,7 +1186,13 @@
       color: var(--text-main);
       margin-bottom: 24px;
       line-height: 1.35;
-      background: linear-gradient(135deg, var(--text-main), var(--primary-blue));
+      background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    body:not(.dark-mode) .closing-quote {
+      background: linear-gradient(180deg, #030712 0%, #475569 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -736,7 +1213,7 @@
       border: 1px solid var(--glass-border);
       font-family: 'Urbanist', sans-serif;
       font-weight: 800;
-      color: var(--primary-blue);
+      color: var(--text-main);
       font-size: 0.9rem;
       letter-spacing: 0.5px;
     }
@@ -749,41 +1226,133 @@
       font-size: 0.9rem;
       font-weight: 600;
       border-top: 1px solid var(--glass-border);
-    }
-
-    /* SCROLL-DRIVEN PAGE TRANSITION REVEAL */
+    /* SCROLL-DRIVEN PAGE TRANSITION REVEAL WITH MOTION BLUR */
     .scroll-reveal {
       opacity: 0;
-      transform: translateY(60px) scale(0.96);
-      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, transform;
+      filter: blur(12px);
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
     }
 
     .scroll-reveal.active {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      filter: blur(0px);
+      transform: translateY(0);
+    }
+
+    /* Standard reveal for text elements */
+    .text-pop-reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      filter: blur(8px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
+    }
+
+    .text-pop-reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0px);
     }
 
     /* Responsive */
     @media (max-width: 900px) {
       .hero-grid {
         grid-template-columns: 1fr;
+        gap: 30px;
       }
       .nav-links {
-        display: none;
+        display: none !important;
+      }
+      header {
+        width: calc(100% - 24px);
+        top: 12px;
+      }
+      .nav-glass {
+        padding: 8px 14px;
+        gap: 8px;
+      }
+      .ig-btn {
+        padding: 6px 12px;
+        font-size: 0.78rem;
+      }
+      .theme-toggle-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.95rem;
+      }
+      .nav-right {
+        gap: 8px;
+      }
+      .hero-name {
+        font-size: clamp(2.4rem, 11vw, 3.8rem);
+        word-break: break-word;
+      }
+      .hero-subtitle {
+        font-size: 0.98rem;
+        line-height: 1.5;
+      }
+      .hero-intro-box, .about-card, .skill-card, .project-card, .principle-card, .closing-card {
+        padding: 22px 18px;
+        border-radius: 20px;
+      }
+      .section-title {
+        font-size: 1.85rem;
+      }
+      .welcome-card {
+        padding: 24px 18px;
+        border-radius: 24px;
+      }
+      .welcome-title {
+        font-size: 1.2rem;
+      }
+      header.minimized .nav-glass {
+        max-width: 95%;
+        padding: 6px 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 16px;
+      }
+      .hero-section {
+        padding-top: 110px;
+      }
+      .avatar-wrapper {
+        padding-top: 100%;
+      }
+      .closing-quote {
+        font-size: 1.25rem;
       }
     }
   </style>
 </head>
-<body>
+<body class="dark-mode">
 
-  <!-- WELCOME SCREEN OVERLAY -->
+  <!-- Welcome Modal Overlay -->
   <div class="welcome-overlay" id="welcomeOverlay">
     <div class="welcome-card">
-      <h1 class="welcome-title">FAHRIANDA</h1>
-      <p class="welcome-text">Halow! Selamat datang di Portfolio Fahrianda</p>
-      <button class="welcome-btn" id="welcomeBtn">
-        <i class="fa-solid fa-sparkles"></i> Masuk Portfolio
+      <h2 class="welcome-title">Halow! Saya Fahrianda. Cuma mau disclaimer dulu di bawah ini ya!</h2>
+      <p class="welcome-text">Website ini dikembangkan menggunakan HTML sebagai bagian dari proses belajar dan perjalanan saya di dunia web development.</p>
+      
+      <div class="whats-new-container">
+        <div class="whats-new-title">
+          <i class="fa-solid fa-sparkles"></i> What's New?
+        </div>
+        <ul class="whats-new-list">
+          <li><i class="fa-solid fa-circle-check"></i> <span><strong>Mode Membaca:</strong> Penambahan mode baca untuk kenyamanan fokus teks.</span></li>
+          <li><i class="fa-solid fa-circle-check"></i> <span><strong>White & Dark Mode:</strong> Penambahan switch tema terang dan gelap.</span></li>
+          <li><i class="fa-solid fa-circle-check"></i> <span><strong>Pergantian Konsep Tema:</strong> Fitur baru untuk mengganti konsep tema, wallpaper, font, dan efek visual secara dinamis.</span></li>
+          <li><i class="fa-solid fa-circle-check"></i> <span><strong>Visual Tweaks:</strong> Penyesuaian animasi background gelombang dan monokrom.</span></li>
+          <li><i class="fa-solid fa-circle-check"></i> <span><strong>Mobile Improvements:</strong> Penambahan detail kecil dan optimalisasi responsif pada perangkat seluler.</span></li>
+        </ul>
+      </div>
+
+      <button class="enter-btn" id="enterBtn">
+        <span>Udah bacanya? Ayo lanjut</span>
+        <i class="fa-solid fa-arrow-right-long"></i>
       </button>
     </div>
   </div>
@@ -793,6 +1362,10 @@
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
+
+  <!-- Cinematic Top & Bottom Screen Blur Overlays -->
+  <div class="screen-blur-top"></div>
+  <div class="screen-blur-bottom"></div>
 
   <!-- Dynamic Canvas -->
   <canvas id="fluid-canvas"></canvas>
@@ -804,7 +1377,10 @@
   <header>
     <div class="container">
       <nav class="glass-card nav-glass">
-        <a href="#" class="logo">FAHRIANDA</a>
+        <!-- INSTAGRAM DIRECT BUTTON (Replaces Logo) -->
+        <a href="https://www.instagram.com/reynatraonig?rpxt=ZTJieTB1MnUzb2ky&utm_source=qr" target="_blank" class="ig-btn" id="igBtn">
+          <i class="fa-brands fa-instagram"></i> Instagram
+        </a>
         <div class="nav-right">
           <ul class="nav-links">
             <li><a href="#about">About</a></li>
@@ -814,14 +1390,19 @@
             <li><a href="#vision">Vision</a></li>
           </ul>
 
-          <!-- INSTAGRAM DIRECT BUTTON -->
-          <a href="https://www.instagram.com/reynatraonig?rpxt=ZTJieTB1MnUzb2ky&utm_source=qr" target="_blank" class="ig-btn" id="igBtn">
-            <i class="fa-brands fa-instagram"></i> Instagram
-          </a>
+          <!-- Reader Mode Toggle Button -->
+          <button class="theme-toggle-btn" id="readerToggle" title="Mode Membaca" aria-label="Toggle Reader Mode">
+            <i class="fa-solid fa-book-open"></i>
+          </button>
 
           <!-- Theme Toggle Button -->
           <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
             <i class="fa-solid fa-moon"></i>
+          </button>
+
+          <!-- Theme Concept Switcher Button -->
+          <button class="theme-toggle-btn" id="conceptToggle" title="Ganti Konsep Tema" aria-label="Switch Theme Concept">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
           </button>
         </div>
       </nav>
@@ -833,12 +1414,12 @@
     <div class="container">
       <div class="hero-grid">
         <div class="scroll-reveal">
-          <div class="section-tag"><i class="fa-solid fa-sparkles"></i> Personal Portfolio</div>
+          <div class="section-tag text-pop-reveal"><i class="fa-solid fa-sparkles"></i> Personal Portfolio</div>
           <!-- SURGENA FONT WITH CONTINUOUS ANIMATION LOOP -->
-          <h1 class="hero-name">FAHRIANDA</h1>
-          <div class="hero-subtitle">Creative Thinker · Independent Builder · Community Enthusiast</div>
+          <h1 class="hero-name text-pop-reveal" style="transition-delay: 0.1s;">FAHRIANDA</h1>
+          <div class="hero-subtitle text-pop-reveal" style="transition-delay: 0.2s;">Creative Thinker · Independent Builder · Community Enthusiast</div>
           
-          <div class="glass-card hero-intro-box">
+          <div class="glass-card hero-intro-box text-pop-reveal" style="transition-delay: 0.3s;">
             <p>Halo, saya <strong>Fahri</strong>.</p>
             <p>Saya adalah seseorang yang memiliki ketertarikan pada dunia teknologi, kreativitas digital, pengembangan ide, dan pengelolaan komunitas. Saya senang mengeksplorasi hal-hal baru, mempelajari sesuatu secara mandiri, serta mencoba mengubah ide menjadi sesuatu yang dapat digunakan dan memberikan manfaat.</p>
             <p>Bagi saya, sebuah ide tidak seharusnya berhenti sebagai angan-angan. Saya percaya bahwa setiap gagasan memiliki peluang untuk dikembangkan melalui proses, eksperimen, evaluasi, dan konsistensi.</p>
@@ -849,7 +1430,7 @@
 
         <!-- Profile Photo Card -->
         <div class="scroll-reveal" style="transition-delay: 0.2s;">
-          <div class="glass-card profile-card">
+          <div class="glass-card profile-card text-pop-reveal" style="transition-delay: 0.4s;">
             <div class="avatar-wrapper">
               <img src="profile.jpg" alt="Fahrianda Profile" class="avatar-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80';"/>
             </div>
@@ -866,9 +1447,9 @@
   <section id="about">
     <div class="container">
       <div class="scroll-reveal">
-        <div class="section-tag"><i class="fa-solid fa-user-gear"></i> Overview</div>
-        <h2 class="section-title">About Me</h2>
-        <div class="glass-card about-card">
+        <div class="section-tag text-pop-reveal"><i class="fa-solid fa-user-gear"></i> Overview</div>
+        <h2 class="section-title text-pop-reveal" style="transition-delay: 0.1s;">About Me</h2>
+        <div class="glass-card about-card text-pop-reveal" style="transition-delay: 0.2s;">
           <p>Saya merupakan individu yang memiliki rasa ingin tahu tinggi dan senang mempelajari berbagai hal, khususnya yang berkaitan dengan teknologi dan pengembangan digital.</p>
           <p>Saya memiliki ketertarikan dalam membangun proyek secara mandiri, mengelola komunitas, mengembangkan konsep kreatif, serta mencari solusi terhadap berbagai permasalahan yang muncul selama proses pengerjaan.</p>
           <p>Dalam setiap proyek, saya tidak hanya memperhatikan hasil akhirnya, tetapi juga proses di baliknya. Saya senang memikirkan bagaimana sebuah sistem dapat bekerja dengan lebih baik, bagaimana sebuah desain dapat memiliki identitas yang kuat, dan bagaimana sebuah platform dapat memberikan pengalaman yang nyaman bagi penggunanya.</p>
@@ -882,42 +1463,42 @@
   <section id="skills">
     <div class="container">
       <div class="scroll-reveal">
-        <div class="section-tag"><i class="fa-solid fa-bolt"></i> Capabilities</div>
-        <h2 class="section-title">Skill yang dimiliki Fahrianda</h2>
+        <div class="section-tag text-pop-reveal"><i class="fa-solid fa-bolt"></i> Capabilities</div>
+        <h2 class="section-title text-pop-reveal" style="transition-delay: 0.1s;">Skill yang dimiliki Fahrianda</h2>
       </div>
 
       <div class="skills-grid">
-        <div class="glass-card skill-card scroll-reveal">
+        <div class="glass-card skill-card scroll-reveal text-pop-reveal">
           <div class="skill-icon"><i class="fa-solid fa-lightbulb"></i></div>
           <h3>Creative Thinking</h3>
           <p>Memiliki kemampuan dalam mengembangkan gagasan menjadi konsep yang lebih terstruktur. Saya senang mengeksplorasi berbagai kemungkinan dan mencari pendekatan kreatif dalam menyelesaikan suatu pekerjaan.</p>
         </div>
 
-        <div class="glass-card skill-card scroll-reveal" style="transition-delay: 0.1s;">
+        <div class="glass-card skill-card scroll-reveal text-pop-reveal" style="transition-delay: 0.1s;">
           <div class="skill-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
           <h3>Problem Solving</h3>
           <p>Terbiasa menghadapi kendala selama proses pengembangan proyek, menganalisis permasalahan, dan mencari alternatif solusi agar sistem atau pekerjaan dapat berjalan dengan lebih baik.</p>
         </div>
 
-        <div class="glass-card skill-card scroll-reveal" style="transition-delay: 0.2s;">
+        <div class="glass-card skill-card scroll-reveal text-pop-reveal" style="transition-delay: 0.2s;">
           <div class="skill-icon"><i class="fa-solid fa-users"></i></div>
           <h3>Community Management</h3>
           <p>Memiliki pengalaman dalam mengelola komunitas digital, menyusun struktur server, membangun identitas komunitas, serta memperhatikan kenyamanan dan keterlibatan anggota.</p>
         </div>
 
-        <div class="glass-card skill-card scroll-reveal">
+        <div class="glass-card skill-card scroll-reveal text-pop-reveal">
           <div class="skill-icon"><i class="fa-solid fa-code"></i></div>
           <h3>Digital Project Development</h3>
           <p>Memiliki pengalaman mengeksplorasi dan mengembangkan proyek berbasis teknologi, mulai dari tahap perencanaan, pengujian, implementasi, hingga evaluasi.</p>
         </div>
 
-        <div class="glass-card skill-card scroll-reveal" style="transition-delay: 0.1s;">
+        <div class="glass-card skill-card scroll-reveal text-pop-reveal" style="transition-delay: 0.1s;">
           <div class="skill-icon"><i class="fa-solid fa-palette"></i></div>
           <h3>Visual & Communication Awareness</h3>
           <p>Memperhatikan konsistensi identitas visual, pemilihan desain, penyusunan informasi, dan cara berkomunikasi agar pesan dapat tersampaikan dengan jelas dan profesional.</p>
         </div>
 
-        <div class="glass-card skill-card scroll-reveal" style="transition-delay: 0.2s;">
+        <div class="glass-card skill-card scroll-reveal text-pop-reveal" style="transition-delay: 0.2s;">
           <div class="skill-icon"><i class="fa-solid fa-chart-line"></i></div>
           <h3>Continuous Improvement</h3>
           <p>Memiliki keinginan untuk terus meningkatkan kualitas pekerjaan melalui evaluasi, pembelajaran mandiri, eksperimen, dan pengembangan kemampuan.</p>
@@ -930,12 +1511,12 @@
   <section id="projects">
     <div class="container">
       <div class="scroll-reveal">
-        <div class="section-tag"><i class="fa-solid fa-cubes"></i> Portfolio Showcase</div>
-        <h2 class="section-title">Featured Projects</h2>
+        <div class="section-tag text-pop-reveal"><i class="fa-solid fa-cubes"></i> Portfolio Showcase</div>
+        <h2 class="section-title text-pop-reveal" style="transition-delay: 0.1s;">Featured Projects</h2>
       </div>
 
       <div class="projects-grid">
-        <div class="glass-card project-card scroll-reveal">
+        <div class="glass-card project-card scroll-reveal text-pop-reveal">
           <div class="project-header">
             <h3>THE BROTHERHOOD</h3>
             <div class="project-subtitle">Community Management & Digital Branding</div>
@@ -945,7 +1526,7 @@
           <p>Saya juga memperhatikan bagaimana sebuah komunitas dapat memiliki suasana yang aktif, nyaman, terorganisasi, dan memiliki karakter tersendiri.</p>
         </div>
 
-        <div class="glass-card project-card scroll-reveal" style="transition-delay: 0.1s;">
+        <div class="glass-card project-card scroll-reveal text-pop-reveal" style="transition-delay: 0.1s;">
           <div class="project-header">
             <h3>HOME CAM</h3>
             <div class="project-subtitle">CCTV Monitoring & Discord Integration</div>
@@ -955,7 +1536,7 @@
           <p>Dalam pengembangannya, saya menghadapi berbagai tantangan teknis, termasuk kestabilan jaringan, latensi, kualitas transmisi video, kendala audio, keterbatasan perangkat, dan pengelolaan sistem yang berjalan dalam waktu lama.</p>
         </div>
 
-        <div class="glass-card project-card scroll-reveal" style="transition-delay: 0.2s;">
+        <div class="glass-card project-card scroll-reveal text-pop-reveal" style="transition-delay: 0.2s;">
           <div class="project-header">
             <h3>PERSONAL CASHFLOW</h3>
             <div class="project-subtitle">Personal Finance Tracking System</div>
@@ -972,37 +1553,37 @@
   <section id="approach">
     <div class="container">
       <div class="scroll-reveal">
-        <div class="section-tag"><i class="fa-solid fa-compass"></i> Work Philosophy</div>
-        <h2 class="section-title">Working Approach</h2>
-        <p style="color: var(--text-muted); margin-bottom: 30px;">Saya percaya bahwa hasil yang baik berasal dari proses yang terencana dan kemauan untuk terus melakukan perbaikan.</p>
+        <div class="section-tag text-pop-reveal"><i class="fa-solid fa-compass"></i> Work Philosophy</div>
+        <h2 class="section-title text-pop-reveal" style="transition-delay: 0.1s;">Working Approach</h2>
+        <p class="text-pop-reveal" style="color: var(--text-muted); margin-bottom: 30px; transition-delay: 0.2s;">Saya percaya bahwa hasil yang baik berasal dari proses yang terencana dan kemauan untuk terus melakukan perbaikan.</p>
       </div>
 
       <div class="principles-grid">
-        <div class="glass-card principle-card scroll-reveal">
+        <div class="glass-card principle-card scroll-reveal text-pop-reveal">
           <div class="principle-num">01</div>
           <h4>INITIATIVE</h4>
           <p>Tidak selalu menunggu arahan untuk memulai. Saya berusaha mencari peluang, mengembangkan gagasan, dan mengambil langkah awal ketika menemukan sesuatu yang menarik untuk dikerjakan.</p>
         </div>
 
-        <div class="glass-card principle-card scroll-reveal" style="transition-delay: 0.1s;">
+        <div class="glass-card principle-card scroll-reveal text-pop-reveal" style="transition-delay: 0.1s;">
           <div class="principle-num">02</div>
           <h4>ADAPTABILITY</h4>
           <p>Terbuka terhadap perubahan dan bersedia mempelajari hal-hal baru ketika menghadapi kebutuhan atau tantangan yang berbeda.</p>
         </div>
 
-        <div class="glass-card principle-card scroll-reveal" style="transition-delay: 0.2s;">
+        <div class="glass-card principle-card scroll-reveal text-pop-reveal" style="transition-delay: 0.2s;">
           <div class="principle-num">03</div>
           <h4>RESPONSIBILITY</h4>
           <p>Berusaha memahami tanggung jawab dalam setiap proyek dan memperhatikan dampak dari keputusan yang diambil.</p>
         </div>
 
-        <div class="glass-card principle-card scroll-reveal">
+        <div class="glass-card principle-card scroll-reveal text-pop-reveal">
           <div class="principle-num">04</div>
           <h4>EVALUATION</h4>
           <p>Tidak menganggap pekerjaan selesai hanya karena sudah dapat digunakan. Saya percaya evaluasi merupakan bagian penting untuk meningkatkan kualitas.</p>
         </div>
 
-        <div class="glass-card principle-card scroll-reveal" style="transition-delay: 0.1s;">
+        <div class="glass-card principle-card scroll-reveal text-pop-reveal" style="transition-delay: 0.1s;">
           <div class="principle-num">05</div>
           <h4>CONSISTENCY</h4>
           <p>Berusaha menjaga komitmen terhadap proses pengembangan, meskipun terkadang terdapat kendala yang membutuhkan waktu dan usaha lebih.</p>
@@ -1015,28 +1596,28 @@
   <section>
     <div class="container">
       <div class="scroll-reveal">
-        <div class="section-tag"><i class="fa-solid fa-arrow-trend-up"></i> Growth Mindset</div>
-        <h2 class="section-title">Personal Development</h2>
-        <p style="color: var(--text-muted); margin-bottom: 24px;">Saya menyadari bahwa perjalanan pengembangan diri merupakan proses yang tidak memiliki garis akhir. Beberapa aspek yang terus menjadi perhatian saya adalah:</p>
+        <div class="section-tag text-pop-reveal"><i class="fa-solid fa-arrow-trend-up"></i> Growth Mindset</div>
+        <h2 class="section-title text-pop-reveal" style="transition-delay: 0.1s;">Personal Development</h2>
+        <p class="text-pop-reveal" style="color: var(--text-muted); margin-bottom: 24px; transition-delay: 0.2s;">Saya menyadari bahwa perjalanan pengembangan diri merupakan proses yang tidak memiliki garis akhir. Beberapa aspek yang terus menjadi perhatian saya adalah:</p>
       </div>
 
       <ul class="dev-list">
-        <li class="glass-card scroll-reveal"><i class="fa-solid fa-circle-check"></i> Meningkatkan konsistensi dalam menyelesaikan proyek.</li>
-        <li class="glass-card scroll-reveal" style="transition-delay: 0.1s;"><i class="fa-solid fa-circle-check"></i> Mengembangkan kemampuan teknis dan pemahaman teknologi.</li>
-        <li class="glass-card scroll-reveal" style="transition-delay: 0.2s;"><i class="fa-solid fa-circle-check"></i> Meningkatkan kemampuan mengatur prioritas dan waktu.</li>
-        <li class="glass-card scroll-reveal"><i class="fa-solid fa-circle-check"></i> Membiasakan dokumentasi proses dan hasil pekerjaan.</li>
-        <li class="glass-card scroll-reveal" style="transition-delay: 0.1s;"><i class="fa-solid fa-circle-check"></i> Memperluas wawasan melalui pengalaman dan pembelajaran baru.</li>
+        <li class="glass-card scroll-reveal text-pop-reveal"><i class="fa-solid fa-circle-check"></i> Meningkatkan konsistensi dalam menyelesaikan proyek.</li>
+        <li class="glass-card scroll-reveal text-pop-reveal" style="transition-delay: 0.1s;"><i class="fa-solid fa-circle-check"></i> Mengembangkan kemampuan teknis dan pemahaman teknologi.</li>
+        <li class="glass-card scroll-reveal text-pop-reveal" style="transition-delay: 0.2s;"><i class="fa-solid fa-circle-check"></i> Meningkatkan kemampuan mengatur prioritas dan waktu.</li>
+        <li class="glass-card scroll-reveal text-pop-reveal"><i class="fa-solid fa-circle-check"></i> Membiasakan dokumentasi proses dan hasil pekerjaan.</li>
+        <li class="glass-card scroll-reveal text-pop-reveal" style="transition-delay: 0.1s;"><i class="fa-solid fa-circle-check"></i> Memperluas wawasan melalui pengalaman dan pembelajaran baru.</li>
       </ul>
     </div>
   </section>
 
   <!-- 7 & 8. Vision & Closing Section -->
-  <section id="vision">
+  <section id="vision" style="padding-bottom: 140px;">
     <div class="container">
       <div class="scroll-reveal">
-        <div class="section-tag"><i class="fa-solid fa-eye"></i> Aspiration</div>
-        <h2 class="section-title">Vision & Goals</h2>
-        <div class="glass-card about-card" style="margin-bottom: 40px;">
+        <div class="section-tag text-pop-reveal"><i class="fa-solid fa-eye"></i> Aspiration</div>
+        <h2 class="section-title text-pop-reveal" style="transition-delay: 0.1s;">Vision & Goals</h2>
+        <div class="glass-card about-card text-pop-reveal" style="margin-bottom: 40px; transition-delay: 0.2s;">
           <p>Saya ingin terus berkembang menjadi individu yang mampu menggabungkan kreativitas, kemampuan teknis, dan pemikiran strategis dalam menghasilkan sesuatu yang bermanfaat.</p>
           <p>Saya memiliki ketertarikan untuk terus mengeksplorasi dunia teknologi, mengembangkan proyek digital, membangun sistem yang lebih baik, dan menciptakan pengalaman yang memberikan nilai bagi orang lain.</p>
           <p>Ke depannya, saya ingin memiliki lebih banyak proyek nyata yang dapat menjadi bukti dari kemampuan, pengalaman, serta perkembangan diri saya.</p>
@@ -1045,7 +1626,7 @@
       </div>
 
       <!-- 8. Closing -->
-      <div class="glass-card closing-card scroll-reveal">
+      <div class="glass-card closing-card scroll-reveal text-pop-reveal">
         <div class="closing-quote">
           "I DON'T JUST IMAGINE POSSIBILITIES. I TAKE INITIATIVE TO TURN THEM INTO REALITY."
         </div>
@@ -1059,188 +1640,92 @@
   <!-- Footer -->
   <footer>
     <div class="container">
-      <p>&copy; 2026 FAHRIANDA. Designed with Elastic Glassmorphism & Dynamic Audio-Visual Aesthetics.</p>
+      <p class="text-pop-reveal">&copy; 2026 FAHRIANDA. Designed with Elastic Glassmorphism & Dynamic Audio-Visual Aesthetics.</p>
     </div>
   </footer>
 
   <!-- Scripts -->
   <script>
-    // Web Audio API Sound Generator
-    let audioCtx = null;
-
-    function initAudio() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-    }
-
+    // Web Audio API Synthesizer Sound Generator
     function playSound(type) {
       try {
-        initAudio();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-
-        if (type === 'welcome') {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+        
+        if (type === 'enter' || type === 'click') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
           osc.type = 'sine';
-          osc.frequency.setValueAtTime(440, audioCtx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3);
-          gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+          osc.frequency.setValueAtTime(440, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15);
+          gain.gain.setValueAtTime(0.15, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
           osc.connect(gain);
-          gain.connect(audioCtx.destination);
+          gain.connect(ctx.destination);
           osc.start();
-          osc.stop(audioCtx.currentTime + 0.3);
-        } else if (type === 'ig') {
+          osc.stop(ctx.currentTime + 0.15);
+        } else if (type === 'toggle') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
           osc.type = 'triangle';
-          osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.15);
-          gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+          osc.frequency.setValueAtTime(320, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(520, ctx.currentTime + 0.12);
+          gain.gain.setValueAtTime(0.1, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
           osc.connect(gain);
-          gain.connect(audioCtx.destination);
+          gain.connect(ctx.destination);
           osc.start();
-          osc.stop(audioCtx.currentTime + 0.15);
-        } else {
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(700, audioCtx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(350, audioCtx.currentTime + 0.08);
-          gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start();
-          osc.stop(audioCtx.currentTime + 0.08);
+          osc.stop(ctx.currentTime + 0.12);
         }
-      } catch (e) {}
+      } catch (e) {
+        console.warn('Audio synthesis not supported or muted:', e);
+      }
     }
 
-    // Welcome Screen Controller
+    // Welcome Overlay Controller
     const welcomeOverlay = document.getElementById('welcomeOverlay');
-    const welcomeBtn = document.getElementById('welcomeBtn');
+    const enterBtn = document.getElementById('enterBtn');
+    const welcomeCard = document.querySelector('.welcome-card');
 
-    welcomeBtn.addEventListener('click', () => {
-      playSound('welcome');
-      welcomeOverlay.classList.add('hidden');
-    });
+    if (enterBtn && welcomeOverlay) {
+      enterBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        playSound('enter');
 
-    // Instagram Button Sound & Animation Trigger
-    const igBtn = document.getElementById('igBtn');
-    igBtn.addEventListener('click', () => {
-      playSound('ig');
-    });
+        // Button feedback animation
+        enterBtn.classList.add('pressed');
+        if (welcomeCard) {
+          welcomeCard.classList.add('exiting');
+        }
 
-    // Water Ripple Effect
-    function createRipple(x, y) {
-      const ripple = document.createElement('div');
-      ripple.className = 'click-ripple';
-      ripple.style.left = x + 'px';
-      ripple.style.top = y + 'px';
-      document.body.appendChild(ripple);
-      playSound('tap');
+        setTimeout(() => {
+          welcomeOverlay.classList.add('hidden');
+          document.body.classList.add('welcome-dismissed');
+          // Trigger initial scroll reveals
+          document.querySelectorAll('.scroll-reveal, .text-pop-reveal').forEach(el => el.classList.add('active'));
+        }, 300);
 
-      setTimeout(() => {
-        ripple.remove();
-      }, 650);
+        setTimeout(() => {
+          welcomeOverlay.remove();
+        }, 800);
+      });
     }
 
-    window.addEventListener('click', (e) => {
-      if (!welcomeOverlay.classList.contains('hidden')) return;
-      createRipple(e.clientX, e.clientY);
-    });
-
-    window.addEventListener('touchstart', (e) => {
-      if (!welcomeOverlay.classList.contains('hidden')) return;
-      if (e.touches.length > 0) {
-        createRipple(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    }, { passive: true });
-
-    // LIQUID STRETCH & ELASTIC TOUCH FOR UI CARDS
-    document.querySelectorAll('.glass-card').forEach(card => {
-      let startX = 0, startY = 0;
-
-      card.addEventListener('touchstart', (e) => {
-        if (e.touches.length > 0) {
-          startX = e.touches[0].clientX;
-          startY = e.touches[0].clientY;
-        }
-      }, { passive: true });
-
-      card.addEventListener('touchmove', (e) => {
-        if (e.touches.length > 0) {
-          const deltaX = (e.touches[0].clientX - startX) * 0.15;
-          const deltaY = (e.touches[0].clientY - startY) * 0.15;
-          card.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.98) skew(${deltaX * 0.2}deg)`;
-        }
-      }, { passive: true });
-
-      card.addEventListener('touchend', () => {
-        card.style.transform = 'translate(0px, 0px) scale(1) skew(0deg)';
-      });
-    });
-
-    // Dynamic Theme Change on Scroll
-    const sections = document.querySelectorAll('section');
-    window.addEventListener('scroll', () => {
-      let currentSec = '';
-      sections.forEach(sec => {
-        const top = sec.offsetTop - 300;
-        if (window.scrollY >= top) {
-          currentSec = sec.getAttribute('id');
-        }
-      });
-
-      document.body.classList.remove('theme-about', 'theme-skills', 'theme-projects', 'theme-vision');
-      if (currentSec && currentSec !== 'hero') {
-        document.body.classList.add(`theme-${currentSec}`);
-      }
-    });
-
-    // Theme Switcher (Dark / Light)
-    const themeToggleBtn = document.getElementById('themeToggle');
-    const themeIcon = themeToggleBtn.querySelector('i');
-
-    themeToggleBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      document.body.classList.toggle('dark-mode');
-      if (document.body.classList.contains('dark-mode')) {
-        themeIcon.className = 'fa-solid fa-sun';
-      } else {
-        themeIcon.className = 'fa-solid fa-moon';
-      }
-      playSound('tap');
-    });
-
-    // Cursor Spotlight
-    const spotlight = document.getElementById('spotlight');
-    function updateSpotlight(x, y) {
-      spotlight.style.left = x + 'px';
-      spotlight.style.top = y + 'px';
-      spotlight.classList.add('active');
-    }
-    window.addEventListener('mousemove', (e) => updateSpotlight(e.clientX, e.clientY));
-    window.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
-    }, { passive: true });
-
-    // Scroll Reveal Observer (Scroll-Driven Page Transitions)
+    // Scroll Reveal Observer
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.1 });
 
-    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.scroll-reveal, .text-pop-reveal').forEach(el => observer.observe(el));
 
-    // Connected Light Node Particle Canvas
+    // Scroll-based Abstract Wave Canvas
     const canvas = document.getElementById('fluid-canvas');
     const ctx = canvas.getContext('2d');
-    let particles = [];
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -1249,63 +1734,144 @@
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    class NodeParticle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 1.2;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-      }
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
+    let scrollPos = 0;
+    window.addEventListener('scroll', () => {
+      scrollPos = window.scrollY;
+    });
 
-        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-      }
-      draw() {
-        const isDark = document.body.classList.contains('dark-mode');
-        ctx.fillStyle = isDark ? 'rgba(0, 242, 254, 0.4)' : 'rgba(58, 123, 213, 0.4)';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    for (let i = 0; i < 45; i++) {
-      particles.push(new NodeParticle());
-    }
-
+    let time = 0;
     function animateCanvas() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      time += 0.015;
+
       const isDark = document.body.classList.contains('dark-mode');
+      const isCyberpunk = document.body.classList.contains('concept-cyberpunk');
+      const isEmerald = document.body.classList.contains('concept-emerald');
+      const isSunset = document.body.classList.contains('concept-sunset');
+      const isRoyal = document.body.classList.contains('concept-royal');
+      const isMatrix = document.body.classList.contains('concept-matrix');
 
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].update();
-        particles[i].draw();
+      const numLines = 8;
+      const scrollFactor = scrollPos * 0.002;
 
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+      for (let i = 0; i < numLines; i++) {
+        ctx.beginPath();
+        const yOffset = (canvas.height / numLines) * i;
+        
+        let alpha = isDark ? 0.2 + (i * 0.02) : 0.25 + (i * 0.02);
+        let r = 255, g = 255, b = 255;
 
-          if (dist < 120) {
-            ctx.strokeStyle = isDark 
-              ? `rgba(0, 242, 254, ${0.12 * (1 - dist / 120)})`
-              : `rgba(58, 123, 213, ${0.15 * (1 - dist / 120)})`;
-            ctx.lineWidth = 0.6;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
+        if (isCyberpunk) {
+          r = 244; g = 114; b = 182; alpha = 0.35 + (i * 0.03);
+        } else if (isEmerald) {
+          r = 110; g = 231; b = 183; alpha = 0.35 + (i * 0.03);
+        } else if (isSunset) {
+          r = 251; g = 146; b = 60; alpha = 0.35 + (i * 0.03);
+        } else if (isRoyal) {
+          r = 250; g = 204, b = 21; alpha = 0.35 + (i * 0.03);
+        } else if (isMatrix) {
+          r = 74; g = 222; b = 128; alpha = 0.4 + (i * 0.03);
+        } else if (!isDark) {
+          r = 20; g = 20; b = 20;
+        }
+
+        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        ctx.lineWidth = 1.8;
+
+        for (let x = 0; x <= canvas.width; x += 15) {
+          const wave1 = Math.sin(x * 0.005 + time + i * 0.8 + scrollFactor) * 40;
+          const wave2 = Math.cos(x * 0.01 - time * 0.8 + i * 0.5) * 25;
+          const y = yOffset + wave1 + wave2;
+
+          if (x === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
           }
         }
+        ctx.stroke();
       }
 
       requestAnimationFrame(animateCanvas);
     }
     animateCanvas();
+
+    // Theme, Concept, and Reader Mode Controllers
+    const readerToggle = document.getElementById('readerToggle');
+    const themeToggle = document.getElementById('themeToggle');
+    const conceptToggle = document.getElementById('conceptToggle');
+    const floatingReaderBtn = document.getElementById('floatingReaderBtn');
+    const header = document.querySelector('header');
+
+    // Themes array for concept cycling
+    const concepts = ['', 'concept-cyberpunk', 'concept-emerald', 'concept-sunset', 'concept-royal', 'concept-matrix'];
+    let currentConceptIndex = 0;
+
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        playSound('toggle');
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        themeToggle.innerHTML = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+      });
+    }
+
+    if (conceptToggle) {
+      conceptToggle.addEventListener('click', () => {
+        playSound('toggle');
+        // Remove current concept class
+        if (concepts[currentConceptIndex]) {
+          document.body.classList.remove(concepts[currentConceptIndex]);
+        }
+        // Cycle index
+        currentConceptIndex = (currentConceptIndex + 1) % concepts.length;
+        // Add new concept class if not default
+        if (concepts[currentConceptIndex]) {
+          document.body.classList.add(concepts[currentConceptIndex]);
+        }
+      });
+    }
+
+    function toggleReaderMode() {
+      playSound('toggle');
+      document.body.classList.toggle('reader-mode');
+    }
+
+    if (readerToggle) {
+      readerToggle.addEventListener('click', toggleReaderMode);
+    }
+
+    // Scroll Navbar Minimize Controller
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) {
+        header.classList.add('minimized');
+      } else {
+        header.classList.remove('minimized');
+      }
+    });
+
+    // Water Ripple Effect on Mouse Click
+    window.addEventListener('click', (e) => {
+      if (e.target.closest('button') || e.target.closest('a')) return;
+      const ripple = document.createElement('div');
+      ripple.className = 'click-ripple';
+      ripple.style.left = `${e.clientX}px`;
+      ripple.style.top = `${e.clientY}px`;
+      document.body.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 650);
+    });
+
+    // Spotlight Motion
+    const spotlight = document.getElementById('spotlight');
+    if (spotlight) {
+      window.addEventListener('mousemove', (e) => {
+        spotlight.style.left = `${e.clientX}px`;
+        spotlight.style.top = `${e.clientY}px`;
+        if (!spotlight.classList.contains('active')) {
+          spotlight.classList.add('active');
+        }
+      });
+    }
   </script>
 </body>
 </html>
