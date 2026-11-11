@@ -1265,51 +1265,52 @@
         grid-template-columns: 1fr;
         gap: 30px;
       }
-      .nav-links {
-        display: flex !important;
-        gap: 10px !important;
-        overflow-x: auto;
-        padding-bottom: 2px;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
-      .nav-links::-webkit-scrollbar {
-        display: none;
-      }
-      .nav-links a {
-        font-size: 0.8rem !important;
-        white-space: nowrap;
-      }
       header {
         width: calc(100% - 16px);
         top: 10px;
       }
       .nav-glass {
-        padding: 6px 10px;
-        gap: 6px;
+        padding: 6px 12px;
+        gap: 8px;
         overflow-x: auto;
+        white-space: nowrap;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
         max-width: 100%;
+        justify-content: flex-start !important;
+        align-items: center;
       }
       .nav-glass::-webkit-scrollbar {
         display: none;
       }
+      .nav-right {
+        gap: 8px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+      }
+      .nav-links {
+        display: flex !important;
+        gap: 12px !important;
+        flex-shrink: 0;
+      }
+      .nav-links a {
+        font-size: 0.82rem !important;
+        white-space: nowrap;
+      }
       .ig-btn {
-        padding: 6px 10px;
-        font-size: 0.78rem;
+        padding: 6px 12px;
+        font-size: 0.8rem;
         border-radius: 50px;
+        flex-shrink: 0;
       }
       .ig-text {
         display: none;
       }
       .theme-toggle-btn {
-        width: 32px;
-        height: 32px;
+        width: 34px;
+        height: 34px;
         font-size: 0.85rem;
-      }
-      .nav-right {
-        gap: 6px;
         flex-shrink: 0;
       }
       .hero-name {
@@ -1335,8 +1336,9 @@
         font-size: 1.2rem;
       }
       header.minimized .nav-glass {
-        max-width: 95%;
-        padding: 6px 10px;
+        max-width: 100%;
+        padding: 6px 12px;
+        justify-content: flex-start !important;
       }
     }
 
