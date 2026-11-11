@@ -832,6 +832,8 @@
       box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
       transition: all 0.3s ease;
       border: 1px solid rgba(255, 255, 255, 0.8);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     body:not(.dark-mode) .ig-btn {
@@ -859,6 +861,7 @@
       cursor: pointer;
       font-size: 1.1rem;
       transition: all 0.3s ease;
+      flex-shrink: 0;
     }
 
     .theme-toggle-btn:hover {
@@ -1263,27 +1266,51 @@
         gap: 30px;
       }
       .nav-links {
-        display: none !important;
+        display: flex !important;
+        gap: 10px !important;
+        overflow-x: auto;
+        padding-bottom: 2px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .nav-links::-webkit-scrollbar {
+        display: none;
+      }
+      .nav-links a {
+        font-size: 0.8rem !important;
+        white-space: nowrap;
       }
       header {
-        width: calc(100% - 24px);
-        top: 12px;
+        width: calc(100% - 16px);
+        top: 10px;
       }
       .nav-glass {
-        padding: 8px 14px;
-        gap: 8px;
+        padding: 6px 10px;
+        gap: 6px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        max-width: 100%;
+      }
+      .nav-glass::-webkit-scrollbar {
+        display: none;
       }
       .ig-btn {
-        padding: 6px 12px;
+        padding: 6px 10px;
         font-size: 0.78rem;
+        border-radius: 50px;
+      }
+      .ig-text {
+        display: none;
       }
       .theme-toggle-btn {
-        width: 36px;
-        height: 36px;
-        font-size: 0.95rem;
+        width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
       }
       .nav-right {
-        gap: 8px;
+        gap: 6px;
+        flex-shrink: 0;
       }
       .hero-name {
         font-size: clamp(2.4rem, 11vw, 3.8rem);
@@ -1309,7 +1336,7 @@
       }
       header.minimized .nav-glass {
         max-width: 95%;
-        padding: 6px 12px;
+        padding: 6px 10px;
       }
     }
 
@@ -1378,8 +1405,8 @@
     <div class="container">
       <nav class="glass-card nav-glass">
         <!-- INSTAGRAM DIRECT BUTTON (Replaces Logo) -->
-        <a href="https://www.instagram.com/reynatraonig?rpxt=ZTJieTB1MnUzb2ky&utm_source=qr" target="_blank" class="ig-btn" id="igBtn">
-          <i class="fa-brands fa-instagram"></i> Instagram
+        <a href="https://www.instagram.com/reynatraonig?rpxt=ZTJieTB1MnUzb2ky&utm_source=qr" target="_blank" class="ig-btn" id="igBtn" title="Instagram">
+          <i class="fa-brands fa-instagram"></i> <span class="ig-text">Instagram</span>
         </a>
         <div class="nav-right">
           <ul class="nav-links">
