@@ -226,7 +226,6 @@
     body.reader-mode #fluid-canvas,
     body.reader-mode .liquid-mesh,
     body.reader-mode .orb,
-    body.reader-mode .spotlight,
     body.reader-mode .screen-blur-top,
     body.reader-mode .screen-blur-bottom {
       display: none !important;
@@ -1263,15 +1262,15 @@
     @media (max-width: 900px) {
       .hero-grid {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 28px;
       }
       header {
-        width: calc(100% - 16px);
-        top: 10px;
+        width: calc(100% - 24px);
+        top: 12px;
       }
       .nav-glass {
-        padding: 6px 12px;
-        gap: 8px;
+        padding: 8px 12px;
+        gap: 10px;
         overflow-x: auto;
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
@@ -1279,6 +1278,7 @@
         max-width: 100%;
         justify-content: flex-start !important;
         align-items: center;
+        border-radius: 50px;
       }
       .nav-glass::-webkit-scrollbar {
         display: none;
@@ -1295,12 +1295,13 @@
         flex-shrink: 0;
       }
       .nav-links a {
-        font-size: 0.82rem !important;
+        font-size: 0.85rem !important;
         white-space: nowrap;
+        padding: 4px 6px;
       }
       .ig-btn {
         padding: 6px 12px;
-        font-size: 0.8rem;
+        font-size: 0.82rem;
         border-radius: 50px;
         flex-shrink: 0;
       }
@@ -1308,17 +1309,17 @@
         display: none;
       }
       .theme-toggle-btn {
-        width: 34px;
-        height: 34px;
-        font-size: 0.85rem;
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
         flex-shrink: 0;
       }
       .hero-name {
-        font-size: clamp(2.4rem, 11vw, 3.8rem);
+        font-size: clamp(2.2rem, 10vw, 3.6rem);
         word-break: break-word;
       }
       .hero-subtitle {
-        font-size: 0.98rem;
+        font-size: 0.95rem;
         line-height: 1.5;
       }
       .hero-intro-box, .about-card, .skill-card, .project-card, .principle-card, .closing-card {
@@ -1331,29 +1332,49 @@
       .welcome-card {
         padding: 24px 18px;
         border-radius: 24px;
+        max-width: 92vw;
       }
       .welcome-title {
         font-size: 1.2rem;
       }
       header.minimized .nav-glass {
         max-width: 100%;
-        padding: 6px 12px;
+        padding: 8px 12px;
         justify-content: flex-start !important;
       }
     }
 
     @media (max-width: 480px) {
       .container {
-        padding: 0 16px;
+        padding: 0 14px;
       }
       .hero-section {
-        padding-top: 110px;
+        padding-top: 100px;
+        padding-bottom: 40px;
       }
       .avatar-wrapper {
-        padding-top: 100%;
+        padding-top: 90%;
+        border-radius: 16px;
       }
       .closing-quote {
         font-size: 1.25rem;
+        line-height: 1.4;
+      }
+      .finish-tag {
+        font-size: 0.8rem;
+        padding: 8px 16px;
+        word-break: break-word;
+      }
+      .dev-list li {
+        padding: 14px 18px;
+        font-size: 0.9rem;
+      }
+      .skills-grid, .projects-grid, .principles-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .principle-num {
+        font-size: 1.8rem;
       }
     }
   </style>
@@ -1398,9 +1419,6 @@
 
   <!-- Dynamic Canvas -->
   <canvas id="fluid-canvas"></canvas>
-
-  <!-- Laser Spotlight -->
-  <div class="spotlight" id="spotlight"></div>
 
   <!-- Floating Header -->
   <header>
@@ -1879,28 +1897,6 @@
       }
     });
 
-    // Water Ripple Effect on Mouse Click
-    window.addEventListener('click', (e) => {
-      if (e.target.closest('button') || e.target.closest('a')) return;
-      const ripple = document.createElement('div');
-      ripple.className = 'click-ripple';
-      ripple.style.left = `${e.clientX}px`;
-      ripple.style.top = `${e.clientY}px`;
-      document.body.appendChild(ripple);
-      setTimeout(() => ripple.remove(), 650);
-    });
-
-    // Spotlight Motion
-    const spotlight = document.getElementById('spotlight');
-    if (spotlight) {
-      window.addEventListener('mousemove', (e) => {
-        spotlight.style.left = `${e.clientX}px`;
-        spotlight.style.top = `${e.clientY}px`;
-        if (!spotlight.classList.contains('active')) {
-          spotlight.classList.add('active');
-        }
-      });
-    }
   </script>
 </body>
 </html>
