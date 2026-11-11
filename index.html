@@ -219,15 +219,9 @@
       font-family: 'Urbanist', sans-serif !important;
     }
 
-    body.reader-mode #floating-reader-btn {
-      display: none !important;
-    }
-
     body.reader-mode #fluid-canvas,
     body.reader-mode .liquid-mesh,
-    body.reader-mode .orb,
-    body.reader-mode .screen-blur-top,
-    body.reader-mode .screen-blur-bottom {
+    body.reader-mode .orb {
       display: none !important;
     }
 
@@ -243,47 +237,6 @@
       font-size: 1.15rem !important;
       line-height: 1.85 !important;
       color: #f1f5f9 !important;
-    }
-
-    /* SCREEN TOP & BOTTOM BLUR GRADIENT OVERLAYS */
-    .screen-blur-top {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 150px;
-      z-index: 95;
-      background: linear-gradient(to bottom, var(--bg-color) 0%, rgba(248, 250, 252, 0.6) 45%, rgba(248, 250, 252, 0.2) 75%, transparent 100%);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%);
-      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%);
-      pointer-events: none;
-      transition: background 0.8s ease;
-    }
-
-    body.dark-mode .screen-blur-top {
-      background: linear-gradient(to bottom, var(--bg-color) 0%, rgba(3, 7, 18, 0.6) 45%, rgba(3, 7, 18, 0.2) 75%, transparent 100%);
-    }
-
-    .screen-blur-bottom {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 150px;
-      z-index: 95;
-      background: linear-gradient(to top, var(--bg-color) 0%, rgba(248, 250, 252, 0.6) 45%, rgba(248, 250, 252, 0.2) 75%, transparent 100%);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%);
-      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%);
-      pointer-events: none;
-      transition: background 0.8s ease;
-    }
-
-    body.dark-mode .screen-blur-bottom {
-      background: linear-gradient(to top, var(--bg-color) 0%, rgba(3, 7, 18, 0.6) 45%, rgba(3, 7, 18, 0.2) 75%, transparent 100%);
     }
 
     /* WELCOME INTRO MODAL OVERLAY STYLES */
@@ -689,97 +642,28 @@
     /* Navbar */
     header {
       position: fixed;
-      top: 20px;
+      top: 16px;
       left: 50%;
       transform: translateX(-50%);
-      width: calc(100% - 48px);
-      max-width: 1100px;
+      width: max-content;
+      max-width: 95vw;
       z-index: 100;
     }
 
     .nav-glass {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 24px;
-      border-radius: 100px;
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
-      will-change: transform, padding, filter, max-width;
-    }
-
-    /* SCROLL MINIMIZED NAVBAR WITH MOTION BLUR EFFECT */
-    header.minimized {
-      top: 15px;
-    }
-
-    header.minimized .nav-glass {
-      padding: 8px 16px;
-      background: var(--glass-bg-hover);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-      width: auto;
-      max-width: 480px;
-      margin: 0 auto;
-      animation: navMotionBlurDown 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      justify-content: center !important;
-    }
-
-    header.minimized .logo,
-    header.minimized .ig-btn,
-    header.minimized #themeToggle {
-      display: none !important;
-    }
-
-    header.minimized .nav-right {
-      width: 100%;
       justify-content: center;
-      gap: 12px;
-    }
-
-    header.minimized .nav-links {
-      display: flex !important;
-      gap: 12px !important;
-    }
-
-    header.minimized .nav-links a {
-      font-size: 0.85rem !important;
-    }
-
-    /* Expand back transition animation */
-    header:not(.minimized) .nav-glass {
-      animation: navMotionBlurUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      max-width: 1100px;
-    }
-
-    @keyframes navMotionBlurDown {
-      0% {
-        filter: blur(14px) brightness(1.2);
-        transform: scale(1.08) translateY(-6px);
-        opacity: 0.8;
-      }
-      50% {
-        filter: blur(6px);
-      }
-      100% {
-        filter: blur(0px) brightness(1);
-        transform: scale(1) translateY(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes navMotionBlurUp {
-      0% {
-        filter: blur(14px) brightness(1.2);
-        transform: scale(0.92) translateY(6px);
-        opacity: 0.8;
-      }
-      50% {
-        filter: blur(6px);
-      }
-      100% {
-        filter: blur(0px) brightness(1);
-        transform: scale(1) translateY(0);
-        opacity: 1;
-      }
+      align-items: center;
+      gap: 10px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      transition: all 0.4s ease;
+      will-change: transform, padding;
     }
 
     .logo {
@@ -794,7 +678,7 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 10px;
     }
 
     .nav-links {
@@ -1262,119 +1146,92 @@
     @media (max-width: 900px) {
       .hero-grid {
         grid-template-columns: 1fr;
-        gap: 28px;
+        gap: 24px;
       }
       header {
-        width: calc(100% - 24px);
+        width: max-content;
+        max-width: 94vw;
         top: 12px;
       }
       .nav-glass {
-        padding: 8px 12px;
-        gap: 10px;
-        overflow-x: auto;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
+        padding: 6px 12px;
+        gap: 8px;
         max-width: 100%;
-        justify-content: flex-start !important;
+        justify-content: center !important;
         align-items: center;
         border-radius: 50px;
       }
-      .nav-glass::-webkit-scrollbar {
-        display: none;
-      }
       .nav-right {
         gap: 8px;
-        flex-shrink: 0;
         display: flex;
         align-items: center;
-      }
-      .nav-links {
-        display: flex !important;
-        gap: 12px !important;
-        flex-shrink: 0;
-      }
-      .nav-links a {
-        font-size: 0.85rem !important;
-        white-space: nowrap;
-        padding: 4px 6px;
       }
       .ig-btn {
         padding: 6px 12px;
         font-size: 0.82rem;
         border-radius: 50px;
-        flex-shrink: 0;
-      }
-      .ig-text {
-        display: none;
       }
       .theme-toggle-btn {
         width: 36px;
         height: 36px;
         font-size: 0.9rem;
-        flex-shrink: 0;
       }
       .hero-name {
-        font-size: clamp(2.2rem, 10vw, 3.6rem);
+        font-size: clamp(2.2rem, 9vw, 3.4rem);
         word-break: break-word;
       }
       .hero-subtitle {
-        font-size: 0.95rem;
-        line-height: 1.5;
+        font-size: 0.92rem;
+        line-height: 1.4;
       }
       .hero-intro-box, .about-card, .skill-card, .project-card, .principle-card, .closing-card {
-        padding: 22px 18px;
+        padding: 20px 16px;
         border-radius: 20px;
       }
       .section-title {
-        font-size: 1.85rem;
+        font-size: 1.75rem;
       }
       .welcome-card {
-        padding: 24px 18px;
-        border-radius: 24px;
-        max-width: 92vw;
+        padding: 22px 16px;
+        border-radius: 22px;
+        max-width: 90vw;
       }
       .welcome-title {
-        font-size: 1.2rem;
-      }
-      header.minimized .nav-glass {
-        max-width: 100%;
-        padding: 8px 12px;
-        justify-content: flex-start !important;
+        font-size: 1.15rem;
       }
     }
 
     @media (max-width: 480px) {
       .container {
-        padding: 0 14px;
+        padding: 0 12px;
       }
       .hero-section {
-        padding-top: 100px;
-        padding-bottom: 40px;
+        padding-top: 90px;
+        padding-bottom: 30px;
       }
       .avatar-wrapper {
-        padding-top: 90%;
-        border-radius: 16px;
+        padding-top: 85%;
+        border-radius: 14px;
       }
       .closing-quote {
-        font-size: 1.25rem;
-        line-height: 1.4;
+        font-size: 1.15rem;
+        line-height: 1.35;
       }
       .finish-tag {
-        font-size: 0.8rem;
-        padding: 8px 16px;
+        font-size: 0.75rem;
+        padding: 7px 14px;
         word-break: break-word;
       }
       .dev-list li {
-        padding: 14px 18px;
-        font-size: 0.9rem;
+        padding: 12px 16px;
+        font-size: 0.85rem;
       }
       .skills-grid, .projects-grid, .principles-grid {
         grid-template-columns: 1fr;
-        gap: 16px;
+        gap: 14px;
       }
       .principle-num {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
       }
     }
   </style>
@@ -1413,30 +1270,18 @@
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
 
-  <!-- Cinematic Top & Bottom Screen Blur Overlays -->
-  <div class="screen-blur-top"></div>
-  <div class="screen-blur-bottom"></div>
-
   <!-- Dynamic Canvas -->
   <canvas id="fluid-canvas"></canvas>
 
   <!-- Floating Header -->
   <header>
-    <div class="container">
+    <div class="container" style="padding: 0; display: flex; justify-content: center;">
       <nav class="glass-card nav-glass">
         <!-- INSTAGRAM DIRECT BUTTON (Replaces Logo) -->
         <a href="https://www.instagram.com/reynatraonig?rpxt=ZTJieTB1MnUzb2ky&utm_source=qr" target="_blank" class="ig-btn" id="igBtn" title="Instagram">
           <i class="fa-brands fa-instagram"></i> <span class="ig-text">Instagram</span>
         </a>
         <div class="nav-right">
-          <ul class="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#approach">Approach</a></li>
-            <li><a href="#vision">Vision</a></li>
-          </ul>
-
           <!-- Reader Mode Toggle Button -->
           <button class="theme-toggle-btn" id="readerToggle" title="Mode Membaca" aria-label="Toggle Reader Mode">
             <i class="fa-solid fa-book-open"></i>
@@ -1887,15 +1732,6 @@
     if (readerToggle) {
       readerToggle.addEventListener('click', toggleReaderMode);
     }
-
-    // Scroll Navbar Minimize Controller
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 80) {
-        header.classList.add('minimized');
-      } else {
-        header.classList.remove('minimized');
-      }
-    });
 
   </script>
 </body>
