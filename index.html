@@ -794,6 +794,17 @@
       align-items: center;
     }
 
+    /* Mobile ordering for hero section */
+    .hero-left-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-profile-container {
+      display: flex;
+      justify-content: center;
+    }
+
     /* SURGENA FONT & MONOCHROME ANIMATION LOOP FOR FAHRIANDA */
     .hero-name {
       font-family: 'Surgena', sans-serif;
@@ -1148,6 +1159,27 @@
         grid-template-columns: 1fr;
         gap: 24px;
       }
+      
+      /* Reorder on mobile: Name & Subtitle first, then Profile Photo, then Intro Box */
+      .hero-left-content {
+        display: flex;
+        flex-direction: column;
+      }
+      .hero-title-group {
+        order: 1;
+      }
+      .hero-profile-container {
+        order: 2;
+        margin: 20px 0;
+        max-width: 260px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+      }
+      .hero-intro-box-wrapper {
+        order: 3;
+      }
+
       header {
         width: max-content;
         max-width: 94vw;
@@ -1304,32 +1336,32 @@
   <!-- 1. Intro Section -->
   <section class="hero-section" id="hero">
     <div class="container">
-      <div class="hero-grid">
-        <div class="scroll-reveal">
+      <div style="max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <div class="scroll-reveal" style="width: 100%;">
           <div class="section-tag text-pop-reveal"><i class="fa-solid fa-sparkles"></i> Personal Portfolio</div>
           <!-- SURGENA FONT WITH CONTINUOUS ANIMATION LOOP -->
           <h1 class="hero-name text-pop-reveal" style="transition-delay: 0.1s;">FAHRIANDA</h1>
           <div class="hero-subtitle text-pop-reveal" style="transition-delay: 0.2s;">Creative Thinker · Independent Builder · Community Enthusiast</div>
-          
-          <div class="glass-card hero-intro-box text-pop-reveal" style="transition-delay: 0.3s;">
-            <p>Halo, saya <strong>Fahri</strong>.</p>
-            <p>Saya adalah seseorang yang memiliki ketertarikan pada dunia teknologi, kreativitas digital, pengembangan ide, dan pengelolaan komunitas. Saya senang mengeksplorasi hal-hal baru, mempelajari sesuatu secara mandiri, serta mencoba mengubah ide menjadi sesuatu yang dapat digunakan dan memberikan manfaat.</p>
-            <p>Bagi saya, sebuah ide tidak seharusnya berhenti sebagai angan-angan. Saya percaya bahwa setiap gagasan memiliki peluang untuk dikembangkan melalui proses, eksperimen, evaluasi, dan konsistensi.</p>
-            <p>Saya menikmati proses membangun sesuatu dari awal, menghadapi berbagai tantangan, mencari solusi, dan terus memperbaiki hasil pekerjaan agar menjadi lebih baik.</p>
-            <p>Saya mungkin masih terus belajar dan berkembang, tetapi saya selalu berusaha untuk tidak berhenti mencoba.</p>
-          </div>
         </div>
 
-        <!-- Profile Photo Card -->
-        <div class="scroll-reveal" style="transition-delay: 0.2s;">
-          <div class="glass-card profile-card text-pop-reveal" style="transition-delay: 0.4s;">
+        <!-- Profile Photo Card (Centered right below name and above intro box) -->
+        <div class="scroll-reveal" style="width: 100%; max-width: 280px; margin: 28px 0; transition-delay: 0.2s;">
+          <div class="glass-card profile-card text-pop-reveal" style="transition-delay: 0.4s; width: 100%;">
             <div class="avatar-wrapper">
               <img src="profile.jpg" alt="Fahrianda Profile" class="avatar-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80';"/>
             </div>
-            <div class="status-badge">
+            <div class="status-badge" style="justify-content: center;">
               <span class="status-dot"></span> Active Builder
             </div>
           </div>
+        </div>
+        
+        <div class="hero-intro-box glass-card text-pop-reveal" style="transition-delay: 0.3s; text-align: left; width: 100%;">
+          <p>Halo, saya <strong>Fahri</strong>.</p>
+          <p>Saya adalah seseorang yang memiliki ketertarikan pada dunia teknologi, kreativitas digital, pengembangan ide, dan pengelolaan komunitas. Saya senang mengeksplorasi hal-hal baru, mempelajari sesuatu secara mandiri, serta mencoba mengubah ide menjadi sesuatu yang dapat digunakan dan memberikan manfaat.</p>
+          <p>Bagi saya, sebuah ide tidak seharusnya berhenti sebagai angan-angan. Saya percaya bahwa setiap gagasan memiliki peluang untuk dikembangkan melalui proses, eksperimen, evaluasi, dan konsistensi.</p>
+          <p>Saya menikmati proses membangun sesuatu dari awal, menghadapi berbagai tantangan, mencari solusi, dan terus memperbaiki hasil pekerjaan agar menjadi lebih baik.</p>
+          <p>Saya mungkin masih terus belajar dan berkembang, tetapi saya selalu berusaha untuk tidak berhenti mencoba.</p>
         </div>
       </div>
     </div>
